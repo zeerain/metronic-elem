@@ -213,7 +213,7 @@
                         <!-- END SIDEBAR TOGGLER BUTTON -->
                         <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
                         <li class="nav-item">
-                            <a href="javascript:;" class="nav-toggle clearfix" id="user-img-info">
+                            <a href="javascript:;" class="nav-toggle clearfix" id="userInfo">
                                 <div class="pull-left">
                                     <img src="../assets/layouts/layout/img/avatar2.jpg" class="img-circle img-responsive" alt="zhaor">
                                 </div>
@@ -224,11 +224,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <div class="input-group nav-toggle nav-link nav-justified">
+                            <div class="input-group" id="nav-server">
                                 <span class="input-group-addon server-exchange">服务</span>
                                 <select id="svc-switcher" name="svc" class="form-control  server-exchange-style">
-                                    <option class="server-exchange-style">服务回访</option>
-                                    <option class="server-exchange-style">空中助理</option>
+                                    <option>服务回访</option>
+                                    <option>空中助理</option>
                                 </select>
                         </li>
                         <li class="nav-item start active open" style="margin: 20px 0px;">
@@ -406,8 +406,8 @@
     // 收缩时隐藏用户头像和服务
     $('.menu-toggler.sidebar-toggler').click(
         function() {
-            $(".input-group.nav-toggle.nav-link.nav-justified").toggle();
-            $(".nav-toggle.clearfix").toggle();
+            $("#nav-server").toggle();
+            $("#userInfo").toggle();
             $(".logo.font-white").toggle();
         }
     )

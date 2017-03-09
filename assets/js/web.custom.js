@@ -2,8 +2,8 @@ $(document).ready(function() {
     // 收缩时隐藏用户头像和服务
     $('.menu-toggler.sidebar-toggler').click(
         function() {
-            $(".input-group.nav-toggle.nav-link.nav-justified").toggle();
-            $(".nav-toggle.clearfix").toggle();
+            $("#nav-server").toggle();
+            $("#userInfo").toggle();
             $(".logo.font-white").toggle();
         }
     )

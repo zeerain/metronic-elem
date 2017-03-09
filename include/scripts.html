@@ -10,22 +10,4 @@
 <script type="text/javascript" src="${ctx.contextPath}/res/assets/plugin/ticker/jquery.easing.min.js"></script>
 <script type="text/javascript" src="${ctx.contextPath}/res/assets/plugin/ticker/jquery.easy-ticker.min.js"></script>
 <script type="text/javascript" src="${ctx.contextPath}/res/assets/js/web.custom.js"></script>
-<script type="text/javascript">
-	// 收缩时隐藏用户头像和服务
-	$('.menu-toggler.sidebar-toggler').click(
-	    function() {
-	        $(".input-group.nav-toggle.nav-link.nav-justified").toggle();
-	        $(".nav-toggle.clearfix").toggle();
-	        // 修复收缩时我的工作台hover状态 bug
-	        $("#siderbar").toggleClass("margin-top-23");
-	    }
-	)
 
-	// 日期初始化
-	$(document).ready(function() {
-	    $(".datepicker").datepicker({
-	        language: 'zh-CN',
-	        format: "yyyy-mm-dd"
-	    });
-	});
-</script>

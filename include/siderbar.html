@@ -7,119 +7,72 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a href="javascript:;" class="nav-toggle clearfix" id="user-img-info">
+                <a href="javascript:;" class="nav-toggle clearfix" id="userInfo">
                     <div class="pull-left">
                         <#if (Session.user.organization.logo)??>
-                        <img src="../assets/layouts/layout/img/avatar2.jpg" class="img-circle img-responsive" alt="zhaor">
+                        <img src="${Session.user.organization.logo}" class="img-circle img-responsive" alt="${(Session.user.organization.shortName)!''}">
+                        <#else>
+                        <img src="${(Session.user.avatar)!''}" class="img-circle img-responsive" alt="${(Session.user.username)!"头像"}">
+                        </#if>
                     </div>
                     <div class="pull-left  margin-left-10">
-                        <div class="font-white h5"> 帝博信息 </div>
-                        <div class="font-white h6"> 赵睿 </div>
+                        <div class="font-white h5">${(Session.user.organization.shortName)!''}</div>
+                        <div class="font-white h6">${(Session.user.realname)!""}</div>
                     </div>
                 </a>
             </li>
             <li class="nav-item">
-                <div class="input-group nav-toggle nav-link nav-justified">
+                <#if (Session.user)?exists && !Session.user.groupUser>
+                <div class="input-group" id="nav-server">
                     <span class="input-group-addon server-exchange">服务</span>
                     <select id="svc-switcher" name="svc" class="form-control  server-exchange-style">
-                        <option class="server-exchange-style">服务回访</option>
-                        <option class="server-exchange-style">空中助理</option>
+                        <#if (Session.user.availableServices)?exists>
+                        <#list Session.user.availableServices as item>
+                        <option value="${item.id}" <#if item.id=Session.user.currentServiceId>selected</#if>>${item.itemName}</option>
+                        </#list>
+                        </#if>
                     </select>
             </li>
             <li class="nav-item start active open" style="margin: 20px 0px;">
-                <a href="javascript:;" class="nav-link nav-toggle">
+                <a href="${ctx.contextPath}/" class="nav-link nav-toggle">
                     <i class="fa fa-dashboard"></i>
                     <span class="title">我的工作台</span>
                     <span class="selected"></span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="fa fa-headphones"></i>
-                    <span class="title">服务回访操作</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
+
+            <#if (Session.user.menus)?exists>
+                <#list Session.user.menus as menu>
+                    <#if menu.link?? && menu.link != ''>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-upload"></i>
-                            <span class="title">上传数据文件</span>
+                        <a href="${ctx.contextPath}${menu.link}" class="nav-link nav-toggle">
+                            <i class="${menu.icon}"></i>
+                            <span class="title">${menu.name}</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-tty"></i>
-                            <span class="title">查看回访记录</span>
+                    <#else>
+                    <li class="nav-item" data-m="${(c.link)!''}">
+                        <a href="${(menu.link)!''}" class="nav-link nav-toggle">
+                            <i class="${menu.icon}"></i>
+                            <span class="title">${menu.name}</span>
+                            <span class="arrow"></span>
                         </a>
+                        <ul class="sub-menu">
+                            <#if menu.children??>
+                            <#list menu.children as c>
+                            <li class="nav-item " data-m="${(c.link)!''}">
+                                <a href="${ctx.contextPath}${(c.link)!''}" class="nav-link ">
+                                    <#if c.icon??><i class="${c.icon}"></i><#else><i class="fa fa-circle-o"></i></#if>
+                                    <span class="title">${c.name}</span>
+                                </a>
+                            </li>
+                            </#list>
+                            </#if>
+                        </ul>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-tasks"></i>
-                            <span class="title">回访处理工单</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="fa fa-pie-chart"></i>
-                    <span class="title">服务回访统计</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="title">回访统计报表</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-download"></i>
-                            <span class="title">回访数据导出</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-cloud-download"></i>
-                            <span class="title">售后录音下载</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-user"></i>
-                    <span class="title">我的</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-user"></i>
-                            <span class="title">账户信息</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-users"></i>
-                            <span class="title">组织成员</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-building-o"></i>
-                            <span class="title">组织信息</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="fa fa-key"></i>
-                            <span class="title">修改密码</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                    </#if>
+                </#list>            
+            </#if>
         </ul>
 	</div>
 </div>
