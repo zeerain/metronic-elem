@@ -1,0 +1,45 @@
+a.logo {
+    max-height: 50px;
+    line-height: 50px;
+    text-decoration: none;
+}
+
+a.logo:hover {
+    color: #36C6D3;
+}
+
+.text-yellow {
+    color: #F3C200;
+}
+
+.text-red {
+    color: #E43A45;
+}
+
+.server-exchange {
+    background: #546580;
+    border-color: #2c3e50;
+    color: #E1E5EC
+}
+
+.server-exchange-style {
+    background: #2c3e50;
+    border: none;
+    color: #E1E5EC
+}
+
+.padding-topbottom-20 {
+    padding: 20px 0;
+}
+
+.margin-left-10 {
+    margin-left: 15px;
+}
+
+.search-field {
+    min-width: 50px;
+    max-width: 100px;
+    height: 30px;
+    line-height: 30px;
+    padding: 3px 6px;
+}

@@ -1,0 +1,125 @@
+<div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse fix collapse" id="siderbar">
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+            <li class="sidebar-toggler-wrapper hide">
+                <div class="sidebar-toggler">
+                    <span></span>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:;" class="nav-toggle clearfix" id="user-img-info">
+                    <div class="pull-left">
+                        <#if (Session.user.organization.logo)??>
+                        <img src="../assets/layouts/layout/img/avatar2.jpg" class="img-circle img-responsive" alt="zhaor">
+                    </div>
+                    <div class="pull-left  margin-left-10">
+                        <div class="font-white h5"> 帝博信息 </div>
+                        <div class="font-white h6"> 赵睿 </div>
+                    </div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <div class="input-group nav-toggle nav-link nav-justified">
+                    <span class="input-group-addon server-exchange">服务</span>
+                    <select id="svc-switcher" name="svc" class="form-control  server-exchange-style">
+                        <option class="server-exchange-style">服务回访</option>
+                        <option class="server-exchange-style">空中助理</option>
+                    </select>
+            </li>
+            <li class="nav-item start active open" style="margin: 20px 0px;">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-dashboard"></i>
+                    <span class="title">我的工作台</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-headphones"></i>
+                    <span class="title">服务回访操作</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-upload"></i>
+                            <span class="title">上传数据文件</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-tty"></i>
+                            <span class="title">查看回访记录</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-tasks"></i>
+                            <span class="title">回访处理工单</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-pie-chart"></i>
+                    <span class="title">服务回访统计</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="title">回访统计报表</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-download"></i>
+                            <span class="title">回访数据导出</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-cloud-download"></i>
+                            <span class="title">售后录音下载</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-user"></i>
+                    <span class="title">我的</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-user"></i>
+                            <span class="title">账户信息</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-users"></i>
+                            <span class="title">组织成员</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-building-o"></i>
+                            <span class="title">组织信息</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-key"></i>
+                            <span class="title">修改密码</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+	</div>
+</div>

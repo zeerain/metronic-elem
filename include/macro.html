@@ -1,0 +1,56 @@
+<#-- bodyHeader begin -->
+	<#macro bodyHeader menu url title>
+		 <div class="page-bar">
+	        <h1 class="page-title pull-left">${title}</h1>
+	        <ul class="page-breadcrumb pull-right">
+	            <li>
+		            <i class="fa fa-home"></i>
+	                <a href="${ctx.contextPath}/">${title}</a>
+	            </li>
+	            <#if menu?? && menu!=''>
+	            <li>
+	                <i class="fa fa-circle"></i>
+	                <a href="${url}">${menu}</a>
+	            </li>
+	            </#if>
+	        </ul>
+	    </div>
+	</#macro>
+<#-- bodyHeader end -->
+
+<#-- bodyContent begin -->
+	<#macro sectionBody>
+		<div class="page-content-wrapper">
+			<div class="page-content">
+				<#nested>
+			</div>
+		</div>
+	</#macro>
+<#-- bodyContent end -->
+
+<#-- Main content begin -->
+    <#macro box box-color>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box ${box-color}">
+                    <#nested>
+                </div>
+            </div>
+        </div>
+    </#macro>
+
+    <#macro boxHeader box-title>
+        <div class="portlet-title">
+            <div class="caption"> ${box-title} </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            </div>
+        </div>
+    </#macro>
+
+    <#macro boxBody>
+        <div class="portlet-body">
+			<#nested>
+        </div>
+	</#macro>
+<#-- Main content end -->
