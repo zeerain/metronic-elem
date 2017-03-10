@@ -1,0 +1,39 @@
+<#-- Javascript -->          
+<script type="text/javascript" src="${ctx.contextPath}/res/js/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/app.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/plugin/toastr/toastr.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/plugin/ticker/jquery.easing.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/plugin/ticker/jquery.easy-ticker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/select2.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/jquery.validator.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/web.custom.js"></script><#-- ANT_REMOVE -->
+<#-- ANT_REMOVE
+<script type="text/javascript" src="${ctx.contextPath}/res/js/jquery.validator.min.js?v=@ANT_PLACEHOLDER_RESVERSION@"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/web.custom.min.js?v=@ANT_PLACEHOLDER_RESVERSION@"></script>
+	 ANT_REMOVE -->
+<script type="text/javascript">
+$(document).ready(function(){
+<#if (Session.user.id)??>
+	<#-- 初始化当前页面的JS事件 -->
+	$.Utils.initPageEvent();
+	$("#svc-switcher").on("change", function(){
+		location.href = "${ctx.contextPath}/?svc="+$(this).val();
+	});
+	$.Utils.focusMenu();
+	$.Utils.startTicker();
+	<#-- 显示提示信息 -->
+	<#if result??>
+		<#if result[0] == 'true'>
+			toastr.success('${result[1]}', "操作成功");		
+		<#else>
+			toastr.error('${result[1]}', "操作失败");
+		</#if>
+	</#if>
+	<#if errors??>
+		toastr.error("${errors}", "数据校验未通过");
+	</#if>
+	$("select.select2").select2();
+</#if>
+});
+</script>

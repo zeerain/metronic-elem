@@ -1,0 +1,29 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="录音打包下载" url="${ctx.contextPath}/audioDownload/${type}" title="录音打包下载">
+		</@bodyHeader>
+		<@box>
+			<@boxBody>
+				<#include "/audioDownload/page_index.htm" />
+			</@boxBody>
+			<@boxFooter>
+				<i class="fa fa-info"></i> 系统每晚打包当天录音，每月初打包上月录音。 
+			</@boxFooter>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript">
+$(document).ready(function(){
+	$("select.search-field").on("change", function(){
+		$("#mainForm").submit();
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<form class="form-horizontal" id="focusImport" action="${ctx.contextPath}/presaleImportData/create" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="salespersonName">销售顾问 <span class="text-red">*</span></label>
+		<div class="col-md-3">
+			<input type="text" id="salespersonName" name="salespersonName" class="form-control" placeholder="销售顾问" required="true" 
+		  		data-fv="NotNull">
+		</div>
+		
+		<label class="col-md-2 control-label" for="customerName">潜客姓名<span class="text-red">*</span></label>
+		<div class="col-md-3">
+			<input type="text" id="customerName" name="customerName" class="form-control" placeholder="潜客姓名" required="true" 
+		  		data-fv="NotNull">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="customerName">潜客电话<span class="text-red">*</span></label>
+		<div class="col-md-3">
+			<input type="text" id="customerPhone" name="customerPhone" class="form-control" placeholder="潜客电话" required="true" 
+		  		data-fv="NotNull">
+		</div>
+		
+		<label class="col-md-2 control-label" for="customerLevel">潜客等级</label>
+		<div class="col-md-3">
+			<select id="customerLevel" name="customerLevel" class="form-control" placeholder="销售等级" data-fv="NotNull">
+				<#list customerLevelList as level>
+					<option value="${level}" <#if (model.customerLevel)?? && model.customerLevel==level>selected</#if>>${level}</option>
+				</#list>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="intentCarModel">意向车型</label>
+		<div class="col-md-3">
+			<input type="text" id="intentCarModel" name="intentCarModel" class="form-control" placeholder="意向车型"
+		  		data-fv="">
+		</div>
+		
+		<label class="col-md-2 control-label" for="comment">备注说明</label>
+		<div class="col-md-3">
+			<input type="text" id="comment" name="comment" class="form-control" placeholder="备注说明"
+		  		data-fv="">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-md-offset-4 col-md-4">
+			<button class="btn btn-success btn-block btn-action" data-action="create" type="button"><i class="fa fa-upload"></i> 导入数据</button>
+		</div>
+	</div>
+</form>

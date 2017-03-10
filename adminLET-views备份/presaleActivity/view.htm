@@ -1,0 +1,27 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="销售政策管理" url="${ctx.contextPath}/presaleActivity/index" title="查看销售政策">
+		</@bodyHeader>
+
+        <@box>
+			<@boxHeader>
+				<a href="${ctx.contextPath}/presaleActivity/update/${model.id}" class="btn btn-primary btn-sm">更新销售政策</a>&nbsp;&nbsp;
+			    <a href="#" class="btn btn-danger btn-sm action-confirm" data-url="${ctx.contextPath}/presaleActivity/delete/${model.id}"
+			     data-confirm="您确定要删除该内容吗？" data-redirect="${ctx.contextPath}/presaleActivity/index">删除销售政策</a>
+			    |
+		    	<a href="${ctx.contextPath}/presaleActivity/create" class="btn btn-success btn-sm">新建销售政策</a>
+			</@boxHeader>
+			<@boxBody>
+				<#include "/presaleActivity/_view.htm" />
+			</@boxBody>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

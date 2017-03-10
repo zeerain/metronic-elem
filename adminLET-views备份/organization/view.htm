@@ -1,0 +1,20 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="组织信息" url="${ctx.contextPath}/organization/view" title="组织信息">
+		</@bodyHeader>
+
+        <@box>
+			<@boxBody>
+				<#include "/organization/_view.htm" />
+			</@boxBody>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

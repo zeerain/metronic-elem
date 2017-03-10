@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<link rel="stylesheet"
+	href="${ctx.contextPath}/res/weixin/dist/addressbook.custom.css">
+<title>元兵空中助理</title>
+</head>
+<body>
+	<nav class="nav">
+		<a class="" href="${ctx.contextPath}/weixin/contact/todotask/list">待办任务</a> <a class="active" href="#">客户通讯录</a>
+	</nav>
+	<form class="main-control" id="search-fm">
+		<#--
+		<a href="javascript:;" class="btn-category-list">CTS</a> <a
+			href="javascript:;" class="btn-category-list">已反馈</a> 
+		-->
+			<a href="javascript:;" class="btn-category">类别</a> 
+			<input type="search" class="input-search" placeholder="输入搜索内容"> 
+			<a href="javascript:;" class="btn-search">&nbsp;&nbsp;&nbsp;</a>
+	</form>
+	<div class="addressbook-container">
+		<ul class="list">
+			<#assign firstSpell=''> 
+			<#if (modelList)?? && modelList?size gt 0>
+			<#list modelList as model> 
+			<#if (model.firstSpell)?? && (model.firstSpell) != firstSpell> 
+			<#assign firstSpell=model.firstSpell>
+			<li id="nav_${model.firstSpell!" "}" class="title">${(model.firstSpell)!""}</li>
+			</#if>
+			<li class="people">
+				<#if (model.nextHandleTime)??>
+					<#assign nextHandleTime=model.nextHandleTime?string("yyyyMMdd")>
+				</#if>
+				<#assign today=.now?string("yyyyMMdd")>
+				<#if (model.nextHandleTime)?? && (nextHandleTime?date("yyyyMMdd")) gt today?date("yyyyMMdd")> 
+					<a class="btn-add" href="${ctx.contextPath}/weixin/contact/targetTodotask/${model.taskId}">+</a>
+				<#else>
+					<a class="btn-add btn-add-hide" href="#">+</a>
+				</#if>
+				<span class="name">${(model.name)!""}</span>
+				<div class="label-box">
+					<#if (model.intentCarModel)?? && (model.intentCarModel) != ""><span class="label">${(model.intentCarModel)!""}</span> </#if>
+					<#if (model.customer)?? && (model.customer) != ""><span class="label">${(model.customer)!""}</span> </#if>
+				</div>
+				
+			</li> 
+			</#list> 
+			</#if>
+		</ul>
+		<div class="nav-bar" id="nav-bar" style="top: 160px;">
+			<#assign firstSpell=''> 
+			<#if (modelList)?? && modelList?size gt 0>
+			<#list modelList as model> 
+				<#if (model.firstSpell)?? && (model.firstSpell) != firstSpell> 
+				<#assign firstSpell=model.firstSpell> 
+				<a href="#nav_${model.firstSpell!""}"><h1>${model.firstSpell}</h1></a>
+				</#if> 
+			</#list> 
+			</#if>
+		</div>
+	</div>
+	<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+	<script src="${ctx.contextPath}/res/weixin/js/addressbook.custom.js"></script>
+</body>
+</html>

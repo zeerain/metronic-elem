@@ -1,0 +1,77 @@
+<#include "/wechat/include/head.htm">
+<body class="container-fluid" style="background-color: #fff">
+<div>
+	<div class="box-body box-profile" style="margin: 0 auto; padding: 0px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;">
+	<#if model??>
+      <img class="profile-user-img img-responsive img-circle" src="${(model.avatar)!''}" alt="头像">
+      <h4 class="profile-username text-center">${(model.realname)!""}</h4>
+      <p class="text-muted text-center">${(model.orgRoleName)!""}</p>
+      <ul class="list-group list-group-unbordered">
+        <li class="list-group-item" style="height:40px">
+          <i class="fa fa-phone-square text-green"></i> <b>手机</b> <a class="pull-right">${(model.cellphone)!""}</a>
+        </li>
+        <li class="list-group-item" style="height:40px">
+          <i class="fa fa-envelope-o text-green"></i> <b>邮箱</b> <a class="pull-right">${(model.email)!""}</a>
+        </li>
+        <li class="list-group-item" style="height:40px">
+          <i class="fa fa-building-o text-green"></i> <b>公司</b> <a class="pull-right">${(model.orgName)!""}</a>
+        </li>
+        <li class="list-group-item" style="height:40px;">
+          <i class="fa fa-map-marker text-green"></i> <b>地址</b>
+		  <#if model.orgAddress?length lt 15>
+			  <a class="pull-right">${(model.orgAddress)!""}</a>
+		  <#else>
+			  <a style="padding-left:5%;">${(model.orgAddress)!""}</a>
+		  </#if>
+        </li>
+        <li class="list-group-item" style="height:40px">
+          <i class="fa fa-phone text-green"></i> <b>公司电话</b> <a class="pull-right">${(model.orgTelphone)!""}</a>
+        </li>
+        <li class="list-group-item" style="height:40px">
+          <i class="fa fa-phone text-blue"></i> <b>助理电话</b> <a class="pull-right">${(model.assistantPhone)!""}</a>
+        </li>
+      </ul>
+      
+      <input type="text" id="fname" name="fname" value="${(model.realname)!''}" style="display:none;"> <#--=== 创建隐藏text获取fname ===-->
+      <input type="text" id="name" name="name" value="" style="display:none;"> <#--=== 创建隐藏text获取name ===-->
+		
+      <input type="text" id="title" name="title" value="${(model.orgRoleName)!''}" style="display:none;"> <#--=== 创建隐藏text获取title ===-->
+      <input type="text" id="organization" name="organization" value="${(model.orgName)!''}" style="display:none;"> <#--=== 创建隐藏text获取organization ===-->
+      <input type="text" id="orgAddress" name="orgAddress" value="${(model.orgAddress)!''}" style="display:none;"> <#--=== 创建隐藏text获取orgAddress ===-->
+      <input type="text" id="orgTelphone" name="orgTelphone" value="${(model.orgTelphone)!''}" style="display:none;"> <#--=== 创建隐藏text获取orgTelphone ===-->
+      <input type="text" id="webSite" name="webSite" value="" style="display:none;"> <#--=== 创建隐藏text获取webSite ===-->
+		
+      <input type="text" id="mobilePhone" name="mobilePhone" value="${(model.cellphone)!''}" style="display:none;"> <#--=== 创建隐藏text获取mobilephone ===-->
+      <input type="text" id="email" name="email" value="${(model.email)!''}" style="display:none;"> <#--=== 创建隐藏text获取email ===-->
+      <input type="text" id="homeAddress" name="homeAddress" value="" style="display:none;"> <#--=== 创建隐藏text获取homeAddress ===-->
+      <input type="text" id="homeTelphone" name="homeTelphone" value="" style="display:none;"> <#--=== 创建隐藏text获取homeTelphone ===-->
+      <input type="text" id="birthday" name="birthday" value="" style="display:none;"> <#--=== 创建隐藏text获取birthday ===-->
+      <input type="text" id="photo" name="photo" value="${ctx.contextPath}/res/img/avatar.jpg" style="display:none;"> <#--=== 创建隐藏text获取photo ===-->
+      
+      <input type="text" id="otherPhone" name="otherPhone" value="${(model.assistantPhone)!''}" style="display:none;"> <#--=== 创建隐藏text获取助理电话 ===-->
+      
+      <input type="text" id="ecardSize" name="ecardSize" value="${(ecard.ecardSize)!'160'}" style="display:none;"> <#--=== 创建隐藏text获取ecard size ===-->
+      <input type="text" id="ecardFill" name="ecardFill" value="${(ecard.ecardFill)!'#000'}" style="display:none;"> <#--=== 创建隐藏text获取ecard fill ===-->
+      <input type="text" id="ecardRadius" name="ecardRadius" value="${(ecard.ecardRadius)!'0.25'}" style="display:none;"> <#--=== 创建隐藏text获取ecard radius ===-->
+      <input type="text" id="ecardMode" name="ecardMode" value="${(ecard.ecardMode)!'2'}" style="display:none;"> <#--=== 创建隐藏text获取ecard mode ===-->
+      <input type="text" id="ecardFontcolor" name="ecardFontcolor" value="${(ecard.ecardFontcolor)!'#000'}" style="display:none;"> <#--=== 创建隐藏text获取ecard fontcolor ===-->
+    </#if>
+    </div>
+	<div id="qrcode"></div>
+	
+</div><#--/wrapper-->
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/zepto.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.js"></script><#-- ANT_REMOVE -->
+<#-- ANT_REMOVE
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.min.js?v=@ANT_PLACEHOLDER_RESVERSION@"></script>
+	 ANT_REMOVE -->
+	 
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.custom.js"></script><#-- ANT_REMOVE -->
+<script type="text/javascript">
+$(function(){
+	var qr = new QRCode();
+	qr.show();
+});
+</script>
+</body>
+</html>

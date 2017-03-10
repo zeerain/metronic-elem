@@ -1,0 +1,23 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="客户员工信息管理" url="${ctx.contextPath}/orgUser/index" title="新建员工">
+		</@bodyHeader>
+
+        <@box>
+			<@boxHeader>
+			</@boxHeader>
+			<@boxBody>
+				<#include "/orgUser/_form.htm" />
+			</@boxBody>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap-file.min.js" charset="UTF-8"></script>
+</body>
+</html>

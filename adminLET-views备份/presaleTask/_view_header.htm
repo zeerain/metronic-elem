@@ -1,0 +1,62 @@
+<table class="table table-striped">
+<tbody>
+	<tr>
+	  <td class="td-label">任务号</td>
+	  <td>
+    	${model.id}
+	  </td>
+	  <td class="td-label">单位</td>
+	  <td>
+    	${(model.orgName)!""}
+	  </td>
+	  <td class="td-label">销售顾问</td>
+	  <td>
+    	${model.salespersonName}
+	  </td>
+	  <td class="td-label">备注说明</td>
+	  <td>
+	  	<#if (model.comment)??>
+	    	${model.comment}			  	
+	  	</#if>
+	  </td>
+	</tr>
+	<tr>
+	  <td class="td-label">潜客姓名</td>
+	  <td>
+	  	<#if (model.customerName)??>
+	    	${model.customerName}			  	
+	  	</#if>
+	  </td>
+	  <td class="td-label">潜客电话</td>
+	  <td>
+	  	<#if (model.customerPhone)??>
+	    	${model.customerPhone}			  	
+	  	</#if>
+	  </td>
+	  <td class="td-label">潜客级别</td>
+	  <td>
+	  	<#if (model.customerLevel)??>
+	    	${model.customerLevel}
+	  	</#if>
+	  </td>
+	  <td class="td-label">任务状态</td>
+	  <td>
+    	${(model.statusName)!"-"}
+	  </td>
+	</tr>
+	<tr>
+	  <td class="td-label">潜客类别</td>
+	  <td>
+	  	<#if (customer.category)??>
+	    	${customer.category}
+	  	</#if>
+	  </td>
+	  <td class="td-label">类别明细</td>
+	  <td colspan="5">
+	  	<#if (customer.categoryDetail)??>
+	    	${customer.categoryDetail}			  	
+	  	</#if>
+	  </td>
+	</tr>
+	</tbody>
+</table>

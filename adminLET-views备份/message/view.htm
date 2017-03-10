@@ -1,0 +1,36 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="查看消息通知" url="${ctx.contextPath}/message/index" title="消息通知">
+		</@bodyHeader>
+
+        <@box>
+        	<div class="box-header with-border">
+				<h3 class="box-title">
+					<#if model.importance == 2>
+					<i class="fa fa-bullhorn text-yellow"></i> <span class="text-yellow">${model.title}</span>
+					<#elseif model.importance == 3>
+					<i class="fa fa-bullhorn text-red"></i> <span class="text-red">${model.title}</span>
+					<#else>
+					<i class="fa fa-bullhorn"></i> <span class="">${model.title}</span>											
+					</#if>
+				</h3>
+			</div>
+			<@boxBody>
+				 <blockquote style="min-height: 100px">
+	                <p>${model.content}</p>
+	              </blockquote>
+			</@boxBody>
+			<@boxFooter>
+                <small><cite title="Source Title">${(model.createByName)!""}</cite> 发布于 ${(model.createTime)?datetime}</small>			
+			</@boxFooter>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

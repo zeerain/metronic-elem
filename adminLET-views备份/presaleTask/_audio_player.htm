@@ -1,0 +1,7 @@
+<#if (a.audioUrls)??>
+<#if a.audioUrls?ends_with(".mp3")> 
+<audio class="audio-player" src="${a.audioUrls}" type="audio/mp3" controls>浏览器不支持播放</audio>
+<#else>
+<a href="${a.audioUrls}" class="btn btn-default btn-xs"><i class="fa fa-file-sound-o"></i> 语音${a_index+1}</a>	
+</#if>
+</#if>

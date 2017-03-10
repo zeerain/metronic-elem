@@ -1,0 +1,175 @@
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="realname">姓名</label>
+		<div class="col-md-9">
+			<input type="text" id="realname" name="realname" class="form-control" placeholder="姓名" 
+				value="<#if (model.realname)??>${model.realname}</#if>" required="true" 
+		  		data-fv="NotNull,Length(-255)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="roleId">员工头衔 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<select id="orgRoleItemId" name="orgRoleItemId" class="form-control" placeholder="员工头衔" data-fv="NotNull">
+				<option value="">- 选择员工头衔 -</option>
+				<#list orgRoleList as r>
+				<#if r.parentId gt 0>
+				<option value="${r.id}" <#if (model.orgRoleItemId)?? && model.orgRoleItemId==r.id>selected</#if>>${r.itemName}</option>
+				</#if>
+				</#list>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="avatar">员工照片</label>
+		<div class="col-md-9">
+			<#if (model.avatar)??>
+				<div class="fileinput fileinput-exists" data-provides="fileinput" style="margin-left:20px">
+				  <div class="fileinput-new thumbnail" style="width: 100px; height: 100px;"><img src="http://www.placehold.it/100x100/" width="100" height="100" /></div>
+				  <div class="fileinput-preview fileinput-exists thumbnail" style="width: 100px; height: 100px; line-height: 20px; margin-right: 20px;">
+					<img src="${model.avatar}" width="100" height="100">
+				  </div>
+				  <div>
+					<span class="btn btn-file"><span class="fileinput-new">上传照片</span><span class="fileinput-exists">更换照片</span><input type="file" name="attachedFiles" /></span>
+				  </div>
+				</div>
+				<#else>
+				<div style="display: inline" class="fileinput fileinput-new" data-provides="fileinput" style="margin-left:20px">
+				  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 120px; height: 120px; margin-right: 20px;">
+					<img src="http://placehold.it/100x100/" width="100" height="100" alt="...">
+				  </div>
+				  <div>
+					<span class="btn btn-default btn-file">
+					<span class="fileinput-new"><i class="fa fa-plus"></i>上传照片 (100*100)</span>
+					<input type="file" name="attachedFiles">
+					<span class="fileinput-exists">更换照片</span></span>
+				  </div>
+				</div>
+			</#if>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="employeeNo">员工编号 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<input type="text" id="employeeNo" name="employeeNo" class="form-control" placeholder="员工编号(3位)" 
+				value="<#if (model.employeeNo)??>${model.employeeNo}</#if>" required="true" 
+		  		data-fv="NotNull,Length(3)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="managerNo">员工经理  <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<select id="managerNo" name="managerNo" class="form-control" placeholder="员工经理" data-fv="<#if allUsers?? && allUsers?size gt 0>NotNull</#if>">
+				<option value="">- 选择员工经理 -</option>
+				<#if allUsers??>
+				<#list allUsers as u>
+				<option value="${u.employeeNo}" <#if (model.managerNo)?? && model.managerNo==u.employeeNo>selected</#if>>${u.realname}</option>
+				</#list>
+				</#if>
+			</select>
+		</div>
+	</div>
+	<div class="form-group account-field">
+		<label class="col-md-2 control-label" for="username1">用户名 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<input type="text" id="username1" name="username" class="form-control" placeholder="用户名" 
+				value="<#if (model.username)??>${model.username}</#if>"  
+		  		data-fv="NotNull,Length(-50)">
+		</div>
+	</div>
+	<div class="form-group account-field">
+		<label class="col-md-2 control-label" for="password">登录密码 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<#if (model.id)??>
+			<a id="changepwdBtn" href="#" class="btn btn-link" onclick="$('#password').val('');$('#password').removeClass('hide');$('#changepwdBtn').addClass('hide');">修改密码</a>
+			<input type="text" id="password" name="password" class="form-control hide" placeholder="新密码 (6位及以上，包含大小写字母及数字)" 
+				value="<#if (model.password)??>${model.password}</#if>" data-original="${(model.password)!''}" required="true" data-fv="NotNull,Password">
+			<#else>
+				<input type="password" name="password" value="<#if (model.password)??>${model.password}</#if>" class="form-control" data-fv="NotNull,Password">
+			</#if>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="cellphone">手机号 </label>
+		<div class="col-md-9">
+			<input type="text" id="cellphone" name="cellphone" class="form-control" placeholder="手机号" 
+				value="<#if (model.cellphone)??>${model.cellphone}</#if>"  
+		  		data-fv="Phone,Length(-20)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="assistantPhone">助理电话 </label>
+		<div class="col-md-9">
+			<input type="text" id="assistantPhone" name="assistantPhone" class="form-control" placeholder="助理电话" 
+				value="<#if (model.assistantPhone)??>${model.assistantPhone}</#if>"  
+		  		data-fv="Phone,Length(-20)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="email">Email </label>
+		<div class="col-md-9">
+			<input type="text" id="email" name="email" class="form-control" placeholder="Email" 
+				value="<#if (model.email)??>${model.email}</#if>"  
+		  		data-fv="Email,Length(-255)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="wechat">微信号</label>
+		<div class="col-md-9">
+			<input type="text" id="wechat" name="wechat" class="form-control" placeholder="微信号" 
+				value="<#if (model.wechat)??>${model.wechat}</#if>"  
+		  		data-fv="Length(-50)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="comment">备注</label>
+		<div class="col-md-9">
+			<input type="text" id="comment" name="comment" class="form-control" placeholder="备注" 
+				value="<#if (model.comment)??>${model.comment}</#if>"  
+		  		data-fv="Length(-255)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="status">员工状态</label>
+		<div class="col-md-9">
+			<select id="statusItemId" name="statusItemId" class="form-control" placeholder="员工状态" data-fv="NotNull">
+				<#list statusList as obj>
+				<#if obj.parentId gt 0>
+				<option value="${obj.id}" <#if (model.statusItemId)?? && model.statusItemId==obj.id>selected</#if>>${obj.itemName}</option>
+				</#if>
+				</#list>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="orgRole">所属角色</label>
+		<div class="col-md-9">
+			<select id="orgRole" name="orgRole" class="form-control">
+				<option value=""> - 无 - </option>
+				<option value="MANAGER" <#if (model.orgRole)?? && model.orgRole=='MANAGER'>selected="selected"</#if>> 单位管理层 </option>
+				<option value="ADMIN" <#if (model.orgRole)?? && model.orgRole=='ADMIN'>selected="selected"</#if>> 系统管理员 </option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="enabled">是否可登录 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<select id="enabled" name="enabled" class="form-control">
+				<option value="1" <#if (model.enabled)?? && model.enabled>selected="selected"</#if>> 是 (解锁)</option>
+				<option value="0" <#if (model.enabled)?? && !model.enabled>selected="selected"</#if>> 否 (锁定) </option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-2">
+			<#if (model.id)??>
+			<input type="hidden" name="orgId" value="${(model.orgId)!''}" />
+			<button class="btn btn-primary btn-block" type="submit"> 提交更新 </button>
+			<#else>
+			<input type="hidden" name="orgId" value="${(orgId)!''}" />
+			<button class="btn btn-success btn-block" type="submit"> 提交 </button>			
+			</#if>
+		</div>
+	</div>
+</form>

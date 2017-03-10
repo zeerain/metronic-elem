@@ -1,0 +1,54 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="回访数据上传" url="${ctx.contextPath}/revisitImport/index" title="回访数据上传">
+		</@bodyHeader>
+		
+		<section class="content">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+	            	<h3 class="box-title">文件处理失败原因</h3>
+	            	<div class="box-tools pull-right">
+	            		<#if (model.fileUuid)??>
+				    		<a href="${ctx.contextPath}/file/download/${model.fileUuid}" class="btn btn-primary" title="下载原始文件: ${(model.fileName)!''}">
+				    			<i class="fa fa-download"></i> 下载原始文件
+				    		</a>
+				    	</#if>
+	                </div>
+	            </div>
+				<div class="box-body">
+					<#if model.status != 'S'>
+						<p class="text-yellow">${(model.failReason)!"无解析结果"}</p>
+					<#else>
+						<p class="text-green">文件解析成功</p>					
+					</#if>
+				</div><#-- /.box-body -->
+      		</div><#-- /.box -->
+      		
+			<div class="box box-primary">
+				<div class="box-header with-border">
+	            	<h3 class="box-title">上传调整后的数据文件</h3>
+	            </div>
+				<div class="box-body">
+					<#include "/revisitImport/_uploadform.htm" />
+				</div><#-- /.box-body -->
+      		</div><#-- /.box -->
+        	
+        </section>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-action').on("click", function(){
+		$("#fileForm").attr("action", "${ctx.contextPath}/revisitImport/"+$(this).data("action"));
+		$("#fileForm").submit();
+	});
+});
+</script>
+</body>
+</html>

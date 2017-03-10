@@ -1,0 +1,24 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="跟进任务" url="${ctx.contextPath}/revisitWorkOrder/index" title="跟进任务处理">
+		</@bodyHeader>
+		
+		<@box>
+			<@boxBody>
+				<#include "/revisitWorkOrder/page_index.htm" />
+			</@boxBody>
+			<@boxFooter>
+				<#include "/include/pagination.htm">
+			</@boxFooter>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/plugin/h5fix/html5media.min.js"></script>
+</body>
+</html>

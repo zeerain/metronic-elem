@@ -1,0 +1,317 @@
+<table class="table table-bordered table-striped table-hover">
+	<tbody>
+	<tr>
+		<th colspan="8">回访记录概况</th>
+	</tr>
+	<tr>
+	  	<td class="td-label">任务号:</td>
+	  	<td>${model.id}</td>
+	  	<td class="td-label">记录状态:</td>
+	  	<td>${model.statusName}</td>
+	  	<td class="td-label">被访人:</td>
+    	<td>${(model.carDriver)!""}</td>
+	  	<td class="td-label">客户经理:</td>
+    	<td>${(model.customerManager)!""}</td>
+	</tr>
+	<tr>
+	  	<td class="td-label">交车日期:</td>
+	  	<td>${(model.serviceEndDate)!""}</td>
+		<td class="td-label">回访次数:</td>
+		<td><#if (model.recordList)??>${model.recordList?size}<#else>0</#if></td>
+		<td class="td-label">最终得分:</td>
+		<td>${(model.totalScore)!"-"}</td>
+		<td class="td-label">跟踪任务情况:</td>
+		<td>
+		  	<#if (model.workOrder)??>
+				${(model.workOrder.category)!""}
+			<#else>
+				无
+			</#if>
+		</td>
+	</tr>
+</tbody>
+</table>
+
+<hr>
+<div class="box box-default collapsed-box">
+	<div class="box-header with-border">
+    	<h3 class="box-title">回访原始任务信息</h3>
+      	<div class="box-tools pull-right">
+        	<button data-widget="collapse" class="btn btn-box-tool" type="button"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+	<div class="box-body no-padding">
+		<table class="table table-bordered table-striped table-hover">
+			<tbody>
+			<tr>    	
+		    	<td class="td-label">导入记录序号:</td>
+		    	<td>
+				  	${(model.rowIndex)!""}
+			    </td>
+		    	<td class="td-label">交车日期:</td>
+		    	<td>
+				  	${(model.serviceEndDate)!""}
+			    </td>
+		    	<td class="td-label">是否原店:</td>
+		    	<td>
+				  	${(model.isDealerStore)!""}
+			    </td>
+		    	<td class="td-label">车架号:</td>
+		    	<td colspan="3">
+				  	${(model.carFrameNo)!""}
+			    </td>
+			</tr>
+			<tr>    	
+		    	<td class="td-label">车牌号:</td>
+		    	<td>
+				  	${(model.carLicenseNo)!""}
+			    </td>
+			    <td class="td-label">车辆品牌:</td>
+		    	<td>
+				  	${(model.carBrand)!""}
+			    </td>
+		    	<td class="td-label">车型:</td>
+		    	<td>
+				  	${(model.carModelType)!""}
+			    </td>
+		    	<td class="td-label">送修人:</td>
+		    	<td>
+				  	${(model.carDriver)!""}
+			    </td>
+		    	<td class="td-label">送修人手机:</td>
+		    	<td>
+				  	${(model.carDriverPhone)!""}
+			    </td>
+			</tr>
+			<tr>    	
+		    	<td class="td-label">维修类型:</td>
+		    	<td>
+				  	${(model.serviceType)!""}
+			    </td>
+		    	<td class="td-label">到店里程:</td>
+		    	<td>
+				  	${(model.mileage)!""}
+			    </td>	
+		    	<td class="td-label">是否会员:</td>
+		    	<td>
+				  	${(model.isMember)!""}
+			    </td>
+		    	<td class="td-label">是否过保:</td>
+		    	<td>
+				  	${(model.isOutInsure)!""}
+			    </td>
+			    <td class="td-label">现有住址:</td>
+		    	<td>
+				  	${(model.address)!""}
+			    </td>
+			</tr>
+			</tbody>
+		</table>		
+	</div><#-- /.box-body -->
+</div><#-- /.box -->
+
+<#assign hasRecord = ((model.recordList)?? && model.recordList?size gt 0) />
+<div class="box box-default collapsed-box">
+	<div class="box-header with-border">
+    	<h3 class="box-title">回访记录详情 <#if !hasRecord>: 无</#if></h3>
+      	<div class="box-tools pull-right">
+        	<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+	<div class="box-body no-padding">
+		<#if hasRecord>
+		<table class="table table-bordered table-striped table-hover">
+		<tbody>
+			<tr>
+				<th width="120px">回访日期</th>
+				<th width="150px">开始时间</th>
+				<th width="150px">结束时间</th>
+				<th width="100px">通话次数</th>
+				<th width="100px">通话总时长</th>
+				<th width="100px">记录状态</th>
+				<th width="100px">坐席姓名</th>
+				<th>通话录音文件</th>
+			</tr>
+			<#list model.recordList as record>
+				<tr>
+				<td>${record.createTime?date}</td>
+				<td><#if record.beginTime??>${record.beginTime?datetime}<#else>-</#if></td>
+				<td><#if record.endTime??>${record.endTime?datetime}<#else>-</#if></td>
+				<td><#if (record.audioUrlList)??>${record.audioUrlList?size}<#else>-</#if></td>
+				<td>${(record.callTime)!""}</td>
+				<td><#if (record.undoneReason)??>${record.undoneReason}<#else>${(record.statusName)!""}</#if></td>
+				<td>${(record.ccuserName)!"-"}</td>
+				<td>
+					<#if (record.audioUrlList)??>
+				  	<#list record.audioUrlList as url>
+				  		<#if url?ends_with('.mp3')>
+							<audio class="audio-player" src="${url}" type="audio/mp3" controls>
+							浏览器不支持播放
+							</audio>
+						<#else>
+				  		<a href="${url}" class="btn btn-default btn-xs"><i class="fa fa-file-sound-o"></i> 录音${record_index+url_index+1}</a>										  		
+				  		</#if>
+				  	</#list>
+				  	</#if>
+				</td>
+			</tr>
+			</#list>
+			</tbody>
+		</table>
+		<hr>
+		<table class="table table-bordered table-striped table-hover">
+		<tbody>
+			<tr>
+				<th colspan="4">回访问题结果记录</th>
+			</tr>
+			<tr>
+				<th>问题内容</th>
+				<th>回答结果</th>
+				<th>备注说明</th>
+				<th>计分</th>
+			</tr>
+			<#if (model.answerList)??>
+			<#list model.answerList as answer>
+			<tr>
+				<td>${(answer.questionItemTitle)!"-"}</td>
+				<td>
+				<#if (answer.answer)?? && answer.answer!=answer.shortAnswer>
+					<a class="atip" href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="${answer.answer}">${(answer.shortAnswer)!""}</a>
+				<#else>
+					${(answer.answer)!"-"}
+				</#if>
+				</td>
+				<td>
+				<#if (answer.comment)??>
+					<a class="atip" href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="${answer.comment}">${(answer.shortComment)!""}</a>
+				</#if>
+				</td>
+				<td>${(answer.score)!"-"}</td>
+			</tr>
+			</#list>
+			</#if>
+		</tbody>
+		</table>
+		</#if>
+	</div><#-- /.box-body -->
+</div><#-- /.box -->
+
+<#if model.workOrder??>
+<#assign workOrder=model.workOrder />
+</#if>
+<div class="box <#if workOrder??>box-info<#else>box-default</#if>">
+	<div class="box-header with-border">
+    	<h3 class="box-title">跟进任务情况 <#if workOrder??><#else>: 无</#if></h3>
+    	<#if workOrder??>
+      	<div class="box-tools pull-right">
+        	<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div>
+        </#if>
+    </div>
+	<#if workOrder??>
+	<#if (workOrder.opinionList)?? && workOrder.opinionList?size gt 0>
+		<#list workOrder.opinionList as o>
+			<#assign updateTime=o.createTime />
+			<#if (o.status)?? && o.status='SOLVED'>
+				<#assign closeTime=o.createTime />				
+			</#if>	    				
+		</#list>
+	</#if>
+	<div class="box-body no-padding">
+		<table class="table table-bordered table-striped table-hover">
+		<tbody>
+			<tr>
+				<td class="td-label">跟进任务类型:</td>
+		    	<td>
+				  	${(workOrder.statusTrace)!""}
+			    </td>
+			    <td class="td-label">跟进任务状态:</td>
+		    	<td>
+				  	${(workOrder.statusName)!""}
+			    </td>
+				<td class="td-label">创建时间:</td>
+		    	<td>
+				  	${workOrder.createTime?datetime}
+			    </td>
+			    <td class="td-label">最后更新时间:</td>
+		    	<td>
+		    		<#if updateTime??>${updateTime?datetime}</#if>
+			    </td>
+			</tr>
+			<tr>
+				<td class="td-label">跟进任务创建原因</td>
+				<td colspan="5">
+					${(workOrder.content)!""}
+				</td>
+				<td class="td-label">关闭时间:</td>
+		    	<td>
+		    		<#if closeTime??>${closeTime?datetime}</#if>
+			    </td>
+			</tr>
+			<#if (workOrder.opinionList)?? && workOrder.opinionList?size gt 0>
+			<tr>
+				<td class="td-label">处理意见</td>
+				<td colspan="7">
+					<#list workOrder.opinionList as o>
+					<blockquote>
+		                <p>${o.opinion}</p>
+		                <small> ${o.createByName} 提交于<cite title="">${o.createTime?datetime}</cite></small>
+		            </blockquote>
+		            </#list>
+				</td>
+			</tr>
+			</#if>
+			<#if workOrder.status != 'SOLVED'>
+			<tr>
+				<td class="td-label">处理结果 <span class="text-red">*</span></td>
+				<td colspan="7">
+					<form method="post" action="${ctx.contextPath}/revisitWorkOrder/update/${workOrder.id}">
+					<div class="row">
+						<div class="col-md-12">
+							<textarea name="opinion" class="form-control" rows="2" placeholder="跟进任务的处理意见" data-fv="NotNull"></textarea>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<#if workOrder.status != 'AUDIT'>
+						<div class="col-md-2">
+							<div class="checkbox">
+								<label for="status">
+									<input id="status" type="checkbox" name="status" value="SOLVED" /> 关闭跟进任务
+								</label>
+							</div>
+						</div>
+						</#if>
+						<div class="col-md-2 triggerby-status <#if workOrder.status != 'AUDIT'>hide</#if>">
+							<select id="category" name="category" class="form-control" data-fv="NotNull" <#if workOrder.status != 'AUDIT'>data-ori="${(workOrder.category)!''}"</#if> placeholder="跟进任务类型">
+								<#list categoryList as c>
+								<#if c.parentId gt 0>
+								<option value="${c.itemName}" <#if c.itemName==workOrder.category>selected</#if>>${c.itemName}</option>
+								</#if>
+								</#list>
+							</select>
+						</div>
+						<#if workOrder.status != 'AUDIT'>
+						<div class="col-md-2 triggerby-status hide">
+							<div class="checkbox">
+								<label for="revisitAgain">
+									<input type="checkbox" id="revisitAgain" name="revisitAgain" value="true" /> 重新回访
+								</label>
+							</div>
+						</div>
+						</#if>
+						<div class="col-md-2">
+							<input type="hidden" name="taskId" value="${model.id}" />
+							<input type="hidden" name="urlContext" value="${urlContext}" />		
+							<button class="btn btn-primary btn-block" type="submit">提交</button>	
+						</div>
+					</div>
+					</form>
+				</td>
+			</tr>
+			</#if>
+		</tbody>
+		</table>		
+	</div><#-- /.box-body -->
+	</#if>
+</div><#-- /.box -->

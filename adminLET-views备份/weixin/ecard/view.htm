@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>元兵空中助理</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .clear{
+            clear: both;
+        }
+        .ecard-wrapper{
+            position: relative;
+            width: 100%;
+            height: auto;
+            padding-top: 10px;
+            background: #7bb142;
+            overflow: hidden;
+        }
+        .avatar-box{
+            position: relative;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            height: 65px;
+            width: 65px;
+        }
+        
+        .avatar-box .radius-line{
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid #efefef;
+            opacity: 0.3;
+        }
+        .avatar-box .radius-line-1{
+            left: -30.5px;
+            top: -30px;
+            height: 125px;
+            width: 125px;
+        }
+        .avatar-box .radius-line-2{
+            left: -61px;
+            top: -60px;
+            height: 185px;
+            width: 185px;
+        }
+        .avatar-box .radius-line-3{
+            left: -91.5px;
+            top: -90px;
+            height: 245px;
+            width: 245px;
+        }
+        .avatar-box .radius-line-4{
+            left: -122px;
+            top: -120px;
+            height: 305px;
+            width: 305px;
+        }
+        .avatar-box .radius-line-5{
+            left: -152.5px;
+            top: -150px;
+            height: 365px;
+            width: 365px;
+        }
+        .avatar-box img{
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        /* info */
+        .ecard-info{
+            color: #fff;
+            padding-bottom: 10px;
+        }
+        .ecard-info .username, .ecard-info .job-position{
+            text-align: center;
+            line-height: 18px;
+            font-size: 16px;
+        }
+        .ecard-info .username{
+        	font-size: 28px;
+        	line-height: 42px;
+        	text-weight: 500;
+        }
+        .info-group{
+            padding: 0 20px;
+            min-height: 32px;
+            height: auto;
+            color: #fff;
+            font-size: 14px;
+        }
+        .info-group::after{
+            content: " ";
+            clear: both;
+        }
+        .info-group .title{
+            float: left;
+        }
+        .info-group .content{
+            float: right;
+        }
+        /* 二维码区域 */
+        .ecard-img{
+            padding: 15px 20px;
+            text-align: center;
+        }
+        .ecard-img hr{
+            height: 1px;
+            border: none;
+            background-color: #eee;
+        }
+        .ecard-img #qrcode{
+            width: 160px;
+            margin: 0 auto;
+            margin-top: 15px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="ecard-wrapper">
+        <#if model??>
+        <div class="avatar-box">
+            <img src="<#if (user.avatar)?? && user.avatar != ''>${(user.avatar)!''}<#else>${ctx.contextPath}/res/weixin/images/ren-icon@2x.png</#if>" alt="">
+            <div class="radius-line radius-line-1"></div>
+            <div class="radius-line radius-line-2"></div>
+            <div class="radius-line radius-line-3"></div>
+            <div class="radius-line radius-line-4"></div>
+            <div class="radius-line radius-line-5"></div>
+        </div>
+        <div class="ecard-info">
+            <h2 class="username">${(model.realname)!""}</h2>
+            <p class="job-position">${(model.orgRoleName)!""}</p>
+            <div class="info-group">
+                <div class="title">
+                    手机/mobile
+                </div>
+                <div class="content">
+                    ${(model.cellphone)!""}
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="title">
+                    邮箱/e-mail
+                </div>
+                <div class="content">
+                    ${(model.email)!""}
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="title">
+                    公司/company
+                </div>
+                <div class="content">
+                    ${(model.orgName)!""}
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="title">
+                    地址/address
+                </div>
+                <div class="content">
+                    ${(model.orgAddress)!""}
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="title">
+                    公司电话/company tel.
+                </div>
+                <div class="content">
+                    ${(model.orgTelphone)!""}
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="title">
+                    助理电话/Assistant tel.
+                </div>
+                <div class="content">
+                    ${(model.assistantPhone)!""}
+                </div>
+            </div>
+        </div>
+         
+      <input type="text" id="fname" name="fname" value="${(model.realname)!''}" style="display:none;"> <#--=== 创建隐藏text获取fname ===-->
+      <input type="text" id="name" name="name" value="" style="display:none;"> <#--=== 创建隐藏text获取name ===-->
+		
+      <input type="text" id="title" name="title" value="${(model.orgRoleName)!''}" style="display:none;"> <#--=== 创建隐藏text获取title ===-->
+      <input type="text" id="organization" name="organization" value="${(model.orgName)!''}" style="display:none;"> <#--=== 创建隐藏text获取organization ===-->
+      <input type="text" id="orgAddress" name="orgAddress" value="${(model.orgAddress)!''}" style="display:none;"> <#--=== 创建隐藏text获取orgAddress ===-->
+      <input type="text" id="orgTelphone" name="orgTelphone" value="${(model.orgTelphone)!''}" style="display:none;"> <#--=== 创建隐藏text获取orgTelphone ===-->
+      <input type="text" id="webSite" name="webSite" value="" style="display:none;"> <#--=== 创建隐藏text获取webSite ===-->
+		
+      <input type="text" id="mobilePhone" name="mobilePhone" value="${(model.cellphone)!''}" style="display:none;"> <#--=== 创建隐藏text获取mobilephone ===-->
+      <input type="text" id="email" name="email" value="${(model.email)!''}" style="display:none;"> <#--=== 创建隐藏text获取email ===-->
+      <input type="text" id="homeAddress" name="homeAddress" value="" style="display:none;"> <#--=== 创建隐藏text获取homeAddress ===-->
+      <input type="text" id="homeTelphone" name="homeTelphone" value="" style="display:none;"> <#--=== 创建隐藏text获取homeTelphone ===-->
+      <input type="text" id="birthday" name="birthday" value="" style="display:none;"> <#--=== 创建隐藏text获取birthday ===-->
+      <input type="text" id="photo" name="photo" value="${ctx.contextPath}/res/img/avatar.jpg" style="display:none;"> <#--=== 创建隐藏text获取photo ===-->
+      
+      <input type="text" id="otherPhone" name="otherPhone" value="${(model.assistantPhone)!''}" style="display:none;"> <#--=== 创建隐藏text获取助理电话 ===-->
+      
+      <input type="text" id="ecardSize" name="ecardSize" value="${(ecard.ecardSize)!'160'}" style="display:none;"> <#--=== 创建隐藏text获取ecard size ===-->
+      <input type="text" id="ecardFill" name="ecardFill" value="${(ecard.ecardFill)!'#000'}" style="display:none;"> <#--=== 创建隐藏text获取ecard fill ===-->
+      <input type="text" id="ecardRadius" name="ecardRadius" value="${(ecard.ecardRadius)!'0.25'}" style="display:none;"> <#--=== 创建隐藏text获取ecard radius ===-->
+      <input type="text" id="ecardMode" name="ecardMode" value="${(ecard.ecardMode)!'2'}" style="display:none;"> <#--=== 创建隐藏text获取ecard mode ===-->
+      <input type="text" id="ecardFontcolor" name="ecardFontcolor" value="${(ecard.ecardFontcolor)!'#000'}" style="display:none;"> <#--=== 创建隐藏text获取ecard fontcolor ===-->
+        </#if>
+    </div>
+    <div class="ecard-img">
+        <hr>
+        
+		<div id="qrcode"></div>
+    </div>
+    
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/zepto.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.js"></script><#-- ANT_REMOVE -->
+<#-- ANT_REMOVE
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.min.js?v=@ANT_PLACEHOLDER_RESVERSION@"></script>
+	 ANT_REMOVE -->
+	 
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.custom.js"></script><#-- ANT_REMOVE -->
+<script type="text/javascript">
+$(function(){
+	var qr = new QRCode();
+	qr.show();
+});
+</script>
+</body>
+</html>
