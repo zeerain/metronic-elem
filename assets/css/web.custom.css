@@ -4,7 +4,7 @@ a.logo {
     text-decoration: none;
 }
 
-a.logo:hover {
+a.logo :hover {
     color: #36C6D3;
 }
 

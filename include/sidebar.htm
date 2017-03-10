@@ -28,10 +28,15 @@
                     <select id="svc-switcher" name="svc" class="form-control  server-exchange-style">
                         <#if (Session.user.availableServices)?exists>
                         <#list Session.user.availableServices as item>
-                        <option value="${item.id}" <#if item.id=Session.user.currentServiceId>selected</#if>>${item.itemName}</option>
+                        <option value="${item.id}" <#if item.id=Session.user.currentServiceId>
+                            selected
+                        </#if> >
+                        ${item.itemName}</option>
                         </#list>
                         </#if>
                     </select>
+                </div>
+                </#if>
             </li>
             <li class="nav-item start active open" style="margin: 20px 0px;">
                 <a href="${ctx.contextPath}/" class="nav-link nav-toggle">
@@ -75,4 +80,5 @@
             </#if>
         </ul>
 	</div>
+    <#-- /.sidebar -->
 </div>

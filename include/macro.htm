@@ -29,19 +29,19 @@
 <#-- bodyContent end -->
 
 <#-- Main content begin -->
-    <#macro box box-color>
+    <#macro box boxColor>
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet box ${box-color}">
+                <div class="portlet box ${boxColor}">
                     <#nested>
                 </div>
             </div>
         </div>
     </#macro>
 
-    <#macro boxHeader box-title>
+    <#macro boxHeader boxTitle>
         <div class="portlet-title">
-            <div class="caption"> ${box-title} </div>
+            <div class="caption"> ${boxTitle} </div>
             <div class="tools">
                 <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
             </div>
