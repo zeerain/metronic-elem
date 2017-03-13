@@ -8,25 +8,32 @@
          <div class="page-content-wrapper">
             <div class="page-content">
 
-	            <@bodyHeader menu="回访数据上传管理" url="${ctx.contextPath}/revisitImport/index" title="回访数据上传管理">
+	            <@bodyHeader menu="回访数据上传" url="${ctx.contextPath}/revisitImport/index" title="回访数据上传">
 				</@bodyHeader>
 
 				<div class="row">
 					<div class="col-md-12">
 						<div class="portlet box yellow">
 							<div class="portlet-title">
-                                <div class="caption">上传数据</div>
+                                <div class="caption">文件处理失败原因</div>
                                 <div class="tools">
                                     <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
                                 </div>
                                 <div class="actions">
-                                    <a class="btn btn-circle btn-sm" href="${ctx.contextPath}/res/sample.xls">
-                                        <i class="fa fa-download"></i> 下载示例文件
-                                    </a>
+	                                <#if (model.fileUuid)??>
+	                                    <a class="btn btn-circle btn-sm" href="${ctx.contextPath}/file/download/${model.fileUuid}" title="下载原始文件: ${(model.fileName)!''}">
+	                                        <i class="fa fa-download"></i> 下载原始文件
+	                                    </a>
+	                                </#if>
                                 </div>
                             </div>
                             <div class="portlet-body">
-                            	<#include "/revisitImport/_uploadform.htm" />
+                            	<#if model.status != 'S'>
+								<p class="text-yellow">${(model.failReason)!"无解析结果"}</p>
+								<#else>
+								<p class="text-green">文件解析成功
+								</p>					
+								</#if>
                             </div>
 						</div>
 					</div>
@@ -36,14 +43,11 @@
 					<div class="col-md-12">
 						<div class="portlet box red">
 							<div class="portlet-title">
-                                <div class="caption">回访数据表</div>
-                                <div class="tools">
-                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                <div class="caption">上传调整后的数据文件
                                 </div>
                             </div>
 							<@boxBody>
-								<#include "/revisitImport/page_index.htm" />
-								<#include "/include/pagination.htm">
+								<#include "/revisitImport/_uploadform.htm" />
 							</@boxBody>
 						</div>
 					</div>

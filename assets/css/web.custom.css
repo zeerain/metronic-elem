@@ -43,3 +43,8 @@ a.logo :hover {
     line-height: 30px;
     padding: 3px 6px;
 }
+
+.label.label-sm {
+    font-size: 12px;
+    padding: 2px 5px;
+}
