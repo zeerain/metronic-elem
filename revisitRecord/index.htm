@@ -1,0 +1,49 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="回访记录管理" url="${ctx.contextPath}/revisitRecord/index" title="回访记录管理">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box green">
+							<div class="portlet-title">
+                                <div class="caption">回访记录表</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#include "/revisitRecord/page_index.htm" />
+								<#include "/include/pagination.htm">
+                            </div>
+						</div>
+					</div>
+				</div>			
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/plugin/h5fix/html5media.min.js"></script>
+<script src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+$(function(){
+ $(".datepicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+});
+</script>
+</body>
+</html>
+
