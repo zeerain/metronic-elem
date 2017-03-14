@@ -5,7 +5,7 @@
 	        <ul class="page-breadcrumb pull-right">
 	            <li>
 		            <i class="fa fa-home"></i>
-	                <a href="${ctx.contextPath}/">${title}</a>
+	                <a href="${ctx.contextPath}/">工作台</a>
 	            </li>
 	            <#if menu?? && menu!=''>
 	            <li>
@@ -18,21 +18,12 @@
 	</#macro>
 <#-- bodyHeader end -->
 
-<#-- bodyContent begin -->
-	<#macro sectionBody>
-		<div class="page-content-wrapper">
-			<div class="page-content">
-				<#nested>
-			</div>
-		</div>
-	</#macro>
-<#-- bodyContent end -->
 
 <#-- Main content begin -->
     <#macro box boxColor>
         <div class="row">
             <div class="col-md-12">
-                <div class="portlet box boxColor">
+                <div class="portlet box ${boxColor}">
                     <#nested>
                 </div>
             </div>

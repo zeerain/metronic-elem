@@ -1,0 +1,344 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="回访统计报表" url="${ctx.contextPath}/revisitStatistical/" title="回访统计报表">
+				</@bodyHeader>
+
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="fa fa-search"></i>查询</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <form action="${ctx.contextPath}/revisitStatistical/">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                            	<#if subCompanyList??>
+                                            	<td class="td-label compact">查询单位:</td>
+												<td class="td-value pd-r"> 
+						      					<select name="org_id" class="form-control">
+							      				<#list subCompanyList as org>
+						      					<option value="${org.id}" <#if (criteria.org_id)?? && criteria.org_id==org.id>selected</#if>>${org.shortName}</option>				
+						    	  				</#list>
+						      					</select>
+						      				</td>
+						      				</#if>
+                                            <td class="td-label"> 交车日期时间段:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                            <td class="td-value"><input type="text" name="beginDate" class="form-control datepicker" value="${(criteria.beginDate)!''}" placeholder="起始日期"></td>
+                                            <td width="10px" style="padding-left:2px">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</td>
+                                            <td class="td-value"> <input type="text" name="endDate" class="form-control datepicker" value="${(criteria.endDate)!''}" placeholder="截止日期"></td>
+                                            <td class="td-value" style="padding-left: 10px"><button type="submit" class="btn btn-success btn-block">&nbsp;&nbsp;查  &nbsp;询&nbsp;&nbsp;</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="fa fa-bar-chart"></i> 业务量统计分析</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-12">
+                                        统计期间总量
+                                        <div id="bar-chart-zl" style="height: 400px;"></div>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12">
+                                        统计期间变化趋势
+                                        <div id="bar-chart-bhqs" style="height: 400px;"></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        按人员统计
+                                        <div id="bar-chart-ry" style="height: 400px;"></div>
+                                        <hr>
+                                        <div>
+                                            <table class="table table-striped table-hover">
+                                            	<#if chart3Map?size gt 0>
+											    <tr>
+												    <th>客户经理</th>
+												    <th>服务次数</th>
+												    <th>跟进任务次数</th>
+											    </tr>
+											    <#if chart3Map?size gt 0>
+											    <#list chart3Map?keys as k1>
+											    <tr>
+											    	<td>${k1}</td>
+													<td>${chart3Map[k1][0]!0}</td>
+													<td>${chart3Map[k1][1]!0}</td>
+											    </tr>
+											    </#list>
+											    </#if>
+											    </#if>
+                                            </table>
+                                       </div>
+                                	</div>
+                            	</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="fa fa-pie-chart"></i> 完成率、满意度统计</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-6">
+                                        完成数、终止数统计
+                                        <div id="pie-chart-1" style="height:200px; margin:0 auto"></div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-6">
+                                        完成率、未完成原因统计
+                                        <div id="pie-chart-2" style="height:200px; margin:0 auto"></div>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12">
+                                        满分率、工单率统计
+                                        <div id="pie-chart-3" style="height:200px; margin:0 auto">无匹配数据！</div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        满意度、跟进任务率变化趋势
+                                        <div id="bar-chart-myd" style="height: 300px;"></div>
+                                        <hr>
+                                        <div>
+                                            <table class="table table-striped table-hover">
+                                            <#if chart6Map?size gt 0>
+										    <tr>
+											    <th>日期</th>
+											    <th>满分次数</th>
+											    <th>跟进任务数量</th>
+										    </tr>
+											    <#if chart6Map?size gt 0>
+											    <#list chart6Map?keys as k1>
+											    <tr>
+											    	<td>${k1}</td>
+													<td>${chart6Map[k1][0]!0}</td>
+													<td>${chart6Map[k1][1]!0}</td>
+											    </tr>
+											    </#list>
+											    </#if>
+										    </#if>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+				<div class="row">
+	                <div class="col-md-12">
+	                    <div class="portlet box green">
+	                        <div class="portlet-title">
+	                            <div class="caption"><i class="fa fa-pie-chart"></i>跟进任务统计</div>
+	                            <div class="tools">
+	                                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+	                            </div>
+	                        </div>
+	                        <div class="portlet-body">
+	                            <div class="row">
+	                                <div class="col-sm-4 col-xs-6">
+	                                    工单类型分析
+	                                    <div id="pie-chart-7" style="height:200px; margin:0 auto"></div>
+	                                </div>
+	                            </div>
+	                            <hr>
+	                            <div class="row">
+	                                <div class="col-sm-12 col-xs-12">
+	                                    跟进任务解决时长统计(小时)
+	                                    <div id="bar-chart-sc" style="height: 300px;"></div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/views/echarts.min.js"></script>
+<script>
+
+	$(function () {
+		$(".datepicker").datepicker({
+		 	language: 'zh-CN',
+		 	format: "yyyy-mm-dd"
+		});
+
+		var bar_chart_zl = echarts.init(document.getElementById("bar-chart-zl"));
+
+		<#-- 服务总量 -->
+		var bar_data = [];
+		<#if chart1Map?size gt 0>
+		    <#list chart1Map?keys as k>
+		    	bar_data.push(["${k}(${chart1Map[k]})", ${chart1Map[k]}]);  
+		    </#list>
+		    var xAxi = [];
+		    var seriesData = [];
+		    for (var i = 0, len = bar_data.length; i < len; i++) {
+		        xAxi.push(bar_data[i][0]);
+		        seriesData.push(bar_data[i][1]);
+		    }
+		    bar_chart_zl.setOption({
+		    	tooltip: {},
+		    	legend: {
+					data: ['次数'],
+					right: 25
+				},
+				xAxis: {
+					data: xAxi
+				},
+				yAxis: {},
+				series: [{
+					name: '次数',
+					type: 'bar',
+					data: bar_data
+				}],
+				color: ['#c23531', '#91c7ae']
+		    });
+	    <#else>
+		    $("#bar-chart-zl").html("无匹配数据！");
+	    </#if>
+
+
+	    <#-- 变化趋势 -->
+	    var bar_data = [];
+	    <#if chart2Map?size gt 0>
+	    <#list dateOrder as k>
+	    	<#if chart2Map[k]??>
+	    	bar_data.push(["${k}(${chart2Map[k]})", ${chart2Map[k]}]);
+	    	</#if>  
+	    </#list>
+	    bar_data.sort();
+		var bar_chart_bhqs = echarts.init(document.getElementById("bar-chart-bhqs"));
+		bar_chart_bhqs.setOption({
+			tooltip: {
+	        trigger: 'axis',
+		        axisPointer: {
+		            animation: false
+		        }
+		    },
+		    xAxis: {
+		        type: 'time',
+		        splitLine: {
+		            show: false
+		        }
+		    },
+		    yAxis: {
+		        type: 'value',
+		        boundaryGap: [0, '100%'],
+		        splitLine: {
+		            show: false
+		        }
+		    },
+		    series: [{
+		        name: '服务次数',
+		        type: 'line',
+		        showSymbol: false,
+		        hoverAnimation: false,
+		        data: bar_data
+		    }]
+		});
+	    <#else>
+	    $("#bar-chart-bhqs").html("无匹配数据！");
+	    </#if>
+
+	    <#-- 人员 -->
+	    var data1 = [], data2 = [], ticks = [];
+	    <#if chart3Map?size gt 0>
+	    <#assign flag1 = 0 />
+	    <#assign flag2 = 1 />
+	    <#list chart3Map?keys as k>
+	    	data1.push([${flag1}, ${chart3Map[k][0]}]);
+	    	data2.push([${flag2}, ${chart3Map[k][1]}]);
+	    	ticks.push([${flag2}, "${k}"]);
+		    <#assign flag1 = flag1+3 />
+		    <#assign flag2 = flag2+3 />
+	    </#list>
+		function formatArray (arr) {
+			var res = [];
+			for(var i = 0, len = arr.length; i < arr; i++) {
+				res.push(arr[i][1]);
+			}
+			return res;
+		}
+	    var num_fuwu = formatArray(data1);
+	    var num_genjin = formatArray(data2);
+	    var ticks_name = formatArray(ticks);
+		var bar_chart_ry = echarts.init(document.getElementById("bar-chart-ry"));
+		bar_chart_ry.setOption({
+				tooltip: {},
+				legend: {
+					data: ['服务次数', '跟进任务次数'],
+					right: 25
+				},
+				xAxis: {
+					data: ticks_name
+				},
+				yAxis: {},
+				series: [{
+					name: '服务次数',
+					type: 'bar',
+					data: num_fuwu
+				}, {
+					name: '跟进任务次数',
+					type: 'bar',
+					data: num_genjin
+				}],
+				color: ['#c23531', '#91c7ae']
+		});
+
+	    console.log('==============');
+		console.log(data1);
+		console.log(data2);
+		console.log(ticks);
+	    <#else>
+	    $("#bar-chart-ry").html("无匹配数据！");
+	    </#if>
+	 
+
+	});
+	
+</script>
+</body>
+</html>
+
