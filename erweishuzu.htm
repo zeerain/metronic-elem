@@ -1,99 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<title>Document</title>
 </head>
-
 <body>
-
-	<div id="demo" style="width: 500px; height: 400px"></div>
-	<script src="./assets/js/views/echarts.min.js"></script>
-    <script>
-
-
-
-    var demo = echarts.init(document.getElementById("demo"));
-
-		var data = [
-			['2016-2-14(14)', 14],
-			['2016-2-16(4)', 4],
-			['2016-2-17(8)', 8],
-			['2016-2-20(15)', 15],
-			['2016-2-21', 36],
-			['2016-2-22', 14],
-			['2016-2-23', 0],
-			['2016-2-24', 35],
-			['2016-2-25', 28],
-			['2016-2-26', 14],
-			['2016-2-27', 6],
+	<script>
+		var arr = [
+			{
+				data: 23,
+				val: '完成数'
+			},
+			{
+				data: 28,
+				val: '期数'
+			}
 		];
 
-var option = {
-    title: {
-        text: '动态数据 + 时间坐标轴'
-    },
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            animation: false
-        }
-    },
-    xAxis: {
-        type: 'time',
-        splitLine: {
-            show: false
-        }
-    },
-    yAxis: {
-        type: 'value',
-        boundaryGap: [0, '100%'],
-        splitLine: {
-            show: false
-        }
-    },
-    series: [{
-        name: '服务次数',
-        type: 'line',
-        showSymbol: false,
-        hoverAnimation: false,
-        data: data
-    }]
-};
 
- demo.setOption(option);
-
-    </script>
+		console.log(arr[0]['data']);
+	</script>
 </body>
-
 </html>
-
-
-
-var bar_data = [];
-		<#if chart1Map?size gt 0>
-		    <#list chart1Map?keys as k>
-		    	bar_data.push(["${k}(${chart1Map[k]})", ${chart1Map[k]}]);  
-		    </#list>
-		    
-		    bar_chart_zl.setOption({
-		    	tooltip: {},
-		    	legend: {
-					data: ['次数'],
-					right: 15
-				},
-				// xAxis: {
-				// 	data: xAxi
-				// },
-				yAxis: {},
-				series: [{
-					name: '次数',
-					type: 'bar',
-					data: bar_data
-				}],
-				color: ['#c23531', '#91c7ae']
-		    });
-	    <#else>
-		    $("#bar-chart-zl").html("无匹配数据！");
-	    </#if>
