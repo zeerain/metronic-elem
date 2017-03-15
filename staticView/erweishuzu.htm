@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    var colorArray = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570'];
+
+
+    function randomColor(colorArray) {
+        var newColor = [];
+        for (var i = 0; i < colorArray.length; i++) {
+            newColor.push(colorArray[Math.floor(Math.random() * 12)]);
+        }
+        return newColor;
+    }
+
+    var refreshColor = randomColor(colorArray);
+    var arr = [{
+        data: 5,
+        label: '终止数(5)'
+    }, {
+        data: 23,
+        label: '完成数(23)'
+    }, {
+        data: 3,
+        label: 'ji数(3)'
+    }];
+
+
+
+    function format(arr) {
+        for (var i = 0, len = arr.length; i <= len; i++) {
+            for (key in arr[i]) {
+                if (key === "data") {
+                    arr[i]["value"] = arr[i]["data"];
+                    delete arr[i]["data"];
+                } else if (key === "label") {
+                    arr[i]["name"] = arr[i]["label"].split('(')[0].toString();
+                    delete arr[i]["label"];
+                }
+            }
+        }
+        return arr;
+    }
+
+    function format_legend_data(arr) {
+        var res = [];
+        for (var i = 0, len = arr.length; i <= len; i++) {
+            for (key in arr[i]) {
+                if (key === "label") {
+                    res.push(arr[i]["label"].split('(')[0].toString());
+                }
+            }
+        }
+        return res;
+    }
+
+
+
+    console.log(format2(arr));
+    // console.log(arr);
+    </script>
+</body>
+
+</html>

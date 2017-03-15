@@ -1,0 +1,29 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="我的账号信息" url="${ctx.contextPath}/orgUser/index" title="我的账号信息">
+				</@bodyHeader>
+				
+				<@box boxColor="blue">
+					<@boxHeader boxTitle="我的账号信息"></@boxHeader>
+					<@boxBody>
+						<#include "/orgUser/_profile.htm" />
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-file.min.js" charset="UTF-8"></script>
+</body>
+</html>
+

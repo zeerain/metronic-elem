@@ -1,0 +1,49 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="组织成员管理" url="${ctx.contextPath}/orgUser/index" title="组织成员管理">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box green">
+							<div class="portlet-title">
+                                <div class="caption">><i class="fa fa-black-tie"></i> ${(org.shortName)!"-"}</div>
+                                <div class="tools">
+                                   <a href="${ctx.contextPath}/orgUser/create" class="btn btn-success btn-sm">新建组织成员</a>	
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#include "/orgUser/page_index.htm" />
+                            	<#include "/include/pagination.htm">
+                            </div>
+						</div>
+					</div>
+				</div> 
+
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".datepicker").datepicker({
+		 language: 'zh-CN',
+		 format: "yyyy-mm-dd"
+	});
+});
+</script>
+</body>
+</html>
+

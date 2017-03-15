@@ -115,15 +115,15 @@
                                 <div class="row">
                                     <div class="col-sm-4 col-xs-6">
                                         完成数、终止数统计
-                                        <div id="pie-chart-1" style="height:200px; margin:0 auto"></div>
+                                        <div id="pie-chart-1" style="height:300px; margin:0 auto"></div>
                                     </div>
                                     <div class="col-sm-4 col-xs-6">
                                         完成率、未完成原因统计
-                                        <div id="pie-chart-2" style="height:200px; margin:0 auto"></div>
+                                        <div id="pie-chart-2" style="height:300px; margin:0 auto"></div>
                                     </div>
                                     <div class="col-sm-4 col-xs-12">
                                         满分率、工单率统计
-                                        <div id="pie-chart-3" style="height:200px; margin:0 auto">无匹配数据！</div>
+                                        <div id="pie-chart-3" style="height:300px; margin:0 auto">无匹配数据！</div>
                                     </div>
                                 </div>
                                 <hr>
@@ -204,7 +204,43 @@
 		 	format: "yyyy-mm-dd"
 		});
 
-		var bar_chart_zl = echarts.init(document.getElementById("bar-chart-zl"));
+		<#-- 格式化柱状图数据 -->
+	    function formatArray (arr, splice_num) {
+			var res = [];
+			for(var i = 0, len = arr.length; i < len; i++) {
+				res.push(arr[i][splice_num]);
+			}
+			return res;
+		}
+
+		<#-- 格式化饼图数据 -->
+		function format_ArrayObj(arr) {
+	    	for(var i = 0, len = arr.length; i <= len; i++) {
+	    		for (key in arr[i]) {
+	    			if( key === "data") {
+	    				arr[i]["value"] = arr[i]["data"];
+	    				delete arr[i]["data"];
+	    			} else if (key === "label") {
+	    				arr[i]["name"] = arr[i]["label"].split('(')[0].toString();
+	    				delete arr[i]["label"];
+	    			} 
+	    		}
+	   		 }
+	   		 return arr;
+	    }
+
+		<#-- 格式化legend_data数据 -->
+		function format_legend_data(arr) {
+	     	var res = [];
+	    	for(var i = 0, len = arr.length; i <= len; i++) {
+	    		for (key in arr[i]) {
+	    			if( key === "name") {
+	    				res.push(arr[i]["name"]);
+	    			} 
+	    		}
+	   		 }
+	   		 return res;
+	    }
 
 		<#-- 服务总量 -->
 		var bar_data = [];
@@ -218,6 +254,7 @@
 		        xAxi.push(bar_data[i][0]);
 		        seriesData.push(bar_data[i][1]);
 		    }
+			var bar_chart_zl = echarts.init(document.getElementById("bar-chart-zl"));
 		    bar_chart_zl.setOption({
 		    	tooltip: {},
 		    	legend: {
@@ -233,7 +270,6 @@
 					type: 'bar',
 					data: bar_data
 				}],
-				color: ['#c23531', '#91c7ae']
 		    });
 	    <#else>
 		    $("#bar-chart-zl").html("无匹配数据！");
@@ -257,6 +293,10 @@
 		            animation: false
 		        }
 		    },
+		    legend: {
+				data: ['服务次数'],
+				right: 25
+			},
 		    xAxis: {
 		        type: 'time',
 		        splitLine: {
@@ -294,13 +334,7 @@
 		    <#assign flag1 = flag1+3 />
 		    <#assign flag2 = flag2+3 />
 	    </#list>
-		function formatArray (arr, splice_num) {
-			var res = [];
-			for(var i = 0, len = arr.length; i < len; i++) {
-				res.push(arr[i][splice_num]);
-			}
-			return res;
-		}
+		
 	    var num_fuwu = formatArray(data1, 1);
 	    var num_genjin = formatArray(data2, 1);
 	    var ticks_name = formatArray(ticks, 1);
@@ -338,30 +372,24 @@
 	    <#list chart4_1Map?keys as k>
 	    	data4_1.push({label: "${k}(${chart4_1Map[k]})",  data: ${chart4_1Map[k]}});
 	    </#list>
-		function format_ArrayObj (arr, key) {
-			var res = [];
-			for(var i = 0, len = arr.length; i < len; i++) {
-				res.push(arr[i][key]);
-			}
-			return res;
-		}
-
-		var format_data4_1 = format_ArrayObj(data4_1, 'data');
+		
+		var format_data4_1 = format_ArrayObj(data4_1);
+		var data4_1_legend_data = format_legend_data(format_data4_1);
 		var pie_chart_1 = echarts.init(document.getElementById("pie-chart-1"));
 		pie_chart_1.setOption({
 			tooltip: {
 				trigger: 'item',
-				formatter: "{a} {b} : {c} ({d}%)"
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
 			},
 			legend: {
 				orient: 'vertical',
-				left: 25,
-				data: ['终止数', '完成数']
+				right: 25,
+				data: data4_1_legend_data
 			},
 			series: [{
-				name: '访问来源',
+				name: "统计结果:",
 				type: 'pie',
-				radius: '60%',
+				radius: '70%',
 				center: ['50%', '60%'],
 				data:  format_data4_1,
 				itemStyle: {
@@ -373,16 +401,203 @@
 				}
 			}]
 		});
-		
-		console.log(data4_1);
 		<#else>
 			$("#pie-chart-1").html("无匹配数据！");		
 	    </#if>
 
+	    <#if chart4_2Map?size gt 0>
+	    <#list chart4_2Map?keys as k>
+	    	data4_2.push({label: "${k}(${chart4_2Map[k]})",  data: ${chart4_2Map[k]}});
+	    </#list>
+	    	var format_data4_2 = format_ArrayObj(data4_2);
+	    	var data4_2_legend_data = format_legend_data(format_data4_2);
+			var pie_chart_2 = echarts.init(document.getElementById("pie-chart-2"));
+			pie_chart_2.setOption({
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend: {
+					orient: 'vertical',
+					right: 25,
+					data: data4_2_legend_data
+				},
+				series: [{
+					name: "统计结果:",
+					type: 'pie',
+					radius: '70%',
+					center: ['50%', '60%'],
+					data:  format_data4_2,
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}]
+			});		
+		<#else>
+			$("#pie-chart-2").html("无匹配数据！");
+	    </#if>
 
+	    <#if chart5Map?size gt 0>
+	    <#list chart5Map?keys as k>
+	    	data5.push({label: "${k}(${chart5Map[k]})", data: ${chart5Map[k]}});
+	    </#list>
+		  	var format_data4_3 = format_ArrayObj(data5);
+	    	var data4_3_legend_data = format_legend_data(format_data4_3);
+			var pie_chart_3 = echarts.init(document.getElementById("pie-chart-3"));
+			pie_chart_3.setOption({
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend: {
+					orient: 'vertical',
+					right: 25,
+					data: data4_3_legend_data
+				},
+				series: [{
+					name: "统计结果:",
+					type: 'pie',
+					radius: '70%',
+					center: ['50%', '60%'],
+					data:  format_data4_3,
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}]
+			});		
+		<#else>
+			$("#pie-chart-3").html("无匹配数据！");
+	    </#if>
 	   
-	 
 
+	   <#-- 满意度工单率变化趋势 -->
+	    var data1 = [], data2 = [], ticks = [];
+	    <#if chart6Map?size gt 0>
+	    <#assign flag1 = 0 />
+	    <#assign flag2 = 1 />
+	    <#list chart6Map?keys as k>
+	    	data1.push([${flag1}, ${chart6Map[k][0]}]);
+	    	data2.push([${flag2}, ${chart6Map[k][1]}]);
+	    	ticks.push([${flag2}, "${k}"]);
+		    <#assign flag1 = flag1+3 />
+		    <#assign flag2 = flag2+3 />
+	    </#list>
+	    var num_manfen = formatArray(data1, 1);
+	    var num_genjinrenwu = formatArray(data2, 1);
+	    var data_name = formatArray(ticks, 1);
+
+		var bar_chart_myd = echarts.init(document.getElementById("bar-chart-myd"));
+		bar_chart_myd.setOption({
+				tooltip: {},
+				legend: {
+					data: ['满分次数', '跟进任务数量'],
+					right: 25
+				},
+				xAxis: {
+					data: data_name
+				},
+				yAxis: {},
+				series: [{
+					name: '满分次数',
+					type: 'bar',
+					data: num_manfen
+				}, {
+					name: '跟进任务数量',
+					type: 'bar',
+					data: num_genjinrenwu
+				}],
+				color: ['#c23531', '#91c7ae']
+		});
+		<#else>
+		$("#bar-chart-myd").html("无匹配数据！");
+	    </#if>
+		
+		var data7 = [];
+	    <#if chart7Map?size gt 0>
+		    <#list chart7Map?keys as k>
+		    <#if k?? && chart7Map[k]??>
+		    	data7.push({label: "${k}(${chart7Map[k]})",  data: ${chart7Map[k]}});
+		    </#if>
+		    </#list>
+		  	var format_data7 = format_ArrayObj(data7);
+	    	var data7_legend_data = format_legend_data(format_data7);
+			var pie_chart_7 = echarts.init(document.getElementById("pie-chart-7"));
+			pie_chart_7.setOption({
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend: {
+					orient: 'vertical',
+					right: 25,
+					data: data7_legend_data
+				},
+				series: [{
+					name: "统计结果:",
+					type: 'pie',
+					radius: '70%',
+					center: ['50%', '60%'],
+					data:  format_data7,
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}]
+			});		
+		<#else>
+			$("#pie-chart-7").html("无匹配数据！");
+	    </#if>
+
+	
+		var bar_data = [];
+	    <#if chart8Map?size gt 0>
+	    <#list chart8Map?keys as k>
+	    	<#if chart8Map[k]??>
+	    	<#assign duration = 0 />
+	    	<#if chart8Map[k][0] gt 0>
+	    		<#assign duration = ((chart8Map[k][0]/chart8Map[k][1])/3600)?string("#.##") />
+	    	</#if>
+	    	bar_data.push(["${k}(${duration})", ${duration}]);
+	    	</#if>  
+	    </#list>
+	    	var xAxi = [];
+		    var seriesData = [];
+		    for (var i = 0, len = bar_data.length; i < len; i++) {
+		        xAxi.push(bar_data[i][0]);
+		        seriesData.push(bar_data[i][1]);
+		    }
+			var bar_chart_sc = echarts.init(document.getElementById("bar-chart-sc"));
+		    bar_chart_sc.setOption({
+		    	tooltip: {},
+		    	legend: {
+					data: ['跟进任务解决时长统计'],
+					right: 25
+				},
+				xAxis: {
+					data: xAxi
+				},
+				yAxis: {},
+				series: [{
+					name: '跟进任务解决时长统计',
+					type: 'bar',
+					data: bar_data
+				}],
+		    });
+	    <#else>
+	    $("#bar-chart-sc").html("无匹配数据！");
+	    </#if>
+	 	
 	});
 	
 </script>

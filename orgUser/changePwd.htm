@@ -1,0 +1,63 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="" url="" title="修改密码">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box red">
+							<div class="portlet-title">
+                                <div class="caption">修改密码</div>
+                            </div>
+                            <p class="text-center text-warning"><strong>提示:</strong>当您成功更新密码后，请牢记新密码！</p>
+                            <div class="portlet-body">
+                            	<form class="form-horizontal" method="post">
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="oldpassword">旧密码</label>
+										<div class="col-sm-9">
+											<input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="目前的登录密码" 
+												required="true" data-fv="NotNull,Length(-20)">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="newpassword">新密码</label>
+										<div class="col-sm-9">
+											<input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="新的登录密码(6位及以上,包含大小写字母及数字)" 
+												required="true" data-fv="NotNull,Password">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="newpassword2">确认新密码</label>
+										<div class="col-sm-9">
+											<input type="password" id="newPassword2" name="newPassword2" class="form-control" placeholder="确认新密码" 
+												required="true" data-fv="NotNull,Password">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-offset-2 col-sm-2">
+											<button class="btn btn-primary btn-block" type="submit"> 提交 </button>	
+										</div>
+									</div>
+								</form>
+                            </div>
+						</div>
+					</div>
+				</div> 
+
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+
