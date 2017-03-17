@@ -1,0 +1,91 @@
+<#include "/wechat/include/head.htm">
+<body>
+<#-- Swiper -->
+<div class="swiper-container">
+	<div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="${ctx.contextPath}/res/img/wechat/banner.jpg" alt=""></div>
+    </div>
+</div>
+
+<div class="weui_grids">
+	<a href="${ctx.contextPath}/wechat/presaleTask/NOTIFY_SA" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+         <img src="http://cs.elementwin.com/upload/demo/1.png" alt="">
+       </div>
+       <p class="weui_grid_label">
+		须响应的潜客
+       </p>
+    </a>
+	<a href="${ctx.contextPath}/wechat/presaleTask" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+         <img src="${ctx.contextPath}/res/img/wechat/customer.png" alt="">
+       </div>
+       <p class="weui_grid_label">
+		所有潜客记录
+       </p>
+    </a>
+    <a href="${ctx.contextPath}/wechat/presaleReport" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+         <img src="${ctx.contextPath}/res/img/wechat/chart.png" alt="">
+       </div>
+       <p class="weui_grid_label">
+       	潜客统计分析
+       </p>
+    </a>
+    <a href="#" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+       </div>
+       <p class="weui_grid_label">
+       &nbsp;		
+       </p>
+    </a>
+	<a href="${ctx.contextPath}/wechat/ecardview" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+         <img src="${ctx.contextPath}/res/img/wechat/ecard.png" alt="">
+       </div>
+       <p class="weui_grid_label">
+		我的名片
+       </p>
+     </a>
+     <a href="#" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+       </div>
+       <p class="weui_grid_label">&nbsp;			
+       </p>
+    </a>
+    
+  	 <a href="${ctx.contextPath}/wechat/revisitWorkOrder" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+         <img src="${ctx.contextPath}/res/img/wechat/workorder.png" alt="">
+       </div>
+       <p class="weui_grid_label">
+		售后跟进任务
+       </p>
+     </a>
+	 <a href="#" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+       </div>
+       <p class="weui_grid_label">&nbsp;		
+       </p>
+    </a>
+	 <a href="${ctx.contextPath}/wechat/report" class="weui_grid js_grid" data-id="button">
+       <div class="weui_grid_icon">
+         <img src="${ctx.contextPath}/res/img/wechat/chart.png" alt="">
+       </div>
+       <p class="weui_grid_label">
+       	查看售后报告
+       </p>
+     </a>
+</div>
+
+<#include "/wechat/include/scripts.htm">
+<script type="text/javascript">
+    var swiper = new Swiper('.swiper-container', {
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplayDisableOnInteraction: false
+	});
+</script>
+</body>
+</html>

@@ -8,26 +8,31 @@
          <div class="page-content-wrapper">
             <div class="page-content">
 
-	            <@bodyHeader menu="客户员工信息管理" url="${ctx.contextPath}/orgUser/index" title="新建员工">
+	            <@bodyHeader menu="上传数据文件" url="${ctx.contextPath}/revisitImport/index" title="上传数据文件">
 				</@bodyHeader>
 
 				<div class="row">
 					<div class="col-md-12">
-						<div class="portlet light bordered">
+						<div class="portlet box blue">
+							<div class="portlet-title">
+                                <div class="caption">导入数据列表 (上传于 ${(model.createTime)?datetime})</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
                             <div class="portlet-body">
-                            	<#include "/orgUser/_form.htm" />
+                            	<#include "/revisitImport/_preview.htm" />
                             </div>
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
 	<#include "/include/footer.htm">
 </div>
 <#include "/include/scripts.htm">
-<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-file.min.js" charset="UTF-8"></script>
 </body>
 </html>
 

@@ -1,0 +1,129 @@
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="realname">姓名 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<input type="text" class="form-control" placeholder="姓名" disabled="disabled"
+				value="<#if (model.realname)??>${model.realname}</#if>">
+		  	<input type="hidden" name="realname" value="${(model.realname)!''}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="avatar">照片</label>
+		<div class="col-md-9">
+			<#if (model.avatar)??>
+				<div class="fileinput fileinput-exists" data-provides="fileinput" style="margin-left:20px">
+				  <div class="fileinput-new thumbnail" style="width: 100px; height: 100px;"><img src="http://www.placehold.it/100x100/" width="100" height="100" /></div>
+				  <div class="fileinput-preview fileinput-exists thumbnail" style="width: 100px; height: 100px; line-height: 20px; margin-right: 20px;">
+					<img src="${model.avatar}" width="100" height="100">
+				  </div>
+				  <div>
+					<span class="btn btn-file"><span class="fileinput-new">上传照片</span><span class="fileinput-exists">更换照片</span><input type="file" name="attachedFiles" /></span>
+				  </div>
+				</div>
+				<#else>
+				<div style="display: inline" class="fileinput fileinput-new" data-provides="fileinput" style="margin-left:20px">
+				  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 120px; height: 120px; margin-right: 20px;">
+					<img src="http://placehold.it/100x100/" width="100" height="100" alt="...">
+				  </div>
+				  <div>
+					<span class="btn btn-default btn-file">
+					<span class="fileinput-new"><i class="fa fa-plus"></i>上传照片 (100*100)</span>
+					<input type="file" name="attachedFiles">
+					<span class="fileinput-exists">更换照片</span></span>
+				  </div>
+				</div>
+			</#if>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="employeeNo">员工编号 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<input type="text" class="form-control" placeholder="员工编号" 
+				value="<#if (model.employeeNo)??>${model.employeeNo}</#if>" disabled="disabled">
+		  	<input type="hidden" name="employeeNo" value="${(model.employeeNo)!''}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="roleId">员工角色 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<select id="orgRoleItemId" name="orgRoleItemId" class="form-control" placeholder="员工角色" data-fv="NotNull">
+				<option value="">- 选择员工角色 -</option>
+				<#list orgRoleList as r>
+				<#if r.parentId gt 0>
+				<option value="${r.id}" <#if (model.orgRoleItemId)?? && model.orgRoleItemId==r.id>selected</#if>>${r.itemName}</option>
+				</#if>
+				</#list>
+			</select>
+			<input type="hidden" name="orgId" value="${(Session.user.orgId)!''}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="managerNo">经理员工号</label>
+		<div class="col-md-9">
+			<input type="text" id="managerNo" name="managerNo" class="form-control" placeholder="经理员工号" 
+				value="<#if (model.managerNo)??>${model.managerNo}</#if>" required="true" 
+		  		data-fv="NotNull,Length(-10)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="username">用户名</label>
+		<div class="col-md-9">
+			<input type="text" id="username" name="username" class="form-control" placeholder="用户名" 
+				value="<#if (model.username)??>${model.username}</#if>"  
+		  		data-fv="Length(-255)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="cellphone">手机号</label>
+		<div class="col-md-9">
+			<input type="text" id="cellphone" name="cellphone" class="form-control" placeholder="手机号" 
+				value="<#if (model.cellphone)??>${model.cellphone}</#if>"  
+		  		data-fv="Length(-20)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="assistantPhone">助理电话 </label>
+		<div class="col-md-9">
+			<input type="text" id="assistantPhone" name="assistantPhone" class="form-control" placeholder="助理电话" 
+				value="<#if (model.assistantPhone)??>${model.assistantPhone}</#if>"  
+		  		data-fv="Phone,Length(-20)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="email">Email</label>
+		<div class="col-md-9">
+			<div class="input-group">
+				<span class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+                </span>
+                <input type="text" id="email" name="email" class="form-control" placeholder="Email" 
+				value="<#if (model.email)??>${model.email}</#if>"  
+		  		data-fv="Length(-255),EMail">
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="wechat">微信号</label>
+		<div class="col-md-9">
+			<div class="input-group">
+				<span class="input-group-addon">
+                <i class="fa fa-wechat"></i>
+                </span>
+                <input type="text" id="wechat" name="wechat" class="form-control" placeholder="微信号" 
+				value="<#if (model.wechat)??>${model.wechat}</#if>"  
+		  		data-fv="Length(-50)">
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-2">
+			<input type="hidden" name="statusItemId" value="${model.statusItemId}" />
+			<#if (model.id)??>
+			<button class="btn green btn-primary btn-block" type="submit"> 提交更新 </button>
+			<#else>
+			<button class="btn btn-success btn-block" type="submit"> 提交 </button>			
+			</#if>
+		</div>
+	</div>
+</form>

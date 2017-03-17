@@ -1,0 +1,45 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="查看消息通知" url="${ctx.contextPath}/message/index" title="消息通知">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box yellow">
+							<div class="portlet-title">
+                                <#if model.importance == 2>
+								<i class="fa fa-bullhorn text-yellow"></i> <span class="text-yellow">${model.title}</span>
+								<#elseif model.importance == 3>
+								<i class="fa fa-bullhorn text-red"></i> <span class="text-red">${model.title}</span>
+								<#else>
+								<i class="fa fa-bullhorn"></i> <span class="">${model.title}</span>											
+								</#if>
+                            </div>
+                            <div class="portlet-body">
+                            	<blockquote style="min-height: 100px">
+					                <p>${model.content}</p>
+					            </blockquote>
+					            <hr>
+					            <small><cite title="Source Title">${(model.createByName)!""}</cite> 发布于 ${(model.createTime)?datetime}</small>	
+                            </div>
+						</div>
+					</div>
+				</div> 
+
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+

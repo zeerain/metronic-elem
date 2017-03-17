@@ -1,0 +1,63 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="集中导入潜客" url="${ctx.contextPath}/presaleImportData/index" title="潜客数据上传管理">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box blue">
+							<div class="portlet-title">
+                                <div class="caption">集中导入潜客数据</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#include "/presaleImportData/_form.htm" />
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box green">
+							<div class="portlet-title">
+                                <div class="caption">潜客数据表</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+							<@boxBody>
+								<#include "/presaleImportData/page_index.htm" />
+								<#include "/include/pagination.htm">
+							</@boxBody>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-action').on("click", function(){
+		$("#focusImport").attr("action", "${ctx.contextPath}/presaleImportData/create");
+		$("#focusImport").submit();
+	});
+});
+</script>
+</body>
+</html>
+

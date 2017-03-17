@@ -1,0 +1,23 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="潜客拨打记录" url="${ctx.contextPath}/presaleTask/index" title="潜客拨打记录">
+		</@bodyHeader>
+		
+		<@box>
+			<@boxBody>
+				<#include "/presaleTask/page_index.htm" />
+			</@boxBody>
+			<@boxFooter>
+				<#include "/include/pagination.htm">
+			</@boxFooter>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

@@ -1,0 +1,130 @@
+<form method="get" action="${ctx.contextPath}/presaleImport/index">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+          	<th>编号</th>
+          	<th>上传文件</th>
+          	<th>上传人</th>
+          	<th>上传时间</th>
+          	<th>记录数</th>
+          	<th>处理结果</th>
+          	<th>备注</th>
+          	<th>调整文件</th>
+          	<th>调整时间</th>
+          	<th class="col-operation" style="min-width:150px">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+           	<td>
+           		#
+           	</td>
+           	<td>
+            	-
+           	</td>
+           	<td>
+            	-
+           	</td>
+           	<td>
+            	-
+           	</td>
+           	<td>
+            	-
+           	</td>
+           	<td>
+            	<select name="status" class="form-control search-field">
+        			<option value="">- 处理结果 -</option>
+        			<option value="S" <#if (criteria.status)?? && (criteria.status=='S')>selected</#if>>成功</option>
+        			<option value="F" <#if (criteria.status)?? && (criteria.status=='F')>selected</#if>>失败</option>
+        			<option value="D" <#if (criteria.status)?? && (criteria.status=='D')>selected</#if>>数据重复</option>
+        		</select>
+           	</td>
+           	<td>
+            	<input type="text" class="form-control search-field" name="comment" value="${(criteria.comment)!""}">
+           	</td>
+           	<td>
+            	-
+           	</td>
+           	<td>
+            	-
+           	</td>
+        	<td>
+        		<button type="submit" class="btn btn-info btn-sm">查询</button>
+            	<a href="${ctx.contextPath}/presaleImport/index" class="btn btn-default btn-sm" title="重置"><i class="fa fa-refresh"></i></a>
+        	</td>
+           </tr>
+            
+            <#if modelList??>
+            <#list modelList as model>
+            <tr>
+            	<td>
+        	    	${model.id}
+        	    </td>
+            	<td>
+            		<#if (model.fileUuid)??>
+        	    	<a href="${ctx.contextPath}/file/download/${model.fileUuid}">${(model.fileName)!""}</a>
+        	    	</#if>
+        	    </td>
+        	    <td>
+        	    	<#if !(model.createBy)?? && (model.updateBy)??>
+        	    		${(model.updateByName)!""}
+        	    	<#elseif model.createBy??>
+        			  	${(model.createByName)!""}	    		
+        	    	</#if>
+        	    </td>
+        	    <td>
+        		  	<#if (model.createTime)??>${model.createTime?datetime}</#if>
+        	    </td>   	
+            	<td>
+        		  	<#if (model.count)?? && model.count != 0>
+        		  		<a href="${ctx.contextPath}/presaleImport/view/${model.id}"><small class="label bg-gray">${model.count}</small></a>
+        		  	<#else>
+        		  		-
+        		  	</#if>
+        	    </td>
+        	    <td>
+        	    	<#if model.status == 'S'>
+        	    	<small class="label bg-green">成功</small>	    	
+        	    	<#elseif model.status == 'F'>
+        	    	<small class="label bg-yellow" title="${(model.failReason)!''}">失败</small>
+        	    	<#elseif model.status == 'D'>
+        	    	<small class="label bg-yellow" title="${(model.failReason)!''}">数据重复</small>
+        	    	<#else>
+        	    		-  	
+        	    	</#if>
+        	    </td>
+        	    <td>
+        	    	<#if (model.comment)??>${model.comment}</#if>
+        	    </td>
+            	<td>
+            		<#if (model.updateFileUuid)??>
+        	    	<a href="${ctx.contextPath}/file/download/${model.updateFileUuid}">${(model.updateFileName)!""}</a>
+        	    	</#if>
+        	    </td>   
+            	<td>
+            		<#if (model.updateFileUuid)?? && (model.updateBy)??>
+        		  		<#if (model.updateTime)??>${model.updateTime?datetime}</#if>
+        		  	</#if>
+        	    </td>
+              	<td>
+              		<#if (model.status)??>
+            			<#if model.status == "S">
+            			<a href="${ctx.contextPath}/presaleImport/view/${model.id}" title="查看该文件导入的数据" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> 查看</a>
+            			<#else>
+        	    			<#if !(model.requestHelp)>
+            	      		<a href="${ctx.contextPath}/presaleImport/repair/${model.id}" class="btn btn-default btn-xs" title="调整文件,重新上传"><i class="fa fa-edit"></i> 调整</a>
+        	    			<a href="${ctx.contextPath}/presaleImport/callHelp/${model.id}" title="交由元兵管理员协助调整" class="btn btn-warning btn-xs"><i class="fa fa-exchange"></i> 申请协助</a>
+        	    			<#else>
+        	    			<span class="text-sm">已申请协助</span>
+        	    			</#if>
+            			</#if>
+            		</#if>
+            	</td>
+            </tr>
+            </#list>
+            </#if>
+        	</tbody>
+    </table>
+  </div>
+</form>

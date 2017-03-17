@@ -1,0 +1,50 @@
+<form class="form-horizontal" method="post">
+		<div class="form-group">
+		<label class="col-sm-2 control-label" for="roleId">角色</label>
+		<div class="col-sm-9">
+				<input type="text" id="roleId" name="roleId" class="form-control" placeholder="角色" 
+					value="${role.name}" disabled="disabled">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="menuId">可访问菜单</label>
+		<div class="col-sm-9">
+			<#if menuList??>
+			<#list menuList as menu>
+				<b>${menu.name} :</b><br>
+				<#if menu.children??>
+				<#list menu.children as c>
+					<label for="c${c.id}" class="normal">
+						<#assign check = false>
+						<#if modelList??>
+						<#list modelList as rm>
+							<#if rm.menuId == c.id>
+								<#assign check = true>							
+							</#if>
+						</#list>
+						</#if>
+						<#if check>
+						<input id="c${c.id}" name="menuId" type="checkbox" value="${menu.id}_${c.id}" checked="checked" />
+						<#else>
+						<input id="c${c.id}" name="menuId" type="checkbox" value="${menu.id}_${c.id}" />						
+						</#if>
+						 ${c.name}
+					</label>
+					<br>
+				</#list>
+				</#if>
+			</#list>
+			</#if>
+			<hr>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-2">
+			<#if model??>
+			<button class="btn btn-primary btn-block" type="submit"> 提交更新 </button>
+			<#else>
+			<button class="btn btn-success btn-block" type="submit"> 提交 </button>			
+			</#if>
+		</div>
+	</div>
+</form>

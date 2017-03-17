@@ -1,0 +1,128 @@
+<table class="table table-striped">
+    <tbody>
+    <tr>
+      <td class="col-label">名称</td>
+      <td class="col-value">
+        ${model.name}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">简称</td>
+      <td class="col-value">
+        <#if (model.shortName)??>${model.shortName}</#if>
+      </td>
+    </tr>
+        <tr>
+      <td class="col-label">编号</td>
+      <td class="col-value">
+        <#if (model.code)??>${model.code}</#if>
+      </td>
+    </tr>
+    <#if model.parentName??>
+    <tr>
+      <td class="col-label">所属集团单位</td>
+      <td class="col-value">
+        ${(model.parentName)!""}
+      </td>
+    </tr>
+    </#if>
+    <tr>
+      <td class="col-label">汽车品牌</td>
+      <td class="col-value">
+        ${(model.carBrand)!"-"}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">Logo</td>
+      <td class="col-value">
+        <#if model.logo??>
+            <img src="${model.logo}" width="100">
+        </#if>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">微信服务号</td>
+      <td class="col-value">
+        <#if model.wechatQrcode??>
+            <img src="${model.wechatQrcode}" width="100">
+        </#if>
+      </td>
+    </tr>
+    <#if (model.agent1Id)?? || (model.agent2Id)??>
+    <tr>
+      <td class="col-label">跟进任务代理人</td>
+      <td class="col-value">
+            ${(model.agent1Name)!""}<#if (model.agent2Id)??>, ${(model.agent2Name)!""}</#if> <#if model.saEditable>(SA可看可处理)<#else>(SA可看不可处理)</#if>
+      </td>
+    </tr>
+    </#if>
+    
+    <tr>
+      <td class="col-label">负责人</td>
+      <td class="col-value">
+        ${(model.manager)!""}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">联系人</td>
+      <td class="col-value">
+        ${(model.contactPerson)!""}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">电话</td>
+      <td class="col-value">
+        ${model.telphone}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">Email</td>
+      <td class="col-value">
+        ${model.email}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">传真</td>
+      <td class="col-value">
+        ${model.fax}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">精品店网址</td>
+      <td class="col-value">
+        ${(model.eshopUrl)!""}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">官方网站</td>
+      <td class="col-value">
+        ${model.website}
+      </td>
+    </tr>
+    
+    <tr>
+      <td class="col-label">备注</td>
+      <td class="col-value">
+        ${model.comment}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label">是否有效</td>
+      <td class="col-value">
+        ${model.active?string('是','否')}
+      </td>
+    </tr>
+    <tr>
+      <td class="col-label"><b>授权服务</b></td>
+      <td class="col-value">
+        <#list orgServices as orgSvc>
+            <#list services as svc>             
+            <#if svc.id == orgSvc.serviceId>
+                <span class="badge bg-green">${svc.itemName} (${orgSvc.beginDate} - ${orgSvc.endDate})</span> &nbsp; &nbsp;
+            </#if>
+            </#list>
+        </#list>
+      </td>
+    </tr>
+    </tbody>
+</table>

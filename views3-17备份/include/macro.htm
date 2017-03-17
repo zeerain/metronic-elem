@@ -1,0 +1,47 @@
+<#-- bodyHeader begin -->
+	<#macro bodyHeader menu url title>
+		 <div class="page-bar">
+	        <h1 class="page-title pull-left">${title}</h1>
+	        <ul class="page-breadcrumb pull-right">
+	            <li>
+		            <i class="fa fa-home"></i>
+	                <a href="${ctx.contextPath}/">工作台</a>
+	            </li>
+	            <#if menu?? && menu!=''>
+	            <li>
+	                <i class="fa fa-circle"></i>
+	                <a href="${url}">${menu}</a>
+	            </li>
+	            </#if>
+	        </ul>
+	    </div>
+	</#macro>
+<#-- bodyHeader end -->
+
+
+<#-- Main content begin -->
+    <#macro box boxColor>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box ${boxColor}">
+                    <#nested>
+                </div>
+            </div>
+        </div>
+    </#macro>
+
+    <#macro boxHeader boxTitle>
+        <div class="portlet-title">
+            <div class="caption"> ${boxTitle} </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            </div>
+        </div>
+    </#macro>
+
+    <#macro boxBody>
+        <div class="portlet-body">
+			<#nested>
+        </div>
+	</#macro>
+<#-- Main content end -->

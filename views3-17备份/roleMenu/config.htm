@@ -1,0 +1,24 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="角色权限管理" url="${ctx.contextPath}/roleMenu/index" title="配置角色权限">
+		</@bodyHeader>
+
+        <@box>
+			<@boxHeader>
+			</@boxHeader>
+			<@boxBody>
+				<#include "/roleMenu/_form.htm" />
+			</@boxBody>
+			<@boxFooter>
+			</@boxFooter>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

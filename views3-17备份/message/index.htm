@@ -1,0 +1,29 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="查看消息通知" url="${ctx.contextPath}/message/index" title="消息通知">
+				</@bodyHeader>
+				
+				<@box boxColor="green">
+					<@boxHeader boxTitle="消息通知"></@boxHeader>
+					<@boxBody>
+						<#include "/message/page_index.htm" />
+						<#include "/include/pagination.htm">
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+
