@@ -2,9 +2,11 @@
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="realname">姓名</label>
 		<div class="col-md-9">
-			<input type="text" id="realname" name="realname" class="form-control" placeholder="姓名" 
-				value="<#if (model.realname)??>${model.realname}</#if>" required="true" 
-		  		data-fv="NotNull,Length(-255)">
+			<div class="input-icon right">
+				<input type="text" id="realname" name="realname" class="form-control" placeholder="姓名" 
+					value="<#if (model.realname)??>${model.realname}</#if>" required="true" 
+			  		data-fv="NotNull,Length(-255)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -52,9 +54,11 @@
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="employeeNo">员工编号 <span class="text-red">*</span></label>
 		<div class="col-md-9">
-			<input type="text" id="employeeNo" name="employeeNo" class="form-control" placeholder="员工编号(3位)" 
-				value="<#if (model.employeeNo)??>${model.employeeNo}</#if>" required="true" 
-		  		data-fv="NotNull,Length(3)">
+			<div class="input-icon right">
+				<input type="text" id="employeeNo" name="employeeNo" class="form-control" placeholder="员工编号(3位)" 
+					value="<#if (model.employeeNo)??>${model.employeeNo}</#if>" required="true" 
+			  		data-fv="NotNull,Length(3)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -73,61 +77,75 @@
 	<div class="form-group account-field">
 		<label class="col-md-2 control-label" for="username1">用户名 <span class="text-red">*</span></label>
 		<div class="col-md-9">
-			<input type="text" id="username1" name="username" class="form-control" placeholder="用户名" 
-				value="<#if (model.username)??>${model.username}</#if>"  
-		  		data-fv="NotNull,Length(-50)">
+			<div class="input-icon right">
+				<input type="text" id="username1" name="username" class="form-control" placeholder="用户名" 
+					value="<#if (model.username)??>${model.username}</#if>"  
+			  		data-fv="NotNull,Length(-50)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group account-field">
 		<label class="col-md-2 control-label" for="password">登录密码 <span class="text-red">*</span></label>
 		<div class="col-md-9">
-			<#if (model.id)??>
-			<a id="changepwdBtn" href="#" class="btn btn-link" onclick="$('#password').val('');$('#password').removeClass('hide');$('#changepwdBtn').addClass('hide');">修改密码</a>
-			<input type="text" id="password" name="password" class="form-control hide" placeholder="新密码 (6位及以上，包含大小写字母及数字)" 
-				value="<#if (model.password)??>${model.password}</#if>" data-original="${(model.password)!''}" required="true" data-fv="NotNull,Password">
-			<#else>
-				<input type="password" name="password" value="<#if (model.password)??>${model.password}</#if>" class="form-control" data-fv="NotNull,Password">
-			</#if>
+			<div class="input-icon right">
+				<#if (model.id)??>
+				<a id="changepwdBtn" href="#" class="btn btn-link" onclick="$('#password').val('');$('#password').removeClass('hide');$('#changepwdBtn').addClass('hide');">修改密码</a>
+				<input type="text" id="password" name="password" class="form-control hide" placeholder="新密码 (6位及以上，包含大小写字母及数字)" 
+					value="<#if (model.password)??>${model.password}</#if>" data-original="${(model.password)!''}" required="true" data-fv="NotNull,Password">
+				<#else>
+					<input type="password" name="password" value="<#if (model.password)??>${model.password}</#if>" class="form-control" data-fv="NotNull,Password">
+				</#if>
+			</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="cellphone">手机号 </label>
 		<div class="col-md-9">
-			<input type="text" id="cellphone" name="cellphone" class="form-control" placeholder="手机号" 
-				value="<#if (model.cellphone)??>${model.cellphone}</#if>"  
-		  		data-fv="Phone,Length(-20)">
+			<div class="input-icon right">
+				<input type="text" id="cellphone" name="cellphone" class="form-control" placeholder="手机号" 
+					value="<#if (model.cellphone)??>${model.cellphone}</#if>"  
+			  		data-fv="Phone,Length(-20)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="assistantPhone">助理电话 </label>
 		<div class="col-md-9">
-			<input type="text" id="assistantPhone" name="assistantPhone" class="form-control" placeholder="助理电话" 
-				value="<#if (model.assistantPhone)??>${model.assistantPhone}</#if>"  
-		  		data-fv="Phone,Length(-20)">
+			<div class="input-icon right">
+				<input type="text" id="assistantPhone" name="assistantPhone" class="form-control" placeholder="助理电话" 
+					value="<#if (model.assistantPhone)??>${model.assistantPhone}</#if>"  
+			  		data-fv="Phone,Length(-20)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="email">Email </label>
 		<div class="col-md-9">
+			<div class="input-icon right">
 			<input type="text" id="email" name="email" class="form-control" placeholder="Email" 
 				value="<#if (model.email)??>${model.email}</#if>"  
 		  		data-fv="Email,Length(-255)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="wechat">微信号</label>
 		<div class="col-md-9">
+			<div class="input-icon right">
 			<input type="text" id="wechat" name="wechat" class="form-control" placeholder="微信号" 
 				value="<#if (model.wechat)??>${model.wechat}</#if>"  
 		  		data-fv="Length(-50)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="comment">备注</label>
 		<div class="col-md-9">
+			<div class="input-icon right">
 			<input type="text" id="comment" name="comment" class="form-control" placeholder="备注" 
 				value="<#if (model.comment)??>${model.comment}</#if>"  
 		  		data-fv="Length(-255)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">

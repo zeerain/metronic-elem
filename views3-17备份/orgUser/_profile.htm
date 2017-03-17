@@ -61,55 +61,57 @@
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="managerNo">经理员工号</label>
 		<div class="col-md-9">
-			<input type="text" id="managerNo" name="managerNo" class="form-control" placeholder="经理员工号" 
-				value="<#if (model.managerNo)??>${model.managerNo}</#if>" required="true" 
-		  		data-fv="NotNull,Length(-10)">
+			<div class="input-icon right">
+				<input type="text" id="managerNo" name="managerNo" class="form-control" placeholder="经理员工号" 
+					value="<#if (model.managerNo)??>${model.managerNo}</#if>" required="true" 
+			  		data-fv="NotNull,Length(-10)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="username">用户名</label>
 		<div class="col-md-9">
-			<input type="text" id="username" name="username" class="form-control" placeholder="用户名" 
-				value="<#if (model.username)??>${model.username}</#if>"  
-		  		data-fv="Length(-255)">
+			<div class="input-icon right">
+				<input type="text" id="username" name="username" class="form-control" placeholder="用户名" 
+					value="<#if (model.username)??>${model.username}</#if>"  
+			  		data-fv="Length(-255)">
+			</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="cellphone">手机号</label>
 		<div class="col-md-9">
-			<input type="text" id="cellphone" name="cellphone" class="form-control" placeholder="手机号" 
-				value="<#if (model.cellphone)??>${model.cellphone}</#if>"  
-		  		data-fv="Length(-20)">
+			<div class="input-icon right">
+				<input type="text" id="cellphone" name="cellphone" class="form-control" placeholder="手机号" 
+					value="<#if (model.cellphone)??>${model.cellphone}</#if>"  
+			  		data-fv="Phone,Length(-20)">
+			</div>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-md-2 control-label" for="assistantPhone">助理电话 </label>
+		<label class="col-md-2 control-label" for="assistantPhone">助理电话</label>
 		<div class="col-md-9">
-			<input type="text" id="assistantPhone" name="assistantPhone" class="form-control" placeholder="助理电话" 
-				value="<#if (model.assistantPhone)??>${model.assistantPhone}</#if>"  
-		  		data-fv="Phone,Length(-20)">
+			<div class="input-icon right">
+				<input type="text" id="assistantPhone" name="assistantPhone" class="form-control" placeholder="助理电话" 
+					value="<#if (model.assistantPhone)??>${model.assistantPhone}</#if>"  
+			  		data-fv="Phone,Length(-20)">
+			</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="email">Email</label>
 		<div class="col-md-9">
-			<div class="input-group">
-				<span class="input-group-addon">
-                <i class="fa fa-envelope"></i>
-                </span>
+			<div class="input-icon right">
                 <input type="text" id="email" name="email" class="form-control" placeholder="Email" 
 				value="<#if (model.email)??>${model.email}</#if>"  
 		  		data-fv="Length(-255),EMail">
-			</div>
+			</div>			
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="wechat">微信号</label>
 		<div class="col-md-9">
-			<div class="input-group">
-				<span class="input-group-addon">
-                <i class="fa fa-wechat"></i>
-                </span>
+			<div class="input-icon right">
                 <input type="text" id="wechat" name="wechat" class="form-control" placeholder="微信号" 
 				value="<#if (model.wechat)??>${model.wechat}</#if>"  
 		  		data-fv="Length(-50)">

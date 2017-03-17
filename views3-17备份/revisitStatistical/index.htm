@@ -307,16 +307,18 @@
 		        type: 'value',
 		        boundaryGap: [0, '100%'],
 		        splitLine: {
-		            show: false
+		            show: true
 		        }
 		    },
 		    series: [{
 		        name: '服务次数',
 		        type: 'line',
 		        showSymbol: false,
+		        areaStyle: {normal: {}},
 		        hoverAnimation: false,
 		        data: bar_data
-		    }]
+		    }],
+		    color: ['#91c7ae']
 		});
 	    <#else>
 	    $("#bar-chart-bhqs").html("无匹配数据！");

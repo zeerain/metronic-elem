@@ -85,11 +85,11 @@
         	    </td>
         	    <td>
         	    	<#if model.status == 'S'>
-        	    	<small class="label bg-green">成功</small>	    	
+        	    	<small class="label bg-green label-sm">成功</small>	    	
         	    	<#elseif model.status == 'F'>
-        	    	<small class="label bg-yellow" title="${(model.failReason)!''}">失败</small>
+        	    	<small class="label bg-yellow label-sm" title="${(model.failReason)!''}">失败</small>
         	    	<#elseif model.status == 'D'>
-        	    	<small class="label bg-yellow" title="${(model.failReason)!''}">数据重复</small>
+        	    	<small class="label bg-yellow label-sm" title="${(model.failReason)!''}">数据重复</small>
         	    	<#else>
         	    		-  	
         	    	</#if>

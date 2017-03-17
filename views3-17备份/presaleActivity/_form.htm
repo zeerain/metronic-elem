@@ -2,9 +2,11 @@
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="title">标题 <span class="text-red">*</span></label>
 		<div class="col-md-9">
-			<input type="text" id="title" name="title" class="form-control" placeholder="标题" 
-				value="<#if (model.title)??>${model.title}</#if>"  
-		  		data-fv="Length(-255)">
+			<div class="input-icon right">
+				<input type="text" id="title" name="title" class="form-control" placeholder="标题" 
+					value="<#if (model.title)??>${model.title}</#if>"  
+			  		data-fv="Length(-255)">
+		  	</div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -41,9 +43,11 @@
 	<div class="form-group">
 		<label class="col-md-2 control-label" for="amount">总数 <span class="text-red">*</span></label>
 		<div class="col-md-9">
-			<input type="text" id="amount" name="amount" class="form-control" placeholder="总数量(0代表不限)" 
-				value="<#if (model.amount)??>${model.amount}</#if>" required="true" 
-		  		data-fv="NotNull">
+			<div class="input-icon right">
+				<input type="text" id="amount" name="amount" class="form-control" placeholder="总数量(0代表不限)" 
+					value="<#if (model.amount)??>${model.amount}</#if>" required="true" 
+			  		data-fv="NotNull">
+			</div>
 		</div>
 	</div>
 	<div class="form-group">
