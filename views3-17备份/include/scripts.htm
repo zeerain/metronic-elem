@@ -1,4 +1,3 @@
-
 <script src="${ctx.contextPath}/res/assets/js/jquery.min.js" type="text/javascript"></script>
 <script src="${ctx.contextPath}/res/assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${ctx.contextPath}/res/assets/js/app.min.js" type="text/javascript"></script>
@@ -10,19 +9,26 @@
 <script type="text/javascript" src="${ctx.contextPath}/res/assets/js/web.custom.js"></script>
 
 
-
-<#-- will 使用的js -->
-<#-- <script src="${ctx.contextPath}/res/assets/js/moment.min.js" type="text/javascript"></script> -->
-<#-- <script type="text/javascript" src="${ctx.contextPath}/res/assets/js/select2.min.js"></script> -->
+<#-- PC端没有到使用的js -->
+<script src="${ctx.contextPath}/res/assets/js/moment.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/select2.min.js"></script>
 
 <script>
 	$(document).ready(function(){
 	<#if (Session.user.id)??>
 		<#-- 初始化当前页面的JS事件 -->
 		$.Utils.initPageEvent();
+		<#--收缩时隐藏用户头像和服务 -->
+	    $('.menu-toggler.sidebar-toggler').click(
+	        function() {
+	            $("#nav-server").toggle();
+	            $("#userInfo").toggle();
+	            $(".logo.font-white").toggle();
+	        });
 		$("#svc-switcher").on("change", function(){
 			location.href = "${ctx.contextPath}/?svc="+$(this).val();
 		});
+		$.Utils.focusMenu();
 		$.Utils.startTicker();
 		<#-- 显示提示信息 -->
 		<#if result??>

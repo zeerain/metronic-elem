@@ -8,15 +8,15 @@
          <div class="page-content-wrapper">
             <div class="page-content">
 
-            <@bodyHeader menu="警告" url="${ctx.contextPath}/" title="无权访问">
+            <@bodyHeader menu="错误" url="${ctx.contextPath}/" title="出错啦">
             </@bodyHeader>
             
             <div class="row">
                   <div class="col-md-12 page-404">
-                      <div class="number font-yellow"> 403</div>
+                      <div class="number font-green"> 404 </div>
                       <div class="details">
-                          <h3 class="font-red">您没有权限访问该页面！</h3>
-                          <p> 抱歉，您没有权限访问该页面，如需要继续访问请联系管理员授权！
+                          <h3 class="font-red">您访问的页面出错了！</h3>
+                          <p> 抱歉，您访问的页面出错了，可能不存在或已被删除！
                               <br>
                               <a href="${ctx.contextPath}/">返回我的工作台</a></p>
                       </div>

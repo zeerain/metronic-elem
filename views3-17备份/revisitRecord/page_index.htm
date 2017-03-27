@@ -1,6 +1,6 @@
 <form method="get" action="${ctx.contextPath}/revisitRecord/index">
 <div class="table-responsive">
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" style="width:1040px">
         <thead>
             <tr>
                 <th> ID </th>
@@ -13,7 +13,7 @@
                 <th>客户经理</th>
                 <th>回访日期</th>
                 <th>回访状态</th>
-                <th>总体得分</th>
+                <th>总分</th>
                 <th>回访坐席</th>
                 <th>跟进任务</th>
                 <th class="col-operation">操作</th>
@@ -58,7 +58,7 @@
                         <option value="STOP" <#if (criteria.status)?? && (criteria.status=='STOP')>selected</#if>>终止</option>
                     </select>
                 </td>
-                <td>
+                <td style="width:50px">
                     -
                 </td>
                 <td>
@@ -79,7 +79,7 @@
                         </#list>
                     </select>
                 </td>
-                <td>
+                <td style="width:110px">
                     <div class="btn-group">
                         <button type="submit" class="btn btn-info btn-sm">查询</button>
                         <a href="${ctx.contextPath}/revisitRecord/index" class="btn btn-default btn-sm" title="重置"><i class="fa fa-refresh"></i></a>

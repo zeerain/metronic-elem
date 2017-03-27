@@ -113,17 +113,17 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="row">
-                                    <div class="col-sm-4 col-xs-6">
+                                    <div class="col-sm-4 col-xs-12">
                                         完成数、终止数统计
-                                        <div id="pie-chart-1" style="height:300px; margin:0 auto"></div>
+                                        <div id="pie-chart-1" style="height:330px; margin:0 auto"></div>
                                     </div>
-                                    <div class="col-sm-4 col-xs-6">
+                                    <div class="col-sm-4 col-xs-12">
                                         完成率、未完成原因统计
-                                        <div id="pie-chart-2" style="height:300px; margin:0 auto"></div>
+                                        <div id="pie-chart-2" style="height:330px; margin:0 auto"></div>
                                     </div>
                                     <div class="col-sm-4 col-xs-12">
                                         满分率、工单率统计
-                                        <div id="pie-chart-3" style="height:300px; margin:0 auto">无匹配数据！</div>
+                                        <div id="pie-chart-3" style="height:330px; margin:0 auto">无匹配数据！</div>
                                     </div>
                                 </div>
                                 <hr>
@@ -170,9 +170,9 @@
 	                        </div>
 	                        <div class="portlet-body">
 	                            <div class="row">
-	                                <div class="col-sm-4 col-xs-6">
+	                                <div class="col-sm-6 col-xs-12">
 	                                    工单类型分析
-	                                    <div id="pie-chart-7" style="height:200px; margin:0 auto"></div>
+	                                    <div id="pie-chart-7" style="height:300px; margin:0 auto"></div>
 	                                </div>
 	                            </div>
 	                            <hr>
@@ -271,6 +271,7 @@
 					data: bar_data
 				}],
 		    });
+			window.addEventListener('resize',  bar_chart_zl.resize);
 	    <#else>
 		    $("#bar-chart-zl").html("无匹配数据！");
 	    </#if>
@@ -320,6 +321,7 @@
 		    }],
 		    color: ['#91c7ae']
 		});
+		 window.addEventListener('resize', bar_chart_bhqs.resize);
 	    <#else>
 	    $("#bar-chart-bhqs").html("无匹配数据！");
 	    </#if>
@@ -363,6 +365,7 @@
 				}],
 				color: ['#c23531', '#91c7ae']
 		});
+		window.addEventListener('resize', bar_chart_ry.resize);
 	    <#else>
 	    $("#bar-chart-ry").html("无匹配数据！");
 	    </#if>
@@ -385,11 +388,16 @@
 			},
 			legend: {
 				orient: 'vertical',
-				right: 25,
+				right: 0,
 				data: data4_1_legend_data
+			},
+			opts: {
+				width: 'auto',
+				height: 'auto'
 			},
 			series: [{
 				name: "统计结果:",
+				selectedMode: 'single',
 				type: 'pie',
 				radius: '70%',
 				center: ['50%', '60%'],
@@ -403,6 +411,7 @@
 				}
 			}]
 		});
+		window.addEventListener('resize', pie_chart_1.resize);
 		<#else>
 			$("#pie-chart-1").html("无匹配数据！");		
 	    </#if>
@@ -421,11 +430,12 @@
 				},
 				legend: {
 					orient: 'vertical',
-					right: 25,
+					right: 0,
 					data: data4_2_legend_data
 				},
 				series: [{
 					name: "统计结果:",
+					selectedMode: 'single',
 					type: 'pie',
 					radius: '70%',
 					center: ['50%', '60%'],
@@ -439,6 +449,7 @@
 					}
 				}]
 			});		
+			window.addEventListener('resize', pie_chart_2.resize);
 		<#else>
 			$("#pie-chart-2").html("无匹配数据！");
 	    </#if>
@@ -457,11 +468,12 @@
 				},
 				legend: {
 					orient: 'vertical',
-					right: 25,
+					right: 0,
 					data: data4_3_legend_data
 				},
 				series: [{
 					name: "统计结果:",
+					selectedMode: 'single',
 					type: 'pie',
 					radius: '70%',
 					center: ['50%', '60%'],
@@ -474,7 +486,8 @@
 						}
 					}
 				}]
-			});		
+			});
+			window.addEventListener('resize', pie_chart_3.resize);
 		<#else>
 			$("#pie-chart-3").html("无匹配数据！");
 	    </#if>
@@ -518,6 +531,7 @@
 				}],
 				color: ['#c23531', '#91c7ae']
 		});
+		window.addEventListener('resize', bar_chart_myd.resize);
 		<#else>
 		$("#bar-chart-myd").html("无匹配数据！");
 	    </#if>
@@ -539,12 +553,13 @@
 				},
 				legend: {
 					orient: 'vertical',
-					right: 25,
+					right: 0,
 					data: data7_legend_data
 				},
 				series: [{
 					name: "统计结果:",
 					type: 'pie',
+					selectedMode: 'single',
 					radius: '70%',
 					center: ['50%', '60%'],
 					data:  format_data7,
@@ -556,7 +571,8 @@
 						}
 					}
 				}]
-			});		
+			});	
+		window.addEventListener('resize', pie_chart_7.resize);
 		<#else>
 			$("#pie-chart-7").html("无匹配数据！");
 	    </#if>
@@ -596,6 +612,7 @@
 					data: bar_data
 				}],
 		    });
+		window.addEventListener('resize', bar_chart_sc.resize);
 	    <#else>
 	    $("#bar-chart-sc").html("无匹配数据！");
 	    </#if>

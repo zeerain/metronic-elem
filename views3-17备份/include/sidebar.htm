@@ -6,7 +6,7 @@
                     <span></span>
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item ">
                 <a href="javascript:;" class="nav-toggle clearfix" id="userInfo">
                     <div class="pull-left">
                         <#if (Session.user.organization.logo)??>
@@ -21,7 +21,7 @@
                     </div>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item ">
                 <#if (Session.user)?exists && !Session.user.groupUser>
                 <div class="input-group" id="nav-server">
                     <span class="input-group-addon server-exchange">服务</span>
@@ -38,7 +38,7 @@
                 </div>
                 </#if>
             </li>
-            <li class="nav-item start active open" style="margin: 20px 0px;">
+            <li class="nav-item start" data-m="home" style="margin: 20px 0px;">
                 <a href="${ctx.contextPath}/" class="nav-link nav-toggle">
                     <i class="fa fa-dashboard"></i>
                     <span class="title">我的工作台</span>
@@ -49,20 +49,22 @@
             <#if (Session.user.menus)?exists>
                 <#list Session.user.menus as menu>
                     <#if menu.link?? && menu.link != ''>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a href="${ctx.contextPath}${menu.link}" class="nav-link nav-toggle">
                             <i class="${menu.icon}"></i>
                             <span class="title">${menu.name}</span>
+                            <span class="selected"></span>
                         </a>
                     </li>
                     <#else>
-                    <li class="nav-item" data-m="${(c.link)!''}">
+                    <li class="nav-item treeview" data-m="${(c.link)!''}">
                         <a href="${(menu.link)!''}" class="nav-link nav-toggle">
                             <i class="${menu.icon}"></i>
                             <span class="title">${menu.name}</span>
                             <span class="arrow"></span>
+                            <span class="selected"></span>
                         </a>
-                        <ul class="sub-menu">
+                        <ul class="sub-menu ">
                             <#if menu.children??>
                             <#list menu.children as c>
                             <li class="nav-item " data-m="${(c.link)!''}">

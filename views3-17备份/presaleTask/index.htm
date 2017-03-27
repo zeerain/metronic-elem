@@ -1,23 +1,29 @@
 <#include "/include/head.htm">
-<body class="hold-transition ${skin}">
-<div class="wrapper">
-	<#include "/include/header.htm">
-	<#include "/include/sidebar.htm">
-    <div class="content-wrapper">
-		<@bodyHeader menu="潜客拨打记录" url="${ctx.contextPath}/presaleTask/index" title="潜客拨打记录">
-		</@bodyHeader>
-		
-		<@box>
-			<@boxBody>
-				<#include "/presaleTask/page_index.htm" />
-			</@boxBody>
-			<@boxFooter>
-				<#include "/include/pagination.htm">
-			</@boxFooter>
-		</@box>
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="潜客拨打记录" url="${ctx.contextPath}/presaleTask/index" title="潜客拨打记录">
+				</@bodyHeader>
+				
+				<@box boxColor="blue">
+					<@boxHeader boxTitle="潜客拨打记录"></@boxHeader>
+					<@boxBody>
+						<#include "/presaleTask/page_index.htm" />
+						<#include "/include/pagination.htm">
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
 	</div>
 	<#include "/include/footer.htm">
 </div>
 <#include "/include/scripts.htm">
 </body>
 </html>
+
