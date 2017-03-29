@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="${ctx.contextPath}/res/weixin/dist/reset.css">
+    <link rel="stylesheet" type="text/css" href="${ctx.contextPath}/res/weixin/dist/calendar.custom.css">
+    <title>元兵空中助理</title>
+</head>
+<body>
+<header class="calendar-header">
+    <h1>今天</h1>
+    <p>${today?string("yyyy年MM月dd日")}</p>
+</header>
+<div class="wrapper">
+    <table class="weekend-picker">
+        <tr>
+            <td><a href="javascript:;">M</a></td>
+            <td><a href="javascript:;">T</a></td>
+            <td><a href="javascript:;">W</a></td>
+            <td><a href="javascript:;">T</a></td>
+            <td><a href="javascript:;">F</a></td>
+            <td><a href="javascript:;">S</a></td>
+            <td><a href="javascript:;">S</a></td>
+        </tr>
+        <tr>
+        	<#list weekday as day>
+        	<td class="switch-date <#if today?string('yyyyMMdd') == day?string('yyyyMMdd')>active</#if>"><a data-date="${day?string('yyyy-MM-dd')}" href="javascript:;">${day?string('d')}</a></td>
+        	</#list>
+        </tr>
+    </table>
+    <ul class="list">
+        <#include "/weixin/calendar/list.htm">
+    </ul>
+</div>
+<script src="${ctx.contextPath}/res/js/jquery.min.js" type="text/javascript"></script>
+<script>
+$(function(){
+    $(".switch-date a").on('click', function(){
+    	var url = "${ctx.contextPath}/weixin/calendar/load/"+$(this).data("date");
+        var parentObj = $(this).parent();
+        $.get(url, function(result){
+        	$(".switch-date").removeClass("active");
+			$("ul.list").html(result);
+        	parentObj.addClass("active");
+		});
+    });
+});
+</script>
+<#include "/weixin/include/_keep_alive.htm">
+</body>
+</html>

@@ -1,0 +1,38 @@
+<#list modelList as model>
+	<#if !focusDate?? || model.nextHandleTime?string("yyyy-MM-dd") != focusDate>
+		<#assign focusDate = model.nextHandleTime?string("yyyy-MM-dd") />
+		<#if !lastFocusDate?? || focusDate?replace('/','') != lastFocusDate>
+			<header class="header">
+				<span class="left">${model.nextHandleTime?string("yyyy-MM-dd")}</span>
+				<span class="right">${model.week}</span>
+			</header>
+		</#if>
+		<ul class="list">
+			<#list modelList as task>
+				<#if task.nextHandleTime?string("yyyy-MM-dd") == focusDate>
+					<li>
+						<div class="title left-fixed_right-auto">
+							<div class="left ${task.importanceClass}"></div>
+							<div class="right">
+								<div class="right-content">
+									<h3>${task.customerName}</h3>
+									<p>
+										<#if (task.customer.intentCarModel)??><span>${task.customer.intentCarModel}</span></#if>
+										<#if (task.customer.tags)??><span>${task.customer.tags}</span></#if>
+									</p>
+									<form class="ctrl-box audio-fm" action="${ctx.contextPath}/weixin/contact/todotask/sendAudioUrl/${task.id}">
+										<#include "/weixin/include/_task_audio_params.htm">
+										<a href="tel:${task.customerPhone}" class="makeCall"></a>
+										<a href="javascript:;" class="fenfu startRecord">吩咐</a>
+										<a href="javascript:;" class="btn-submit disabled" disabled="disabled"></a>
+									</form>
+								</div>
+							</div>
+						</div>
+					</li>
+				</#if>
+			</#list>
+		</ul>
+	</#if>
+</#list>
+<input type="hidden" class="lastFocusDate" value="${focusDate}" />

@@ -1,0 +1,257 @@
+<div class="weui_panel weui_panel_access" style="padding-top:10px">
+<#if taskList??>
+  <#list taskList as model>
+	<div class="box box-primary collapsed-box">
+		<div class="box-header with-border">
+			<h3 class="box-title">
+	            <i class="fa fa-tag"></i> 任务号  #${model.id}
+	        </h3>
+	      	<div class="box-tools pull-right">
+	        	<button data-widget="collapse" class="btn btn-box-tool" type="button"><i class="fa fa-plus"></i> 查看详情/处理跟进任务</button>
+	        </div>
+	        <table class="table table-bordered table-striped table-hover" style="margin-top:10px;">
+			<tbody>
+				<tr>
+					<td class="td-label" nowrap>送修人</td>
+		    		<td class="td-value">
+		    			${(model.carOwner)!""} (${(model.carDriverPhone)!""})
+			    	</td>
+			    </tr>
+			    <tr>
+					<td class="td-label" nowrap>任务状态:</td>
+			    	<td class="td-value">
+					  	${(model.statusName)!""}
+				    </td>
+				</tr>
+			    </tbody>
+			</table>
+	    </div>
+	    
+		<div class="box-body no-padding">
+			<#if (model.workOrder)??>
+			<table class="table table-bordered table-striped table-hover">
+			<tbody>
+				<#if (model.workOrder.opinionList)?? && model.workOrder.opinionList?size gt 0>
+					<#list model.workOrder.opinionList as o>
+						<#assign updateTime=o.createTime />
+						<#if (o.status)?? && o.status='SOLVED'>
+							<#assign closeTime=o.createTime />				
+						</#if>	    				
+					</#list>
+				</#if>
+				<tr>
+				<td class="td-label" nowrap>跟进任务类型:</td>
+		    	<td class="td-value">
+				  	${(model.workOrder.statusTrace)!""}
+			    </td>
+			    </tr>
+				<tr>
+					<td class="td-label">跟进任务描述:</td>
+			    	<td class="td-value">
+					  	${(model.workOrder.content)!""}
+				    </td>
+				</tr>
+				<tr>
+				    <td class="td-label">跟进任务状态:</td>
+			    	<td class="td-value">
+					  	${(model.workOrder.statusName)!""}
+				    </td>
+				</tr>
+				<tr>
+					<td class="td-label">创建时间:</td>
+			    	<td class="td-value">
+					  	<#if model.workOrder??>${(model.workOrder.createTime)?datetime}</#if>
+				    </td>
+				</tr>
+			    <#if closeTime??>
+				<tr>
+			    <td class="td-label">关闭时间:</td>
+		    	<td class="td-value">
+		    		${closeTime?datetime}
+			    </td>
+				</tr>
+			    </#if>
+			    
+				<#if (model.workOrder.opinionList)?? && model.workOrder.opinionList?size gt 0>
+				<tr>
+					<td colspan="2">
+						<#list model.workOrder.opinionList as o>
+						<blockquote>
+			                <p>${o.opinion}</p>
+			                <small> ${o.createByName} 提交于<cite title="">${o.createTime?datetime}</cite></small>
+			            </blockquote>
+			            </#list>
+					</td>
+				</tr>
+				</#if>
+			</tbody>
+			</table>
+		    </#if>
+			
+			<hr>
+			<table class="table table-bordered table-striped table-hover">
+			<tbody>
+				<tr>
+					<td class="td-label" nowrap>送修人:</td>
+			    	<td class="td-value">
+					  	${(model.carDriver)!""} 
+					  	<#if (model.carDriverPhone)??>
+					  		<a class="text-green pull-right" href="tel:${model.carDriverPhone}"><i class="fa fa-phone"></i> 拨打</a>
+					  	</#if>
+				    </td>
+				</tr>
+				<tr>
+					<td class="td-label">车主:</td>
+			    	<td class="td-value">
+					  	${(model.carOwner)!""} 
+				    </td>
+				</tr>
+				<#if (model.address)??>
+				<tr>
+					<td class="td-label">现有住址:</td>
+			    	<td class="td-value">
+					  	${(model.address)!""} 
+				    </td>
+				</tr>
+				</#if>
+				<tr>
+					<td class="td-label">维修类型:</td>
+			    	<td class="td-value">
+					  	${(model.serviceType)!""}
+				    </td>
+				</tr>
+			    <tr>
+			    	<td class="td-label">交车日期:</td>
+			    	<td class="td-value">
+					  	${(model.serviceEndDate)!""}
+				    </td>
+			    </tr>
+			    <tr>
+			    	<td class="td-label">车牌号:</td>
+			    	<td class="td-value">
+					  	${(model.carLicenseNo)!""}
+				    </td>
+			    	
+			    </tr>
+			    <tr>
+			    	<td class="td-label">车辆品牌:</td>
+			    	<td class="td-value">
+					  	${(model.carBrand)!""}
+				    </td>
+			    </tr>
+			    <tr>
+			    	<td class="td-label">车型:</td>
+			    	<td class="td-value">
+					  	${(model.carModelType)!""}
+				    </td>
+			    </tr>
+			    <tr>
+			    	<td class="td-label">是否原店:</td>
+			    	<td class="td-value">
+					  	${(model.isDealerStore)!""}
+				    </td>
+			    </tr>
+			    <tr>
+			    	<td class="td-label">车架号:</td>
+			    	<td class="td-value">
+					  	${(model.carFrameNo)!""}
+				    </td>
+			    </tr>
+			    <tr>
+			    	<td class="td-label">到店里程:</td>
+			    	<td>
+					  	${(model.mileage)!""}
+				    </td>
+			    </tr>
+		    	<tr>
+			    	<td class="td-label">是否会员:</td>
+			    	<td>
+					  	${(model.isMember)!""}
+				    </td>
+			    </tr>
+			    <tr>
+			    	<td class="td-label">是否过保:</td>
+			    	<td>
+					  	${(model.isOutInsure)!""}
+				    </td>
+			    </tr>
+			</tbody>
+			</table>
+				
+			<hr>
+			<table class="table table-bordered table-striped table-hover">
+			<tbody>
+				<tr>
+					<td class="td-label" nowrap>记录状态:</td>
+			    	<td class="td-value">
+					  	${(model.statusName)!""}
+				    </td>
+				</tr>
+				<tr>
+					<td class="td-label">回访次数:</td>
+			    	<td class="td-value">
+					  	<#if (model.recordList)??>${model.recordList?size}<#else>0</#if>
+				    </td>
+				</tr>
+				<tr>
+					<td class="td-label">综合得分:</td>
+					<td class="td-value">${(model.totalScore)!"-"}</td>
+				</tr>
+			</tbody>
+			</table>
+				
+			<#assign hasRecord = ((model.recordList)?? && model.recordList?size gt 0) />
+			<#if hasRecord>
+			<table class="table table-bordered table-striped table-hover">
+			<tbody>
+				<tr>
+					<th width="30%">回访时间</th>
+					<th width="20%">状态</th>
+					<th width="50%">录音</th>
+				</tr>
+				<#list model.recordList as record>
+					<tr>
+					<td>${record.createTime?datetime}</td>
+					<td><#if (record.undoneReason)??>${record.undoneReason}<#else>${(record.statusName)!""}</#if></td>
+					<td>
+						<#if (record.audioUrlList)??>
+					  	<#list record.audioUrlList as url>
+					  		<#if url?ends_with('.mp3')>
+								<audio class="audio-player" src="${url}" type="audio/mp3" controls>
+								浏览器不支持播放
+								</audio>
+							<#else>
+					  		<a href="${url}" class="btn btn-default btn-xs"><i class="fa fa-file-sound-o"></i> 录音${record_index+url_index+1}</a>										  		
+					  		</#if>
+					  	</#list>
+					  	</#if>
+					</td>
+				</tr>
+				</#list>
+				</tbody>
+			</table>
+			</#if>
+			<hr>
+			<table class="table table-bordered table-striped table-hover">
+			<tbody>
+				<tr>
+					<th style="width:50%">问题内容</th>
+					<th style="width:35%">回答结果</th>
+					<th style="width:15%">计分</th>
+				</tr>
+				<#if model.answerList??>
+				<#list model.answerList as answer>
+				<tr>
+					<td>${(answer.questionItemTitle)!"-"}</td>
+					<td>${(answer.answer)!"-"}</td>
+					<td>${(answer.score)!"-"}</td>
+				</tr>
+				</#list>
+				</#if>
+			</tbody>
+			</table>				
+	        </div><#-- box-body -->
+	    </div><#-- box -->
+  </#list>
+  </#if>
+</div>

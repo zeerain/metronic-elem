@@ -1,0 +1,21 @@
+<script type="text/javascript" src="${ctx.contextPath}/res/js/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/jquery-weui.min.js"></script>
+<#-- weui 拓展插件需要的JS -->
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/swiper.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/fastclick.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/zepto.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/app.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/wechat.custom.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+    var useragent = navigator.userAgent;
+    if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+        // 这里警告框会阻塞当前页面继续加载
+        //location.href="${ctx.contextPath}/wechat/error?errCode=ERR_WECHAT_1";
+    }
+});
+</script>

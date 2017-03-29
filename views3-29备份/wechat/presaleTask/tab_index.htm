@@ -1,0 +1,40 @@
+<div class="weui_panel weui_panel_access">
+	<#include "/wechat/presaleTask/tab_index_sel.htm" />
+	
+	<#if modelList??>
+	<table class="table table-striped table-hover table-compact">
+    <tbody>
+    <tr>
+      <th width="10%"></th>
+      <th width="18%">潜客</th>
+      <th width="14%">类别</th>
+      <th width="58%">跟进备注</th>
+    </tr>
+    <#list modelList as model>
+    <tr class="<#if (model.latestRecord)?? && (model.latestRecord.saFeedbackRecord)??>hide</#if>">
+    	<td style="text-align: center;">
+    		<#if (model.status)?? && (model.status=='NOTIFY_SA')>
+    			<i class="fa fa-bell text-red" title="已通知"></i>
+    		</#if>
+    	</td>
+    	<td>
+    		<a href="${ctx.contextPath}/wechat/presaleTask/view/${model.id}">
+				${(model.customerName)!""}
+			</a>
+		</td>
+		<td style="text-align: center;">
+			<i class="fa <#if (model.pcCategory)?? && model.pcCategory=='有意购车'>fa-circle text-green<#elseif (model.pcCategory)?? && model.pcCategory=='已购车'>fa-circle text-red<#else>fa-circle text-yellow</#if>" title="<#if (model.pcCategory)??>${model.pcCategory}</#if>"></i>
+		</td>
+		<td style="font-size: 12px;">
+			<#if (model.latestRecord)??>
+				<a href="${ctx.contextPath}/wechat/presaleTask/view/${model.id}">
+					${(model.latestRecord.commentSummary)!""}
+				</a>
+			</#if>
+		</td>
+    </tr>
+    </#list>
+    </tbody>
+    </table>
+  </#if>
+</div>
