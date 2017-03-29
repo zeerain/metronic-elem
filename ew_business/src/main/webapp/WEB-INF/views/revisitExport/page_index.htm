@@ -1,0 +1,57 @@
+<form method="get" action="${ctx.contextPath}/revisitExport/index">
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>交车日期</th>
+        <th>车主</th>
+        <th>车牌号</th>
+        <th>客户经理</th>
+        <th>回访日期</th>
+        <th>回访状态</th>
+        <th>总体得分</th>
+        <th>跟进任务</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <#if modelList??>
+    <#list modelList as model>
+    <tr>
+        <td>
+            ${(model.id)!""}
+        </td>
+        <td>
+            ${(model.serviceEndDate)!""}
+        </td>           
+        <td>
+            ${(model.carOwner)!""}
+        </td>           
+        <td>
+            ${(model.carLicenseNo)!""}
+        </td>
+        <td>
+            ${(model.customerManager)!""}
+        </td>
+        <td>
+            <#if (model.updateTime)??>${model.updateTime?date}</#if>
+        </td>
+        <td>
+            ${model.statusName}
+        </td>
+        <td>
+            ${(model.totalScore)!"-"}
+        </td>
+        <td>
+            <#if (model.workOrderId)??>
+            <a href="${ctx.contextPath}/revisitRecord/view/${model.id}?toWorkOrder=1" class="btn btn-default btn-xs"><i class="fa fa-ticket"></i> 工单</a>
+            </#if>
+        </td>
+    </tr>
+    </#list>
+    </#if>
+    </tbody>
+</table>
+</div>
+</form>

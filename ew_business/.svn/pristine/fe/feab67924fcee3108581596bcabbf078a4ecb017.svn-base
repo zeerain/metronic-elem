@@ -1,0 +1,74 @@
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+    	<th>交车日期</th>
+    	<th>原店</th>
+    	<th>车架号</th>
+    	<th>车牌号</th>
+    	<th>品牌</th>
+    	<th>车型</th>
+    	<th>客户经理</th>
+    	<th>送修人</th>
+    	<th>送修人手机</th>
+    	<th>车主</th>
+    	<th>现有住址</th>
+    	<th>维修类型</th>
+    	<th>到店里程数</th>
+    	<th>是否会员</th>
+    	<th>过保</th>
+    </tr>
+    </thead>
+    <tbody>
+    <#if modelList??>
+    <#list modelList as model>
+    <tr>    	
+    	<td>
+		  	<#if (model.serviceEndDate)??>${model.serviceEndDate}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.isDealerStore)??>${model.isDealerStore}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.carFrameNo)??>${model.carFrameNo}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.carLicenseNo)??>${model.carLicenseNo}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.carBrand)??>${model.carBrand}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.carModelType)??>${model.carModelType}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.customerManager)??>${model.customerManager}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.carDriver)??>${model.carDriver}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.carDriverPhone)??>${model.carDriverPhone}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.carOwner)??>${model.carOwner}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.address)??>${model.address}</#if>
+	    </td>
+    	<td>
+		  	<#if (model.serviceType)??>${model.serviceType}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.mileage)??>${model.mileage}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.isMember)??>${model.isMember}</#if>
+	    </td>	    	
+    	<td>
+		  	<#if (model.isOutInsure)??>${model.isOutInsure}</#if>
+	    </td>	    	
+    </tr>
+    </#list>
+    </#if>
+	</tbody>
+</table>

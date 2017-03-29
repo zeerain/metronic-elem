@@ -1,0 +1,30 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="潜客拨打记录" url="${ctx.contextPath}/presaleTask/index" title="潜客拨打记录">
+		</@bodyHeader>
+		
+		<section class="content" style="min-height:50px">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box box-primary no-margin">
+					<div class="box-body">
+						<#include "/presaleTask/_view_header.htm" />						
+					</div>
+		      		</div>
+				</div>
+			</div>
+		</section>
+		
+        <@sectionBody>
+			<#include "/presaleTask/_view.htm" />
+		</@sectionBody>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

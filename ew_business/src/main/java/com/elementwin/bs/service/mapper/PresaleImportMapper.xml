@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.PresaleImportMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="PresaleImport" type="PresaleImport">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="PresaleImport">
+		SELECT *
+		FROM presale_import
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="PresaleImport" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO presale_import(
+			 org_id, file_uuid, file_name, count, fail_reason, request_help, update_file_uuid, update_file_name, status, comment, update_time, update_by, create_by
+		)
+		VALUES(
+			 #{orgId}, #{fileUuid}, #{fileName}, #{count}, #{failReason}, #{requestHelp}, #{updateFileUuid}, #{updateFileName}, #{status}, #{comment}, #{updateTime}, #{updateBy}, #{createBy}
+		)
+	</insert>
+
+	<update id="update" parameterType="PresaleImport">
+		UPDATE presale_import 
+		SET org_id=#{orgId}, file_uuid=#{fileUuid}, file_name=#{fileName}, count=#{count}, fail_reason=#{failReason}, request_help=#{requestHelp}, update_file_uuid=#{updateFileUuid}, update_file_name=#{updateFileName}, status=#{status}, comment=#{comment}, update_time=CURRENT_TIMESTAMP, update_by=#{updateBy}
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		DELETE FROM presale_import WHERE id=#{id}
+	</delete>
+	
+	<sql id="searchQuery">
+    	<if test="org_id != null">
+    	self.org_id=#{org_id}
+    	</if>
+    	<if test="file_uuid != null">
+    	 AND self.file_uuid=#{file_uuid}
+    	</if>
+    	<if test="file_name != null">
+    	 AND self.file_name like CONCAT('%',#{file_name},'%')
+    	</if>
+    	<if test="update_file_uuid != null">
+    	 AND self.update_file_uuid=#{update_file_uuid}
+    	</if>
+    	<if test="update_file_name != null">
+    	 AND self.update_file_name like CONCAT('%',#{update_file_name},'%')
+    	</if>
+    	<if test="count != null">
+    	 AND self.count=#{count}
+    	</if>
+    	<if test="fail_reason != null">
+    	 AND self.fail_reason like CONCAT('%',#{fail_reason},'%')
+    	</if>
+    	<if test="request_help != null">
+    	 AND self.request_help=#{request_help}
+    	</if>
+    	<if test="status != null">
+    	 AND self.status=#{status}
+    	</if>
+    	<if test="create_by != null">
+    	 AND self.create_by=#{create_by}
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer">
+		SELECT count(self.id)
+	    FROM presale_import self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="PresaleImport">
+		SELECT self.*
+	    FROM presale_import self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	<insert id="batchCreateData" parameterType="java.util.List"> 
+	    INSERT INTO presale_import_data(
+			 import_id, org_id, row_index, salesperson_id, salesperson_name, customer_name, customer_phone, customer_level, customer_category, intent_car_model, register_date, comment, status, current_owner_id, assign_by, next_handle_time, active, create_by
+		)
+		VALUES
+	    <foreach collection="list" item="model" separator="," >  
+			(#{model.importId}, #{model.orgId}, #{model.rowIndex}, #{model.salespersonId}, #{model.salespersonName}, #{model.customerName}, #{model.customerPhone}, #{model.customerLevel}, 
+			#{model.customerCategory}, #{model.intentCarModel}, #{model.registerDate}, #{model.comment}, #{model.status}, #{model.currentOwnerId}, #{model.assignBy}, #{model.nextHandleTime}, #{model.active}, #{model.createBy})
+	    </foreach>
+	</insert>
+	
+	<select id="getImportDataList" parameterType="Map" resultType="PresaleImportData">
+		SELECT self.*
+	    FROM presale_import_data self
+	    <where>
+	    	<if test="import_id != null">
+	    	self.import_id=#{import_id}
+	    	</if>
+	    	<if test="org_id != null">
+	    	 AND self.org_id=#{org_id}
+	    	</if>
+	    </where>
+	    ORDER BY self.id DESC
+	</select>
+	
+	<select id="findDuplicateData" parameterType="PresaleImportData" resultType="Integer">
+		SELECT COUNT(self.id)
+		FROM presale_import_data self
+		WHERE self.org_id=#{orgId} AND self.customer_phone=#{customerPhone}
+	</select>
+	
+	<select id="getMatchedAssignRules" resultType="TaskAssignRule">
+		SELECT self.*
+		FROM task_assign_rule self
+		WHERE org_id IN(0, #{orgId}) AND service_id IN(0, #{serviceId})
+		ORDER BY org_id ASC
+	</select>
+	<!-- 扩展SQL: end -->
+</mapper>

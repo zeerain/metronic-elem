@@ -1,0 +1,38 @@
+#data source info
+datasource.url=jdbc:mysql://p-cs-dbi.cs59h5iun8ks.rds.cn-north-1.amazonaws.com.cn:3306/call_service_db?characterEncoding=utf8
+datasource.username=yuanbing
+datasource.password=DrSCIVcGbr7mcUU8QXMLsA==
+
+#files storage directory
+files.storage.directory=/www/server/tomcat/webapps
+
+# administrator email
+notification.admin.email=61607520@qq.com
+
+revisit.export.default.days=7
+
+#barcode parameter
+#size
+ecard.size=160
+#color(black：#000 )
+ecard.fill=#000
+#radius(right angle：0; small fillet：0.25; big fillet：0.5) 
+ecard.radius=0.25
+#signature(no：0 yes：2)
+ecard.mode=2
+#signature's color(black：#000)
+ecard.fontcolor=#000
+
+#wechat information
+wechat.corpID=wx697368e10b88271a
+wechat.secret=jU1tYFjMg3SXQqJFVlhZCfE2IQp+6/mc6PE0pVSaCVWKjnTCfMr7rKLLLY72hlc/J36BXGp4EMRJ8+MeltQqRa+e5lBUg3Hn7O51k0eJkF0=
+wechat.chat.secret=CLJsscSES4yj/OHFigienMw0xUfGL65GQtnYb9G4l4D67irEk58smq+kiGlPzd+qzlAmfk+OL0tVBNeqSJHRa6+e5lBUg3Hn7O51k0eJkF0=
+wechat.chat.sender=Yuanbing_Jason
+
+# wechat demo app
+wechat.demo.appid=2
+wechat.test.enable=false
+
+wechat.request.urls=/wechat,/weixin
+
+wechat.audio.receiver=16

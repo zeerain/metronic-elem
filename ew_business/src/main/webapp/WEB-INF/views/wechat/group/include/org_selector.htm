@@ -1,0 +1,8 @@
+<select name="org_id" class="form-control search-field select2">
+	<option value="">- 选择下属单位 -</option>
+	<#if orgList??>
+	<#list orgList as org>
+	<option value="${org.id}" <#if (criteria.org_id)?? && (criteria.org_id==org.id)>selected</#if>>${(org.shortName)!""}</option>
+	</#list>
+	</#if>
+</select>

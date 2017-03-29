@@ -1,0 +1,30 @@
+@media screen and (min-width: 350px) and (max-width: 400px)
+     .header
+        height: 211px
+        t = 22px
+        w = 107px
+        username-h = 36px
+        .avatar
+            position: absolute
+            top: t
+            left: 50%
+            width: w
+            height: w
+            margin-left: -(w/2)
+        .username
+            position: absolute
+            width: 100%
+            height: username-h
+            line-height: username-h
+            padding-top: 5px
+            font-weight: 400
+            top: (t + w)
+        .job-position
+            position: absolute
+            width: 100%
+            height: h = 24px
+            line-height: h
+            top: (t + w +username-h)
+    .grid-box
+        .grid-cell
+            padding: 35px 25px 

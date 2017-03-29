@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.PotentialCustomerMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="PotentialCustomer" type="PotentialCustomer">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="PotentialCustomer">
+		SELECT *
+		FROM potential_customer
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="PotentialCustomer" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO potential_customer(
+			 from_org_id, from_sa_id, name, phone, category, intent_car_model, register_date, tags, comment, first_spell
+		)
+		VALUES(
+			 #{fromOrgId}, #{fromSaId}, #{name}, #{phone}, #{category}, #{intentCarModel}, #{registerDate}, #{tags}, #{comment}, #{firstSpell}
+		)
+	</insert>
+
+	<update id="update" parameterType="PotentialCustomer">
+		UPDATE potential_customer 
+		SET name=#{name}, category=#{category}, 
+		bought_car_model=#{boughtCarModel}, bought_car_price=#{boughtCarPrice}, bought_car_dealer=#{boughtCarDealer}, bought_activity=#{boughtActivity}, bought_reason=#{boughtReason}, 
+		intent_car_model=#{intentCarModel}, intent_consideration=#{intentConsideration}, intent_compare_car=#{intentCompareCar}, intent_category=#{intentCategory}, intent_more=#{intentMore}, 
+		intent_activity=#{intentActivity}, intent_back=#{intentBack}, intent_drive=#{intentDrive}, no_intent_reason=#{noIntentReason}, sa_feedback=#{saFeedback}, tags=#{tags}, comment=#{comment},
+		first_spell=#{firstSpell}
+		WHERE id=#{id}
+	</update>
+	
+	<update id="updateFirstSpell" parameterType="PotentialCustomer">
+		UPDATE potential_customer 
+		SET first_spell=#{firstSpell}
+		WHERE id=#{id}
+	</update>
+	
+	<update id="delete" parameterType="Long">
+		UPDATE potential_customer SET active=0 WHERE id=#{id}
+	</update>
+	
+	<sql id="searchQuery">
+		<choose>
+    		<when test="idIn != null">
+    			self.id IN 
+			   	<foreach item="id" collection="idIn" open="(" separator="," close=")">  
+					#{id}
+				</foreach>
+    		</when>
+    	</choose>
+    	<if test="from_org_id != null">
+    	 AND self.from_org_id=#{from_org_id}
+    	</if>
+    	<if test="from_sa_id != null">
+    	 AND self.from_sa_id=#{from_sa_id}
+    	</if>
+    	<if test="name != null">
+    	 AND self.name like CONCAT('%',#{name},'%')
+    	</if>
+    	<if test="phone != null">
+    	 AND self.phone=#{phone}
+    	</if>
+    	<if test="category != null">
+    	 AND self.category=#{category}
+    	</if>
+    	<if test="sa_feedback != null">
+    	 AND self.sa_feedback=#{sa_feedback}
+    	</if>
+    	<if test="tags != null">
+    	 AND self.tags like CONCAT('%',#{tags},'%')
+    	</if>
+    	<if test="comment != null">
+    	 AND self.comment like CONCAT('%',#{comment},'%')
+    	</if>
+    	<if test="beginDate != null and endDate != null">
+    	 AND date(self.create_time) >= #{beginDate} AND date(self.create_time) &lt;= #{endDate}
+    	</if>
+    	<if test=" firstSpell!= null">
+    	 AND self.first_spell = #{firstSpell}
+    	</if>
+    	<if test="salespersonId != null">
+    	 AND task.salesperson_id = #{salespersonId}
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer">
+		SELECT count(self.id)
+	    FROM potential_customer self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="PotentialCustomer">
+		SELECT self.*
+	    FROM potential_customer self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+	
+	<!-- 自定义扩展: begin -->
+	<select id="getSimpleModelList" parameterType="Map" resultType="PotentialCustomer">
+		SELECT self.*, task.id task_id, task.salesperson_name, task.next_handle_time
+		FROM potential_customer self
+		LEFT JOIN presale_task task ON self.id=task.customer_id
+		<where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    <if test="firstSpellSort != null">
+    		ORDER BY CONVERT( self.name USING gbk ) COLLATE gbk_chinese_ci ASC 
+    	</if>
+	</select>
+	
+	<select id="getStatisticValue" parameterType="Map" resultType="Integer">
+		SELECT count(self.id)
+	    FROM potential_customer self
+	    <where>
+	    	<if test="from_org_id != null">
+	    	 self.from_org_id=#{from_org_id}
+	    	</if>
+	    	<if test="from_sa_id != null">
+	    	 AND self.from_sa_id=#{from_sa_id}
+    		</if>
+	    	<if test="beginDate != null">
+	    	 AND date(self.create_time) >=#{beginDate}
+    		</if>
+	    	<if test="endDate != null">
+	    	 AND date(self.create_time) &lt;=#{endDate}
+    		</if>
+	    </where>
+	</select>
+	
+	<!-- 自定义扩展: end -->
+</mapper>

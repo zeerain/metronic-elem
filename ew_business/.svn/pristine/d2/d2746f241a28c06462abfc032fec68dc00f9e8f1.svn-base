@@ -1,0 +1,62 @@
+<#-- bodyHeader -->
+<#macro bodyHeader menu url title>
+    <section class="content-header">
+      <h1>${title}</h1>
+      <ol class="breadcrumb">
+        <li><a href="${ctx.contextPath}/"><i class="fa fa-home"></i>工作台</a></li>
+        <#if menu?? && menu!=''>
+        <li class="active"><a href="${url}">${menu}</a></li>
+        </#if>
+      </ol>
+    </section>
+</#macro>
+
+<#-- Main section content -->
+<#macro sectionBody>
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<#nested>
+		</div><#-- /.col-xs-12 -->
+	</div><#-- /.row -->
+</section><#-- /.content -->
+</#macro>
+
+<#-- Main content -->
+<#macro box>
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-primary">
+				<#nested>
+      		</div><#-- /.box -->
+		</div><#-- /.col-xs-12 -->
+	</div><#-- /.row -->
+</section><#-- /.content -->
+</#macro>
+
+<#macro boxHeader>
+<div class="box-header">
+	<div class="box-tools">
+		<#nested>
+	</div>
+</div><#-- /.box-header -->
+</#macro>
+
+<#macro boxBody>
+<div class="box-body">
+	<#nested>
+</div><#-- /.box-body -->
+</#macro>
+
+<#macro boxFooter>
+<div class="box-footer clearfix">
+	<#nested>
+</div><#-- /.box-footer -->
+</#macro>
+
+<#macro tooltip short long>
+<#if short??>
+	<a class="atip" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="${long}">${short}</a>
+</#if>
+</#macro>

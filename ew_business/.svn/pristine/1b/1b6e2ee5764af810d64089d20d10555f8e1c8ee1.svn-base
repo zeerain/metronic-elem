@@ -1,0 +1,32 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="销售政策管理" url="${ctx.contextPath}/presaleActivity/index" title="更新销售政策">
+		</@bodyHeader>
+
+        <@box>
+			<@boxHeader>
+			</@boxHeader>
+			<@boxBody>
+				<#include "/presaleActivity/_form.htm" />
+			</@boxBody>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".datepicker").datepicker({
+		 language: 'zh-CN',
+		 format: "yyyy-mm-dd"
+	});
+});
+</script>
+</body>
+</html>

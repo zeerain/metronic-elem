@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.RevisitRecordMapper">
+	
+	<!-- Model ORM映射 -->
+	<resultMap id="RevisitRecord" type="RevisitRecord">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultMap="RevisitRecord" useCache="false">
+		SELECT *
+		FROM revisit_record
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="RevisitRecord" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO revisit_record(
+			 task_id, begin_time, end_time, operate_duration, call_duration, audio_urls, status, status_comment, active, create_by
+		)
+		VALUES(
+			 #{taskId}, #{beginTime}, #{endTime}, #{operateDuration}, #{callDuration}, #{audioUrls}, #{status}, #{statusComment}, #{active}, #{createBy}
+		)
+	</insert>
+
+	<update id="update" parameterType="RevisitRecord">
+		UPDATE revisit_record 
+		SET begin_time=#{beginTime}, end_time=#{endTime}, operate_duration=#{operateDuration}, call_duration=#{callDuration}, audio_urls=#{audioUrls}, status=#{status}, status_comment=#{statusComment}, active=#{active}
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		DELETE FROM revisit_record WHERE id=#{id}
+	</delete>
+	
+	<sql id="searchQuery">
+    	<if test="task_id != null">
+    	 AND self.task_id=#{task_id}
+    	</if>
+    	<if test="status != null">
+    	 AND self.status=#{status}
+    	</if>
+    	<if test="active != null">
+    	 AND self.active=#{active}
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.id)
+	    FROM revisit_record self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultMap="RevisitRecord" useCache="false">
+		SELECT self.*
+	    FROM revisit_record self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	<select id="getTaskRecords" parameterType="Long" resultType="RevisitRecord" useCache="false">
+		SELECT self.*, ccu.realname as ccuserName
+	    FROM revisit_record self
+	    LEFT JOIN cc_user ccu ON self.create_by=ccu.id
+	    WHERE self.task_id=#{taskId}	    
+	</select>
+	
+	<!-- 扩展SQL: end -->
+</mapper>

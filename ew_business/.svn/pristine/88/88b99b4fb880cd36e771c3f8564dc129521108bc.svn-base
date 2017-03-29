@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.RevisitStatisticalMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="RevisitStatistical" type="RevisitStatistical">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="RevisitStatistical" useCache="false">
+		SELECT *
+		FROM revisit_statistical
+		WHERE task_id=#{id}
+	</select>
+	
+	<update id="update" parameterType="RevisitStatistical">
+		UPDATE revisit_statistical 
+		SET referer_task_id=#{refererTaskId}, status=#{status}, status_comment=#{statusComment}, undone_reason=#{undoneReason}, answer_score=#{answerScore}, total_score=#{totalScore}, work_order_id=#{workOrderId}, work_order_category=#{workOrderCategory}, work_order_duration=#{workOrderDuration}, active=#{active}
+		WHERE task_id=#{taskId}
+	</update>
+	
+	<sql id="searchQuery">
+    	<if test="org_id != null">
+    	 self.org_id=#{org_id}
+    	</if>
+    	<if test="beginDate != null and endDate != null">
+    	 AND self.service_date >= #{beginDate} AND self.service_date &lt;= #{endDate}
+    	</if>
+    	<if test="service_type != null">
+    	 AND self.service_type=#{service_type}
+    	</if>
+    	<if test="org_user_name != null">
+    	 AND self.org_user_name like CONCAT('%',#{org_user_name},'%')
+    	</if>
+    	<if test="org_user_role != null">
+    	 AND self.org_user_role like CONCAT('%',#{org_user_role},'%')
+    	</if>
+    	<if test="status != null">
+    	 AND self.status=#{status}
+    	</if>
+    	<if test="undone_reason != null">
+    	 AND self.undone_reason like CONCAT('%',#{undone_reason},'%')
+    	</if>
+    	<if test="hasWorkOrder != null">
+    	 AND self.work_order_id > 0
+    	</if>
+    	<if test="work_order_category != null">
+    	 AND self.work_order_category=#{work_order_category}
+    	</if>
+    	<if test="active != null">
+    	 AND self.active=#{active}
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.task_id)
+	    FROM revisit_statistical self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="RevisitStatistical" useCache="false">
+		SELECT self.*
+	    FROM revisit_statistical self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	
+		
+	<!-- 扩展SQL: end -->
+</mapper>

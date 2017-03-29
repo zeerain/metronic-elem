@@ -1,0 +1,106 @@
+<header class="main-header">
+    <#-- Logo -->
+    <a href="${ctx.contextPath}/" class="logo">
+      <#-- logo for regular state and mobile devices -->
+      <span class="logo-lg">元兵服务业务平台</span>
+    </a>
+    <#-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <#-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <#-- Messages: style can be found in dropdown.less -->
+          <li class="vticker" style="width:500px">
+          	<#-- 显示消息通知 -->
+		    <#if (Session.user.notifications)??>
+			<ul>
+				<#list Session.user.notifications as notice>
+				<li><a href="${ctx.contextPath}/message/view/${notice.id}">
+					<#if notice.importance == 2>
+					<div class="alert alert-warning">
+                		<i class="icon fa fa-bullhorn"></i> ${notice.title}
+              		</div>
+					<#elseif notice.importance == 3>
+					<div class="alert alert-error">
+                		<i class="icon fa fa-bullhorn"></i> ${notice.title}
+              		</div>
+					<#else>
+					<div class="alert alert-info">
+                		<i class="icon fa fa-bullhorn"></i> ${notice.title}
+              		</div>
+					</#if>
+				</a></li>
+			    </#list>
+			</ul>
+			</#if>
+          </li>
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <#if (Session.user.notifications)??>
+              <span class="label label-warning">${(Session.user.notifications)?size}</span>
+              <#else>
+              <span class="label label-default">0</span>
+              </#if>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <ul class="menu">
+                	<#if (Session.user.notifications)??>
+                	<#list Session.user.notifications as notice>
+					<li><a href="${ctx.contextPath}/message/view/${notice.id}">
+						<#if notice.importance == 2>
+						<i class="fa fa-bullhorn text-yellow"></i> <span class="text-yellow">${notice.title}</span>
+						<#elseif notice.importance == 3>
+						<i class="fa fa-bullhorn text-red"></i> <span class="text-red">${notice.title}</span>
+						<#else>
+						<i class="fa fa-bullhorn"></i> <span class="">${notice.title}</span>											
+						</#if>
+					</a></li>
+			    	</#list>
+			    	</#if>
+                </ul>
+              </li>
+              <li class="footer"><a href="${ctx.contextPath}/message/">查看更多通知</a></li>
+            </ul>
+          </li>
+          <#-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="${(Session.user.avatar)!''}" class="user-image" alt="avatar">
+              <span class="hidden-xs">${(Session.user.realname)!"User Name"}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <#-- User image -->
+              <li class="user-header">
+              	<img src="${(Session.user.avatar)!''}" class="img-circle" alt="avatar">
+                <p>
+                	${(Session.user.realname)!""}
+                	<small>${(Session.user.roleNames)!""}</small>
+                </p>
+              </li>
+              <#-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="${ctx.contextPath}/orgUser/changepwd" class="btn btn-default btn-flat">修改密码</a>
+                </div>
+                <div class="pull-right">
+                  <a href="${ctx.contextPath}/logout" class="btn btn-default btn-flat">退出</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <#-- Control Sidebar Toggle Button -->
+          <li>
+          	<a href="${ctx.contextPath}/logout">退出 <i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+</header>

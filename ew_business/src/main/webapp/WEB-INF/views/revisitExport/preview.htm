@@ -1,0 +1,66 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="上传数据文件" url="${ctx.contextPath}/revisitImport/index" title="上传数据文件">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box blue">
+							<div class="portlet-title">
+                                <div class="caption">文件处理结果</div>
+                                <div class="tools">
+                                    <#if canImport>
+				            		<form action="${ctx.contextPath}/revisitImport/previewSave" method="post">
+				                		<button class="btn btn-success" type="submit"><i class="fa fa-upload"></i> 上传数据</button>
+				                	</form>
+				                	<#else>
+				                		<a class="btn btn-info" href="${ctx.contextPath}/revisitImport/index"> 返回 </a>
+				                	</#if>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#if canImport>
+									<p class="text-green">${resultInfo!"解析成功"}</p>					
+								<#else>
+									<p class="text-yellow">${resultInfo!"解析失败"}</p>
+								</#if>
+                            </div>
+						</div>
+					</div>
+				</div>
+
+			
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box red">
+							<div class="portlet-title">
+                                <div class="caption">待导入数据预览</div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#if canImport>
+									<#include "/revisitImport/_preview.htm" />
+								<#else>
+									<p class="text-yellow">解析数据文件失败，无法预览数据，请按照上述提示修改后重试！如多次尝试后仍无法上传，请联系技术人员处理！</p>
+								</#if>
+                            </div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+

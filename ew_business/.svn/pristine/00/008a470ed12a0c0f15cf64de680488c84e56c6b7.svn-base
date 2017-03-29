@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./dist/todotask.custom.css">
+    <title>待办任务</title>
+</head>
+<body>
+    <nav class="nav">
+        <a class="active" href="#">代办任务</a>
+        <a href="#">客户通讯录</a>
+    </nav>
+    <header class="header">
+        <span class="left">2017年1月12日</span>
+        <span class="right">星期四</span>
+    </header>
+    <ul class="list">
+        <li>
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-danger"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span></p>
+                        <div class="ctrl-box">
+                            <a href="tel:18260635226" class="makeCall"></a>
+                            <a href="javascript:;" class="fenfu">吩咐</a>
+                            <a href="javascript:;" class="btn-submit disabled"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-warning"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span></p>
+                        <div class="ctrl-box">
+                            <a href="tel:18260635226" class="makeCall"></a>
+                            <a href="javascript:;" class="fenfu startRecord doing">吩咐</a>
+                            <a href="javascript:;" class="btn-submit"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-info"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span></p>
+                        <div class="ctrl-box">
+                            <a href="tel:18260635226" class="makeCall"></a>
+                            <a href="javascript:;" class="fenfu">吩咐</a>
+                            <a href="javascript:;" class="btn-submit"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-info"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span></p>
+                        <div class="ctrl-box">
+                            <a href="tel:18260635226" class="makeCall"></a>
+                            <a href="javascript:;" class="fenfu">吩咐</a>
+                            <a href="javascript:;" class="btn-submit"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</body>
+</html>

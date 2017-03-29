@@ -1,0 +1,34 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="销售政策管理" url="${ctx.contextPath}/presaleActivity/index" title="销售政策管理">
+				</@bodyHeader>
+
+				<@box boxColor="blue">
+					<div class="portlet-title">
+                        <div class="caption">数据导出</div>
+                        <div class="actions">
+                           <a href="${ctx.contextPath}/presaleActivity/create" class="btn btn-danger btn-sm">新建销售政策</a>	
+                        </div>
+                    </div>
+					<@boxBody>
+						<#include "/presaleActivity/page_index.htm" />
+						<#include "/include/pagination.htm">
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+

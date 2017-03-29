@@ -1,0 +1,25 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="组织成员管理" url="${ctx.contextPath}/orgUser/index" title="组织成员管理">
+		</@bodyHeader>
+
+        <@box>
+			<@boxHeader>
+				<a href="${ctx.contextPath}/orgUser/update/${model.id}" class="btn btn-primary btn-sm">更新企业员工</a>
+				&nbsp;|&nbsp;
+		    	<a href="${ctx.contextPath}/orgUser/create" class="btn btn-success btn-sm">新建企业员工</a>
+			</@boxHeader>
+			<@boxBody>
+				<#include "/orgUser/_view.htm" />
+			</@boxBody>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

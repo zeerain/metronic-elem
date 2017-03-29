@@ -1,0 +1,40 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="销售政策管理" url="${ctx.contextPath}/presaleActivity/index" title="销售政策管理">
+				</@bodyHeader>
+
+				<@box boxColor="blue">
+					<div class="portlet-title">
+                        <div class="caption">更新销售政策</div>
+                    </div>
+					<@boxBody>
+						<#include "/presaleActivity/_form.htm" />
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".datepicker").datepicker({
+		 language: 'zh-CN',
+		 format: "yyyy-mm-dd"
+	});
+});
+</script>
+</body>
+</html>
+

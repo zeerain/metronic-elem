@@ -1,0 +1,81 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="回访数据导出管理" url="${ctx.contextPath}/revisitImport/index" title="回访数据导出">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box blue">
+							<div class="portlet-title">
+                                <div class="caption">数据导出</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#include "/revisitExport/_uploadform.htm" />
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<#if (modelList)??>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet light bordered">
+                            <div class="portlet-body">
+                            	<#include "/revisitExport/page_index.htm" />
+								<#include "/include/pagination.htm">
+                            </div>
+						</div>
+					</div>
+				</div>
+				</#if>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.zh-CN.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+ $("#serviceBeginDatePicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+  $("#serviceEndDatePicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+ $("#revisitBeginDatePicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+  $("#revisitEndDatePicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-action').on("click", function(){
+		$("#filterForm").attr("action", "${ctx.contextPath}/revisitExport/"+$(this).data("action"));
+		$("#filterForm").submit();
+	});
+});
+</script>
+</body>
+</html>
+

@@ -1,0 +1,82 @@
+<#list modelList as model>
+<#if !focusDate?? || model.createTime?date != focusDate>
+<#assign focusDate = model.createTime?date />
+	<#if !lastFocusDate?? || focusDate?replace('/','') != lastFocusDate>
+		<header class="header">
+			<span class="left">${model.createTime?date}</span>
+			<span class="right">${model.weekDay}</span>
+		</header>
+	</#if>
+	<ul class="list">
+	<#list modelList as task>
+	<#if task.createTime?date == focusDate>
+	<li class="" data-type="task">
+        <div class="title left-fixed_right-auto">
+            <div class="left ${task.importanceClass}"></div>
+            <div class="right">
+                <div class="right-content">
+                    <h3>${task.customerName}</h3>
+                    <p>
+                    <#if (task.customer.intentCarModel)??><span>${task.customer.intentCarModel}</span></#if>
+                    <#if (task.customer.tags)??><span>${task.customer.tags}</span></#if>
+                    </p>
+                    <div class="tel-cnt">
+                        <span class="first">${task.callNumer!0}</span><span class="character">/</span><span class="number">8</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+			<p class="datetime">${task.createTime?datetime} ${task.weekDay}	<a class="history" href="${ctx.contextPath}/weixin/task/view/${task.id}">历史信息</a></p>
+			<#if task.latestPresaleRecordList??>
+            <#list task.latestPresaleRecordList as record>
+				<#if record.type=='CALL'>
+					<div class="svc-text-box">
+		                <div class="svc-text"><#if record.comment?? && record.comment !=''>${(record.comment)!""}<#else>无备注</#if> 
+		                	<#if record.presaleCallList??>
+		                	<#list record.presaleCallList as call>
+			                	<#if call.mp3Url??>
+			                	<div class="media-bar" data-src="${call.mp3Url}">
+		                            <div class="media-ctrl stop">
+		
+		                            </div>
+		                            <div class="media-progress">
+		                                <div class="media-progress-bar">
+		                                    <div class="marker" data-lp="10" data-duration="${(call.duration)!'30'}">
+		                                        
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+								</#if>
+							</#list>
+							</#if>
+		                    <img class="svc-avatar media-avatar" src="${ctx.contextPath}/res/weixin/images/zuoxi-icon@2x.png" alt="">
+		                </div>
+		                <div class="svc-position-box"></div>
+		            </div>	
+				<#elseif record.type=='SA_AUDIO'>
+					<#if record.audioMsgList??>
+						<#list record.audioMsgList as a>
+							<#if a_index == 0>
+				            <div class="cm-media-box">
+				                <img class="cm-avatar media-avatar" src="${ctx.contextPath}/res/weixin/images/xiaoshou-icon@2x.png" alt="">
+				                <div class="cm-media stop" data-src="${a.audioUrls}">
+				                    <span class="sec-time" data-src="${a.audioUrls}">${(a.audioDuration)!''}''</span>
+				                </div>
+				            </div>
+				            </#if>						
+						</#list>
+					</#if>
+				</#if>
+			</#list>
+            </#if>
+            <#include "/weixin/task/_voice_panel.htm">
+        </div>
+    </li>
+    </#if>
+    </#list>
+</ul>
+</#if>
+</#list>
+<input type="hidden" class="lastFocusDate" value="${focusDate}" />

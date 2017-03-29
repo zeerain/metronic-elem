@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./dist/reset.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/iCheck/1.0.2/skins/all.css">
+    <link rel="stylesheet" href="./dist/makeEcard.custom.css">
+    <title>元兵空中助理</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="avatar-box">
+                <img src="./images/avatar.jpg" alt="" class="avatar">
+            </div>
+            <div class="form-userinfo">
+                <div class="row">
+                    <label for="#">客户姓名：
+                    </label>
+                    <input type="text" class="text-lg" name="username" value="周佳源">
+                </div>
+                <div class="row">
+                    <label for="#">手机号码：
+                    </label>
+                    <input type="text" class="text-lg" name="tel" value="18888888888">
+                </div>
+                <div class="row">
+                    <label for="#">地址：</label>
+                    <input type="text" class="text-md" name="address" value="上海市杨浦区新疆玩城上海市杨浦区新疆玩城">
+                </div>
+                <div class="grid-box">
+                    <div class="row left">
+                        <label class="input-title">邮箱地址：</label>
+                        <input type="text" class="text-sm" name="address" value="yangzhao635226@163.com">
+                    </div>
+                    <div class="row right">
+                        <label class="input-title">公司：</label>
+                        <input type="text" class="text-sm" name="address" value="元兵信息科技">
+                    </div>
+                </div>
+                <div class="grid-box">
+                    <div class="row left none-border">
+                        <input tabindex="2" type="checkbox" id="firstComming" checked>
+                        <label for="firstComming"><span>第一次进店</span></label>
+                    </div>
+                    <div class="row left none-border">
+                        <input tabindex="2" type="checkbox" class="checked" id="firstComming1">
+                        <label for="firstComming1"><span>自定义</span></label>
+                    </div>
+                </div>
+                <div class="grid-box">
+                    <div class="row left none-border">
+                        <input tabindex="2" type="checkbox" id="firstComming2" checked>
+                        <label for="firstComming2"><span>自定义</span></label>
+                    </div>
+                    <div class="row left none-border">
+                        <input tabindex="2" type="checkbox" id="firstComming4" checked>
+                        <label for="firstComming3"><span>自定义</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="javascript:;" class="footer btn-footer">生成二维码名片</a>
+    <div class="mask-wrapper qrbox">
+        <div id="qrcode"></div>
+    </div>
+    <script src="//cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
+    <script src="//cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('input').iCheck({
+    checkboxClass: 'icheckbox_flat-green',
+    radioClass: 'iradio_flat'
+  });
+});
+</script>
+</body>
+</html>

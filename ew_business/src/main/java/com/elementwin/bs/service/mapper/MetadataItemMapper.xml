@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.MetadataItemMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="MetadataItem" type="com.elementwin.common.model.MetadataItem">
+		<id property="id" column="id" />  
+	</resultMap>
+	
+	<resultMap id="MetadataItemWithChildren" type="com.elementwin.common.model.MetadataItem" extends="MetadataItem">  
+        <collection property="children" javaType="ArrayList" column="id" ofType="com.elementwin.common.model.MetadataItem"   
+        select="com.elementwin.bs.service.mapper.MetadataItemMapper.getChildMetadataItems"/>  
+    </resultMap> 
+    
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultMap="MetadataItemWithChildren">
+		SELECT *
+		FROM metadata_item
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="com.elementwin.common.model.MetadataItem" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO metadata_item(
+			 parent_id, type, item_name, item_value, comment, is_system, active
+		)
+		VALUES(
+			 #{parentId}, #{type}, #{itemName}, #{itemValue}, #{comment}, #{isSystem}, #{active}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.elementwin.common.model.MetadataItem">
+		UPDATE metadata_item 
+		SET type=#{type}, item_name=#{itemName}, item_value=#{itemValue}, comment=#{comment}, is_system=#{isSystem}, active=#{active}
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		DELETE FROM metadata_item WHERE id=#{id} OR parent_id=#{id}
+	</delete>
+	
+	<sql id="searchQuery">
+    	<if test="type != null">
+    		self.type=#{type}
+    	</if>
+    	<if test="parent_id != null">
+    		self.parent_id=#{parent_id}
+    	</if>
+    	<if test="item_name != null">
+    		 AND self.item_name like CONCAT('%',#{item_name},'%')
+    	</if>
+    	<if test="item_value != null">
+    		 AND self.item_value like CONCAT('%',#{item_value},'%')
+    	</if>
+    	<if test="comment != null">
+    		 AND self.comment like CONCAT('%',#{comment},'%')
+    	</if>
+    	<if test="active != null">
+    		 AND self.active=#{active}
+    	</if>
+	</sql>
+	<select id="getListCount" parameterType="Map" resultType="Integer">
+		SELECT count(self.id)
+	    FROM metadata_item self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="com.elementwin.common.model.MetadataItem">
+		SELECT self.*
+	    FROM metadata_item self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id ASC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	<select id="getAvailableServicesItems" parameterType="Long" resultType="com.elementwin.common.model.MetadataItem" useCache="false">
+		SELECT self.*
+		FROM metadata_item self
+		LEFT JOIN org_service os ON os.service_id=self.id
+		WHERE self.type='SERVICE' AND self.parent_id > 0 AND os.org_id=#{orgId} AND os.end_date>=CURRENT_DATE
+	</select>
+	
+	<!-- 扩展SQL: end -->
+</mapper>

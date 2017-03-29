@@ -1,0 +1,91 @@
+/*修复左侧导航栏不兼容IE8情况*/
+.sidebar-collapse .main-sidebar, .sidebar-collapse .left-side {
+    left: -230px;
+}
+blockquote{
+	margin: 0 0 10px;
+	padding: 10px;
+}
+.form-horizontal .control-label{
+	min-width: 90px;
+}
+.container{
+	padding: 10px;
+}
+.no-margin{
+	margin: 0px;
+}
+.search-field{
+	min-width: 60px;
+	max-width: 100px;
+	height: 30px;
+	line-height: 30px;
+	padding: 3px 6px;
+}
+.cell-label, .td-label{
+	width: 120px;
+	font-weight: bold;
+}
+.cell-value, .td-value{		
+	width: 150px;
+}
+.col-label{
+	width: 20%;
+}
+.col-operation{
+	width: 100px;
+}
+.compact{
+	width: 90px;
+}
+.pd-r{
+	padding-right: 20px;
+}
+label.normal{
+	font-weight: normal;
+	padding-left: 20px;
+}
+#filesWrapper input{
+	margin-top:5px;
+}
+.box-header{
+	min-height: 30px;
+}
+.workflow-wrapper{
+	
+}
+hr.highlight{
+	border: 1px dotted #336699;
+}
+.form-group .alert{
+	width: 150px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom:10px;
+}
+.sidebar-menu li.header{
+	padding: 0 0 10px 0;
+}
+.sidebar-menu li.header .input-group-addon, .sidebar-menu li.header .form-control{
+	color:#E1E1E1;
+	background:#2c3b41;
+	border-color:#2c3b41;
+}
+.audio-player {
+	width: 160px;
+}
+/** 消息通知 */
+.vticker ul{
+	padding: 0;
+}
+.vticker li{
+	list-style: none;
+	padding: 10px 5px 5px 5px;
+}
+.vticker li .alert{
+	padding: 5px 20px;
+}
+.invoice{
+	margin:10px; 
+	padding:15px;
+}

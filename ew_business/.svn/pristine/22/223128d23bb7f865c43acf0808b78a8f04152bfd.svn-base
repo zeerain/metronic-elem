@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.OrgUserMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="OrgUser" type="OrgUser">
+	</resultMap>
+	<resultMap id="Role" type="Role">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="OrgUser">
+		SELECT self.*, rolemeta.item_name as orgRoleName, org.name as orgName, org.logo as orgLogo, statusmeta.item_name as statusName
+		FROM org_user self
+		LEFT JOIN organization org ON self.org_id=org.id
+		LEFT JOIN metadata_item rolemeta ON self.org_role_item_id=rolemeta.id
+		LEFT JOIN metadata_item statusmeta ON self.status_item_id=statusmeta.id
+		WHERE self.id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="OrgUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO org_user(
+			 role_id, org_id, org_role, org_role_item_id, employee_no, manager_no, username, password, realname, cellphone, assistant_phone, avatar, email, wechat, comment, status_item_id, enabled, create_by
+		)
+		VALUES(
+			 #{roleId}, #{orgId}, #{orgRole}, #{orgRoleItemId}, #{employeeNo}, #{managerNo}, #{username}, #{password}, #{realname}, #{cellphone}, #{assistantPhone}, #{avatar}, #{email}, #{wechat}, #{comment}, #{statusItemId}, #{enabled}, #{createBy}
+		)
+	</insert>
+
+	<update id="update" parameterType="OrgUser">
+		UPDATE org_user 
+		SET org_role=#{orgRole}, org_role_item_id=#{orgRoleItemId}, employee_no=#{employeeNo}, manager_no=#{managerNo}, username=#{username}, password=#{password}, realname=#{realname}, cellphone=#{cellphone}, assistant_phone=#{assistantPhone}, email=#{email}, wechat=#{wechat}, comment=#{comment}, status_item_id=#{statusItemId}, enabled=#{enabled}, update_time=CURRENT_TIMESTAMP
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		DELETE FROM org_user WHERE id=#{id}
+	</delete>
+	
+	<sql id="searchQuery">
+		self.org_id=#{org_id}
+    	<if test="org_role != null">
+    		AND self.org_role=#{org_role}
+    	</if>
+    	<if test="org_role_item_id != null">
+    		 AND self.org_role_item_id=#{org_role_item_id}
+    	</if>
+    	<if test="employee_no != null">
+    		 AND self.employee_no=#{employee_no}
+    	</if>
+    	<if test="manager_no != null">
+    		 AND self.manager_no=#{manager_no}
+    	</if>
+    	<if test="username != null">
+    		 AND self.username like CONCAT('%',#{username},'%')
+    	</if>
+    	<if test="realname != null">
+    		 AND self.realname like CONCAT('%',#{realname},'%')
+    	</if>
+    	<if test="cellphone != null">
+    		 AND self.cellphone=#{cellphone}
+    	</if>
+    	<if test="email != null">
+    		 AND self.email like CONCAT('%',#{email},'%')
+    	</if>
+    	<if test="wechat != null">
+    		 AND self.wechat=#{wechat}
+    	</if>
+    	<if test="status_item_id != null">
+    		 AND self.status_item_id=#{status_item_id}
+    	</if>
+    	<if test="enabled != null">
+    		 AND self.enabled=#{enabled}
+    	</if>
+    	<if test="update_time != null">
+    		 AND date(self.update_time)=#{update_time}
+    	</if>
+	</sql>
+	<select id="getListCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.id)
+	    FROM org_user self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="OrgUser" useCache="false">
+		SELECT self.*, rolemeta.item_name as orgRoleName, statusmeta.item_name as statusName
+		FROM org_user self
+		LEFT JOIN metadata_item rolemeta ON self.org_role_item_id=rolemeta.id
+		LEFT JOIN metadata_item statusmeta ON self.status_item_id=statusmeta.id
+		<where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.update_time DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	<select id="getAllRoles" resultMap="Role">
+		SELECT *
+		FROM role
+	</select>
+	
+	<select id="getUserByUsername" parameterType="String" resultMap="OrgUser" useCache="false">
+		SELECT *
+		FROM org_user 
+		WHERE username=#{username}
+	</select>
+	
+	<select id="findAnotherUser" parameterType="OrgUser" resultType="Integer">
+		SELECT count(id)
+		FROM org_user 
+		WHERE org_id=#{orgId} AND employee_no=#{employeeNo} 
+		<if test="id != null">
+    		 AND id!=#{id}
+    	</if>
+	</select>
+	
+	<update id="updateUserPwd">
+		UPDATE org_user 
+		SET password=#{newPassword}, pwd_update_time=CURRENT_TIMESTAMP
+		WHERE id=#{userId} AND password=#{oldPassword}
+		LIMIT 1
+	</update>
+	
+	<update id="updateLoginInfo" parameterType="OrgUser">
+		UPDATE org_user 
+		SET enabled=#{enabled}, failed_login=#{failedLogin}, last_login_ip=#{lastLoginIp}, last_login_time=CURRENT_TIMESTAMP
+		WHERE id=#{id}
+	</update>
+	
+	<select id="getUserByWeChat" parameterType="String" resultMap="OrgUser" useCache="false">
+		SELECT u.*, g.name as orgName, g.address as orgAddress, g.telphone as orgTelphone, m.item_name orgRoleName
+		FROM org_user u
+		LEFT JOIN organization g ON u.org_id=g.id
+		LEFT JOIN metadata_item m ON u.org_role_item_id=m.id
+		WHERE u.username=#{wechat}
+	</select>
+	
+	<select id="getManagerByEmployeeName" resultType="OrgUser" useCache="false">
+		SELECT *
+		FROM org_user 
+		WHERE employee_no=(
+			SELECT manager_no FROM org_user where org_id=#{orgId} AND realname=#{employeeName}
+		)
+		LIMIT 1
+	</select>
+	
+	<select id="getUserByEmployeeNo" resultType="OrgUser" useCache="false">
+		SELECT *
+		FROM org_user 
+		WHERE org_id=#{orgId} AND employee_no=#{employeeNo}
+		LIMIT 1
+	</select>
+	
+	<select id="getUsersByNames" resultType="OrgUser" useCache="false">
+		SELECT self.id, self.realname
+		FROM org_user self
+		WHERE self.org_id=#{orgId} AND self.realname IN
+		<foreach item="realname" collection="nameList" open="(" separator="," close=")">  
+			#{realname}
+		</foreach>
+	</select>
+	
+	<!-- 扩展SQL: end -->
+</mapper>

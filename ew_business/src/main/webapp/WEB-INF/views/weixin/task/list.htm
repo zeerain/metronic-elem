@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="${ctx.contextPath}/res/weixin/dist/task.custom.css">
+    <link rel="stylesheet" href="${ctx.contextPath}/res/css/weixin/infinite.custom.css">
+    <title>元兵空中助理</title>
+</head>
+<body data-ctx="${ctx.contextPath}">
+<#if modelList?? && modelList?size gt 0>
+	<#include "/weixin/task/list_paging.htm">
+	<div class="weui-loadmore viewMore">
+    	<i class="weui-loading"></i>
+    	<span class="weui-loadmore__tips">正在加载</span>
+    </div>
+<#else>
+	<header class="header">
+		<div style="text-align:center">暂无任何匹配任务！</div>
+	</header>
+</#if>
+<script src="${ctx.contextPath}/res/js/jquery.min.js" type="text/javascript"></script>
+<#include "/weixin/include/_js_sdk.htm">
+<script src="${ctx.contextPath}/res/weixin/js/voice.custom.js?v=1.0" type="text/javascript"></script>
+<script src="${ctx.contextPath}/res/weixin/js/media.play.js?v=1.0" type="text/javascript"></script>
+<#include "/weixin/include/_js_infinite.htm">
+<script>
+$(function(){
+	function initLiClickEvent(){
+		$(".list li .title").unbind("click");
+	    $(".list li .title").bind('click', function(){
+	        $('.list li').removeClass('open');
+            $(this).closest("li").addClass('open');
+	    });	
+	}
+	initLiClickEvent();
+    
+    new AudioMedia();
+    new WexinTypeAudio();
+	// 滚动加载
+	var reg = new RegExp("/","g");
+	infinite(${totalPages}, '${ctx.contextPath}/weixin/task/list', $(".lastFocusDate").val().replace(reg,""), initLiClickEvent);
+});
+</script>
+<#include "/weixin/include/_keep_alive.htm">
+</body>
+</html>

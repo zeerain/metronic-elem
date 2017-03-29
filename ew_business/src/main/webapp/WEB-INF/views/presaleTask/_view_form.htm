@@ -1,0 +1,21 @@
+<form method="post" action="${ctx.contextPath}/presaleTask/update/${model.id}">
+	<div class="row">
+		<div class="col-md-12">
+			<textarea name="comment" class="form-control" rows="2" placeholder="填写您需要反馈的内容" data-fv="NotNull"></textarea>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-2">
+			<select name="status" class="form-control" placeholder="后续操作" data-fv="NotNull">
+				<option value="">- 后续安排 -</option>
+				<option value="CONTINUE" selected>继续跟进</option>
+				<option value="DONE">停止跟进</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<input type="hidden" name="taskId" value="${model.id}" />
+			<button class="btn btn-primary btn-block" type="submit">提交</button>	
+		</div>
+	</div>
+</form>

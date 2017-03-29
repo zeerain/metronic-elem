@@ -1,0 +1,26 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="销售政策管理" url="${ctx.contextPath}/presaleActivity/index" title="销售政策管理">
+		</@bodyHeader>
+		
+		<@box>
+			<@boxHeader>
+				<a href="${ctx.contextPath}/presaleActivity/create" class="btn btn-success btn-sm">新建销售政策</a>
+			</@boxHeader>
+			<@boxBody>
+				<#include "/presaleActivity/page_index.htm" />
+			</@boxBody>
+			<@boxFooter>
+				<#include "/include/pagination.htm">
+			</@boxFooter>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

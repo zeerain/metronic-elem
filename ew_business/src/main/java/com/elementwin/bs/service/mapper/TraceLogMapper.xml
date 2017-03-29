@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.TraceLogMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="TraceLog" type="TraceLog">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="TraceLog">
+		SELECT *
+		FROM trace_log_bs
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="TraceLog" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO trace_log_bs(
+			 system, user_id, user_type, operation, rel_obj_type, rel_obj_id, rel_obj_data, comment
+		)
+		VALUES(
+			 #{system}, #{userId}, #{userType}, #{operation}, #{relObjType}, #{relObjId}, #{relObjData}, #{comment}
+		)
+	</insert>
+	
+	<sql id="searchQuery">
+    	<if test="user_id != null">
+    	self.user_id=#{user_id}
+    	</if>
+    	<if test="user_type != null">
+    	 AND self.user_type=#{user_type}
+    	</if>
+    	<if test="operation != null">
+    	 AND self.operation=#{operation}
+    	</if>
+    	<if test="rel_obj_type != null">
+    	 AND self.rel_obj_type=#{rel_obj_type}
+    	</if>
+    	<if test="rel_obj_id != null">
+    	 AND self.rel_obj_id=#{rel_obj_id}
+    	</if>
+    	<if test="rel_obj_data != null">
+    	 AND self.rel_obj_data like CONCAT('%',#{rel_obj_data},'%')
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer">
+		SELECT count(self.id)
+	    FROM trace_log_bs self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="TraceLog">
+		SELECT self.*
+	    FROM trace_log_bs self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+		
+	<!-- 扩展SQL: end -->
+</mapper>

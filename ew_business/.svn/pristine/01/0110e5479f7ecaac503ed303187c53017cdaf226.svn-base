@@ -1,0 +1,150 @@
+@import "./index.styl"
+
+*{
+    padding: 0
+    margin: 0
+}
+nav-height = 44px
+main-control-height = 50px
+nav()
+.main-control
+    display: block
+    main-control-padding = 7px
+    display: flex
+    width: 100%
+    height: main-control-height
+    background-color: #cac9ce
+    ele-height = (main-control-height - main-control-padding*2)
+    &>*
+        flex: 1
+        display: inline-block
+        margin: main-control-padding (main-control-padding/2)
+        height: ele-height
+        line-height: ele-height
+        text-align: center
+        background-color: #3c7cc2
+        border-radius: 5px
+        color: #fff
+        font-size: 16px
+        font-weight: 500
+        transition: all .2s
+        -webkit-transition: all .2s
+    &>*:first-child
+        margin-left: main-control-padding
+    &>*:last-child
+        margin-right: main-control-padding
+    .btn-category
+        display: none
+    input
+        flex: 0
+        display: inline-block
+        position: relative
+        top: 1px
+        background: #fff
+        width: 0
+        height: (ele-height - 2)
+        margin-right: -4px
+        outline: none
+        border: none
+        text-align: left
+        text-indent: 8px
+        color: #777
+        &:focus
+            border: 1px solid #3c7cc2
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset
+            outline: medium none
+    .btn-search
+        flex: 0
+        padding: 0 10px
+        background-color: #80a1b3
+        background-image: url("../images/icon/sousuo-icon@2x.png")
+        background-repeat: no-repeat
+        background-size: contain
+        background-position: center center
+
+    &.open-search
+        .btn-category-list
+            display: none
+        .btn-category
+            display: inline-block
+        .input-search
+            display: inline
+            margin-right: auto
+            flex: 2
+
+.addressbook-container
+    position: absolute
+    left: 0
+    right: 0
+    top: (nav-height + main-control-height)
+    bottom: 0
+    list-height = 44px
+    list-title-height = 20px
+    right-width = 24px
+    .list
+        position: absolute
+        left: 0
+        top: 0
+        right: right-width
+        bottom: 0
+        list-style: none
+        height: auto
+        li
+            left = 15px
+            margin-left: left
+            height: list-height
+            line-height: list-height
+            font-size: 18px
+            font-weight: 400
+            border-bottom: 1px solid #dedede
+            color: #444
+            &.title
+                height: list-title-height
+                line-height: list-title-height
+                margin-left: 0
+                padding-left: left
+                font-weight: 500
+                background-color: #f2f2f2
+        .people
+            position: relative
+            .btn-add
+                font-size: 28px
+                color: #999
+                font-weight: 500
+            .btn-add-hide
+                opacity: 0
+            .label-box
+                label-height = 24px
+                padding-bottom = 7px
+                position: absolute
+                bottom: padding-bottom
+                right: 0
+                left: 130px
+                text-align: right
+                height: (label-height + padding-bottom)
+                .label  
+                    height: (label-height)
+                    line-height: (label-height)
+                    width: auto
+                    padding: 0 8px
+                    border: 1px solid #aeaeae
+                    font-size: 10px
+                    color: #acacac
+                    margin-left: 6px
+    .nav-bar
+        position: fixed
+        width: right-width
+        top: 180px
+        bottom: 0
+        right: 0
+        a
+            display: block
+            height: h = 18px
+            line-height: h
+            width: 100%
+            text-align: center
+            color: #3c7cc2
+            h1
+                font-size: 14px
+        
+

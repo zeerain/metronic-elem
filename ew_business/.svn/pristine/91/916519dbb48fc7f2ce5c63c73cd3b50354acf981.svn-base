@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.CcUserMapper">
+	
+	<!-- Model ORM映射 -->
+	<resultMap id="CcUser" type="CcUser">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultMap="CcUser" useCache="false">
+		SELECT *
+		FROM cc_user 
+		WHERE id=#{id}
+	</select>
+	
+	<sql id="searchQuery">
+		<if test="username != null">
+    		username like CONCAT('%',#{username},'%')
+    	</if>
+    	<if test="role_id != null">
+    		 AND role_id=#{role_id}
+    	</if>
+    	<if test="realname != null">
+    		 AND realname like CONCAT('%',#{realname},'%')
+    	</if>
+    	<if test="email != null">
+    		 AND email like CONCAT('%',#{email},'%')
+    	</if>
+    	<if test="cellphone != null">
+    		 AND cellphone like CONCAT('%',#{cellphone},'%')
+    	</if>
+    	<if test="enabled != null">
+    		 AND enabled=#{enabled}
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(id)
+	    FROM cc_user
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" resultType="CcUser" useCache="false">
+		SELECT *
+	    FROM cc_user
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}	    		
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: -->
+	
+</mapper>

@@ -1,0 +1,21 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="回访记录管理" url="${ctx.contextPath}/revisitRecord/index" title="查看回访记录">
+		</@bodyHeader>
+
+        <@box>
+			<@boxBody>
+				<#include "/revisitRecord/_view.htm" />
+			</@boxBody>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/js/views/revisit.workorder.js"></script>
+</body>
+</html>

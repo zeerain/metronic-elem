@@ -1,0 +1,79 @@
+<#-- 基本情况 -->
+<table class="table table-bordered table-striped table-hover" style="margin-top:10px;">
+	<tbody>
+	<tr>
+		<td class="td-label" nowrap>潜客类别:</td>
+		<td>
+			<#if (customer.category)??>
+		  	${customer.category}
+			</#if>
+		</td>
+	</tr>
+	<tr>
+	  <td class="td-label">类别明细:</td>
+	  <td colspan="5">
+	  	<#if (customer.categoryDetail)??>
+	    	${customer.categoryDetail}			  	
+	  	</#if>
+	  </td>
+	</tr>
+	</tbody>
+</table>
+<hr>
+<#-- 原始数据 -->
+<table class="table table-bordered table-striped table-hover">
+	<tbody>
+	<tr>
+		<td class="td-label" nowrap>销售顾问:</td>
+    	<td class="td-value">
+		  	${(model.salespersonName)!""}
+	    </td>
+	</tr>
+	<tr>
+	    <td class="td-label">潜客电话:</td>
+    	<td class="td-value">
+		  	${(model.customerPhone)!""}
+		  	<#if (model.customerPhone)??>
+		  		<a class="text-green pull-right" href="tel:${model.customerPhone}"><i class="fa fa-phone"></i> 拨打</a>
+		  	</#if>
+	    </td>
+	</tr>
+	<tr>
+		<td class="td-label">潜客级别:</td>
+    	<td class="td-value">
+		  	${(model.customerLevel)!""}
+	    </td>
+	</tr>
+	<tr>
+		<td class="td-label">意向车型:</td>
+    	<td class="td-value">
+		  	${(model.intentCarModel)!""}
+	    </td>
+	</tr>
+	<tr>
+		<td class="td-label">登记日期:</td>
+    	<td class="td-value">
+		  	${(model.registerDate)!""}
+	    </td>
+	</tr>
+	<tr>
+		<td class="td-label">备注说明:</td>
+    	<td class="td-value">
+		  	${(model.comment)!""}
+	    </td>
+    </tr>
+	</tbody>
+</table>
+<hr>
+<#-- 最新状态 -->
+<table class="table table-bordered table-striped table-hover">
+	<tbody>
+	<tr>
+		<td class="td-label" nowrap>任务状态:</td>
+	  	<td>
+    		${(model.statusName)!"-"}
+	  	</td>
+	</tr>
+	</tbody>
+</table>
+<hr>

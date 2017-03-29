@@ -1,0 +1,39 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="组织成员管理" url="${ctx.contextPath}/orgUser/index" title="组织成员管理">
+		</@bodyHeader>
+		
+		<@box>
+			<div class="box-header">
+				<h3 class="box-title"><i class="fa fa-black-tie"></i> ${(org.shortName)!"-"}</h3>
+				<div class="box-tools">
+					<a href="${ctx.contextPath}/orgUser/create" class="btn btn-success btn-sm">新建组织成员</a>					
+				</div>
+			</div><#-- /.box-header -->
+			<@boxBody>
+				<#include "/orgUser/page_index.htm" />
+			</@boxBody>
+			<@boxFooter>
+				<#include "/include/pagination.htm">
+			</@boxFooter>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".datepicker").datepicker({
+		 language: 'zh-CN',
+		 format: "yyyy-mm-dd"
+	});
+});
+</script>
+</body>
+</html>

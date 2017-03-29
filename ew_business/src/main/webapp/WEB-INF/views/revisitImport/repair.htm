@@ -1,0 +1,72 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="回访数据上传" url="${ctx.contextPath}/revisitImport/index" title="回访数据上传">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box blue">
+							<div class="portlet-title">
+                                <div class="caption">文件处理失败原因</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                                <div class="actions">
+	                                <#if (model.fileUuid)??>
+	                                    <a class="btn font-white" href="${ctx.contextPath}/file/download/${model.fileUuid}" title="下载原始文件: ${(model.fileName)!''}">
+	                                        <i class="fa fa-download"></i> 下载原始文件
+	                                    </a>
+	                                </#if>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#if model.status != 'S'>
+								<p class="text-yellow">${(model.failReason)!"无解析结果"}</p>
+								<#else>
+								<p class="text-green">文件解析成功
+								</p>					
+								</#if>
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box green">
+							<div class="portlet-title">
+                                <div class="caption">上传调整后的数据文件
+                                </div>
+                            </div>
+							<@boxBody>
+								<#include "/revisitImport/_uploadform.htm" />
+							</@boxBody>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-action').on("click", function(){
+		$("#fileForm").attr("action", "${ctx.contextPath}/revisitImport/"+$(this).data("action"));
+		$("#fileForm").submit();
+	});
+});
+</script>
+</body>
+</html>
+

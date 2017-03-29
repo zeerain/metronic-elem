@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.OrganizationMapper">
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="com.elementwin.common.model.Organization">
+		SELECT *
+		FROM organization
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="com.elementwin.common.model.Organization" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO organization(
+			 code, name, short_name, logo, car_brand, app_id, agent1_id, agent2_id, sa_editable, manager, contact_person, address, telphone, aniphone, email, fax, website, wechat_qrcode, eshop_url, comment, active
+		)
+		VALUES(
+			 #{code}, #{name}, #{shortName}, #{logo}, #{carBrand}, #{appId}, #{agent1Id}, #{agent2Id}, #{saEditable}, #{manager}, #{contactPerson}, #{address}, #{telphone}, #{aniphone}, #{email}, #{fax}, #{website}, #{wechatQrcode}, #{eshopUrl}, #{comment}, #{active}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.elementwin.common.model.Organization">
+		UPDATE organization 
+		SET code=#{code}, name=#{name}, short_name=#{shortName}, logo=#{logo}, car_brand=#{carBrand}, app_id=#{appId}, agent1_id=#{agent1Id}, agent2_id=#{agent2Id}, sa_editable=#{saEditable}, manager=#{manager}, contact_person=#{contactPerson}, 
+		address=#{address}, telphone=#{telphone}, aniphone=#{aniphone}, email=#{email}, fax=#{fax}, website=#{website}, wechat_qrcode=#{wechatQrcode}, eshop_url=#{eshopUrl}, comment=#{comment}
+		WHERE id=#{id}
+	</update>
+		
+	<update id="delete" parameterType="Long">
+		UPDATE organization SET active=0 WHERE id=#{id}
+	</update>
+	
+	<sql id="searchQuery">
+    	<if test="name != null">
+    		self.name like CONCAT('%',#{name},'%')
+    	</if>
+    	<if test="address != null">
+    		 AND self.address like CONCAT('%',#{address},'%')
+    	</if>
+    	<if test="telphone != null">
+    		 AND self.telphone like CONCAT('%',#{telphone},'%')
+    	</if>
+    	<if test="email != null">
+    		 AND self.email like CONCAT('%',#{email},'%')
+    	</if>
+    	<if test="fax != null">
+    		 AND self.fax like CONCAT('%',#{fax},'%')
+    	</if>
+    	<if test="website != null">
+    		 AND self.website like CONCAT('%',#{website},'%')
+    	</if>
+    	<if test="comment != null">
+    		 AND self.comment like CONCAT('%',#{comment},'%')
+    	</if>
+    	<if test="active != null">
+    		 AND self.active=#{active}
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer">
+		SELECT count(self.id)
+	    FROM organization self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="com.elementwin.common.model.Organization">
+		SELECT self.*
+	    FROM organization self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	<select id="getOrgIdByAppId" parameterType="String" resultType="Long">
+		SELECT self.id
+	    FROM organization self
+	    WHERE self.app_id=#{appId}
+	    LIMIT 1
+	</select>
+	
+	<select id="getSubCompanyList" parameterType="Long" resultType="com.elementwin.common.model.Organization">
+		SELECT self.*
+	    FROM organization self
+	    WHERE self.parent_id=#{orgId} AND self.active=1
+	</select>
+	
+	<!-- 扩展SQL: end -->
+</mapper>

@@ -1,0 +1,92 @@
+<form class="form-horizontal" method="post">
+		<div class="form-group">
+		<label class="col-md-2 control-label" for="orgId">单位 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<input type="text" id="orgId" name="orgId" class="form-control" placeholder="单位" 
+				value="<#if (model.orgId)??>${model.orgId}</#if>" required="true" 
+		  		data-fv="NotNull">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="fileId">文件ID <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<input type="text" id="fileId" name="fileId" class="form-control" placeholder="文件ID" 
+				value="<#if (model.fileId)??>${model.fileId}</#if>" required="true" 
+		  		data-fv="NotNull">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="count">记录数 </label>
+		<div class="col-md-9">
+			<input type="text" id="count" name="count" class="form-control" placeholder="记录数" 
+				value="<#if (model.count)??>${model.count}</#if>"  
+		  		data-fv="">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="failReason">失败原因 </label>
+		<div class="col-md-9">
+			<input type="text" id="failReason" name="failReason" class="form-control" placeholder="失败原因" 
+				value="<#if (model.failReason)??>${model.failReason}</#if>"  
+		  		data-fv="Length(-255)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="updateFileId">调整文件 </label>
+		<div class="col-md-9">
+			<input type="text" id="updateFileId" name="updateFileId" class="form-control" placeholder="调整文件" 
+				value="<#if (model.updateFileId)??>${model.updateFileId}</#if>"  
+		  		data-fv="">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="requestHelp">请求协助 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<select id="requestHelp" name="requestHelp" class="form-control">
+				<option value="1" <#if (model.requestHelp)?? && model.requestHelp>selected="selected"</#if>> 是 </option>
+				<option value="0" <#if (model.requestHelp)?? && !model.requestHelp>selected="selected"</#if>> 否 </option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="status">处理结果 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<input type="text" id="status" name="status" class="form-control" placeholder="处理结果" 
+				value="<#if (model.status)??>${model.status}</#if>" required="true" 
+		  		data-fv="NotNull,Length(-1)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="updateTime">调整时间 </label>
+		<div class="col-md-9">
+			<input type="text" id="updateTime" name="updateTime" class="form-control" placeholder="调整时间" 
+				value="<#if (model.updateTime)??>${model.updateTime}</#if>"  
+		  		data-fv="">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="updateBy">调整人 </label>
+		<div class="col-md-9">
+			<input type="text" id="updateBy" name="updateBy" class="form-control" placeholder="调整人" 
+				value="<#if (model.updateBy)??>${model.updateBy}</#if>"  
+		  		data-fv="">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="createBy">上传人 </label>
+		<div class="col-md-9">
+			<input type="text" id="createBy" name="createBy" class="form-control" placeholder="上传人" 
+				value="<#if (model.createBy)??>${model.createBy}</#if>"  
+		  		data-fv="">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-2">
+			<#if (model.id)??>
+			<button class="btn btn-primary btn-block" type="submit"> 提交更新 </button>
+			<#else>
+			<button class="btn btn-success btn-block" type="submit"> 提交 </button>			
+			</#if>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.RevisitTaskMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="RevisitTask" type="RevisitTask">
+	</resultMap>
+
+	<resultMap id="RevisitTaskWithWorkOrder" type="RevisitTask">
+		<id property="id" column="id" />
+		<association property="workOrder" column="work_order_id" javaType="RevisitWorkOrder" 
+			select="com.elementwin.bs.service.mapper.RevisitWorkOrderMapper.getSingleWorkOrder">
+		</association>
+	</resultMap>
+	
+	<resultMap id="RevisitTaskDetail" type="RevisitTask">
+		<id property="id" column="id" />
+		<collection property="recordList" javaType="ArrayList" column="id" ofType="RevisitRecord" 
+			select="com.elementwin.bs.service.mapper.RevisitRecordMapper.getTaskRecords">
+		</collection>
+		<collection property="answerList" javaType="ArrayList" column="id" ofType="RevisitAnswer" select="getTaskAnswers">
+		</collection>
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="RevisitTask">
+		SELECT *
+		FROM revisit_task
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="RevisitTask" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO revisit_task(
+			 org_id, referer_id, row_index, service_end_date, is_dealer_store, car_frame_no, car_license_no, car_model_type, customer_manager, car_driver, car_driver_phone, car_owner, service_type, mileage, is_member, is_out_insure, 
+			 owner_id, previous_owner_id, status, status_comment, active
+		)
+		VALUES(
+			 #{orgId}, #{refererId}, #{rowIndex}, #{serviceEndDate}, #{isDealerStore}, #{carFrameNo}, #{carLicenseNo}, #{carModelType}, #{customerManager}, #{carDriver}, #{carDriverPhone}, #{carOwner}, #{serviceType}, #{mileage}, #{isMember}, #{isOutInsure}, 
+			 #{ownerId}, #{previousOwnerId}, #{status}, #{statusComment}, #{active}
+		)
+	</insert>
+	
+	<update id="update" parameterType="RevisitTask">
+		UPDATE revisit_task 
+		SET owner_id=#{ownerId}, previous_owner_id=#{previousOwnerId}, status=#{status}, status_comment=#{statusComment}, update_by=#{updateBy}, update_time=CURRENT_TIMESTAMP, active=#{active}
+		WHERE id=#{id}
+	</update>
+	
+	<sql id="searchQuery">
+    	<if test="id != null">
+    	self.id=#{id}
+    	</if>
+    	<if test="org_id != null">
+    	AND self.org_id=#{org_id}
+    	</if>
+    	<if test="car_license_no != null">
+    	 AND self.car_license_no like CONCAT('%',#{car_license_no},'%')
+    	</if>
+    	<if test="car_driver != null">
+    	 AND self.car_driver like CONCAT('%',#{car_driver},'%')
+    	</if>
+    	<if test="customer_manager != null">
+    	 AND self.customer_manager like CONCAT('%',#{customer_manager},'%')
+    	</if>
+    	<if test="service_end_date != null">
+    	 AND self.service_end_date=#{service_end_date}
+    	</if>
+    	<if test="serviceEndDateBegin != null and serviceEndDateEnd != null">
+    	 AND self.service_end_date >=#{serviceEndDateBegin} AND service_end_date &lt;= ${serviceEndDateEnd}
+    	</if>
+    	<if test="service_type != null">
+    	 AND self.service_type=#{service_type}
+    	</if>
+    	<if test="owner_id != null">
+    	 AND self.owner_id=#{owner_id}
+    	</if>
+    	<if test="status != null">
+    	 AND self.status=#{status}
+    	</if>
+    	<if test="active != null">
+    	 AND self.active=#{active}
+    	</if>
+    	<if test="customer_manager != null">
+    	AND self.customer_manager like CONCAT('%',#{customer_manager},'%')
+    	</if>
+    	<if test="service_type != null">
+    	AND self.service_type=#{service_type}
+    	</if>
+    	<if test="serviceBeginDate != null">
+    	AND self.service_end_date >= #{serviceBeginDate}
+    	</if>
+    	<if test="serviceEndDate != null">
+    	AND self.service_end_date &lt;= #{serviceEndDate}
+    	</if>
+    	<if test="updateTime != null">
+    	AND self.update_time IS NOT NULL AND date(self.update_time)=#{updateTime} 
+    	</if>
+    	<if test="revisitBeginDate != null or revisitEndDate != null">
+    	AND (
+    			(self.update_time IS NOT NULL <if test="revisitBeginDate != null">AND date(self.update_time) >= #{revisitBeginDate}</if> <if test="revisitEndDate != null">AND date(self.update_time) &lt;= #{revisitEndDate}</if>)
+    	 		OR 
+    	 		(self.update_time IS NULL <if test="revisitBeginDate != null">AND date(self.create_time) &lt;= #{revisitEndDate}</if> <if test="revisitEndDate != null">AND date(self.create_time) &lt;= #{revisitEndDate}</if>)
+    	 	)
+    	</if>
+    	<if test="workorderStatus != null and workorderStatus == 'PENDING'">
+    	AND work_order.status=#{workorderStatus}
+    	</if>
+    	<if test="workorderStatus != null and workorderStatus == 'SOLVED'">
+    	AND work_order.status IN ('SOLVED', 'AUDIT')
+    	</if>
+    	<if test="category != null">
+    	AND (work_order.category=#{category} OR work_order.confirmed_category=#{category})
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.id)
+	    FROM revisit_task self
+	    LEFT JOIN revisit_work_order work_order ON self.work_order_id=work_order.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="RevisitTask" useCache="false">
+		SELECT self.*, org.short_name as orgName, ccusr.realname as ownerName
+	    FROM revisit_task self
+	    LEFT JOIN organization org ON self.org_id=org.id
+	    LEFT JOIN cc_user ccusr ON self.owner_id=ccusr.id
+	    LEFT JOIN revisit_work_order work_order ON self.work_order_id=work_order.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin --> 
+	<sql id="searchQueryWithWorkOrder">
+    	<if test="id != null">
+    	self.id=#{id}
+    	</if>
+    	<if test="org_id != null">
+    	AND self.org_id=#{org_id}
+    	</if>
+    	<if test="car_driver != null">
+    	 AND self.car_driver like CONCAT('%',#{car_driver},'%')
+    	</if>
+    	<if test="owner_id != null">
+    	 AND self.owner_id=#{owner_id}
+    	</if>
+    	<if test="user_id == null and customer_manager != null">
+    	  AND self.customer_manager like CONCAT('%',#{customer_manager},'%')
+    	</if>
+    	<if test="service_type != null">
+    	 AND self.service_type=#{service_type}
+    	</if>
+    	<choose>
+    		<when test="workorderStatusIn != null">
+    			AND work_order.status IN 
+			   	<foreach item="sts" collection="workorderStatusIn" open="(" separator="," close=")">  
+					#{sts}
+				</foreach>
+    		</when>
+    		<when test="status != null">
+		    	 AND work_order.status=#{status}		
+    		</when>
+    	</choose>
+    	<if test="category != null">
+    	 AND work_order.category=#{category}
+    	</if>
+    	<if test="user_id == null and status != null">
+    	 AND work_order.status=#{status}
+    	</if>
+    	<if test="user_id != null and customer_manager != null and orderStatusUndone != null">
+    	 AND ((work_order.customer_manager=#{customer_manager} AND work_order.status='PENDING') OR (work_order.auditor_id=#{user_id} AND work_order.status='AUDIT'))
+    	</if>
+    	<if test="user_id != null and customer_manager != null and orderStatusDone != null">
+    	 AND ((work_order.customer_manager=#{customer_manager} AND work_order.status!='PENDING') OR (work_order.auditor_id=#{user_id} AND work_order.status!='AUDIT'))
+    	</if>
+    	<if test="active != null">
+    	 AND self.active=#{active}
+    	</if>
+    	<if test="create_by != null">
+    	 AND self.create_by=#{create_by}
+    	</if>
+	</sql>
+	
+	<select id="getTaskDetail" parameterType="Long" resultMap="RevisitTaskDetail" useCache="false">
+		SELECT self.*
+		FROM revisit_task self
+		WHERE self.id=#{id} 
+	</select>
+	
+	<select id="getTaskAnswers" parameterType="Long" resultType="RevisitAnswer" useCache="false">
+		SELECT self.*, q.title as questionItemTitle
+	    FROM revisit_answer self
+	    LEFT JOIN question_item q ON self.question_item_id=q.id
+	    WHERE self.task_id=#{taskId}
+	    ORDER BY self.id ASC
+	</select>
+	
+	<select id="getListWithWorkOrderCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.id)
+	    FROM revisit_task self
+	    LEFT JOIN revisit_work_order work_order ON self.work_order_id=work_order.id
+	    LEFT JOIN cc_user ccusr ON self.owner_id=ccusr.id
+	    <where>
+	    	<include refid="searchQueryWithWorkOrder"></include>
+	    	AND self.work_order_id IS NOT NULL 
+	    </where>
+	</select>
+	
+	<select id="getListWithWorkOrder" parameterType="Map" resultMap="RevisitTaskWithWorkOrder" useCache="false">
+		SELECT self.*, org.short_name as orgName, ccusr.realname as ownerName
+	    FROM revisit_task self
+	    LEFT JOIN organization org ON self.org_id=org.id 
+	    LEFT JOIN revisit_work_order work_order ON self.work_order_id=work_order.id
+	    LEFT JOIN cc_user ccusr ON self.owner_id=ccusr.id
+	    <where>
+	    	<include refid="searchQueryWithWorkOrder"></include>
+	    	AND self.work_order_id IS NOT NULL 
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	
+	<select id="getListWithWorkOrderAndDetail" parameterType="Map" resultMap="RevisitTaskDetail" useCache="false">
+		SELECT self.*, org.short_name as orgName
+	    FROM revisit_task self
+	    LEFT JOIN organization org ON self.org_id=org.id 
+	    LEFT JOIN revisit_work_order work_order ON self.work_order_id=work_order.id
+	    <where>
+	    	<include refid="searchQueryWithWorkOrder"></include>
+	    	AND self.work_order_id IS NOT NULL 
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	
+	<select id="getAnswersInTasks" parameterType="List" resultType="RevisitAnswer" useCache="false">
+	SELECT answer.*, q.title as questionItemTitle
+	FROM revisit_answer answer
+	LEFT JOIN question_item q ON answer.question_item_id=q.id
+   	WHERE answer.task_id IN 
+   	<foreach item="taskId" collection="taskIds" open="(" separator="," close=")">  
+			#{taskId}
+	</foreach>
+	</select>
+	
+	<select id="getRecordsInTasks" parameterType="List" resultType="RevisitRecord" useCache="false">
+	SELECT record.*, u.realname as ccuserName
+	FROM revisit_record record
+	LEFT JOIN cc_user u ON record.create_by=u.id
+   	WHERE record.task_id IN 
+   	<foreach item="taskId" collection="taskIds" open="(" separator="," close=")">  
+			#{taskId}
+	</foreach>
+	</select>
+	
+	<select id="getWorkOrders" parameterType="Long" resultType="RevisitWorkOrder" useCache="false">
+	SELECT self.*
+	FROM revisit_work_order self
+	WHERE self.id IN
+	<foreach item="workOrderId" collection="workOrderIds" open="(" separator="," close=")">  
+		#{workOrderId}
+	</foreach>
+	</select>
+	
+	<select id="getQuestionItems" parameterType="Long" resultType="QuestionItem">
+	SELECT item.*
+	FROM question_item item 
+	WHERE item.question_id=#{questionId}
+	</select>
+	
+	<select id="getServiceQuestionList" resultType="OrgServiceQuestion" useCache="false">
+		SELECT self.*
+	    FROM org_service_question self
+	    WHERE self.org_id=#{orgId} AND self.service_id=#{serviceId}
+	</select>
+	
+	<select id="getWorkOrderTask" parameterType="Map" resultMap="RevisitTask" useCache="false">
+		SELECT self.*
+	    FROM revisit_task self
+	    LEFT JOIN revisit_work_order work_order ON self.work_order_id=work_order.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    	AND self.work_order_id IS NOT NULL 
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	
+	<select id="getWorkOrderOpinions" parameterType="Long" resultType="RevisitWorkOrderOpinion" useCache="false">
+	SELECT self.*
+	FROM revisit_work_order_opinion self
+	WHERE self.work_order_id IN
+	<foreach item="workOrderId" collection="workOrderIds" open="(" separator="," close=")">  
+		#{workOrderId}
+	</foreach>
+	ORDER BY self.id ASC
+	</select>
+	<!-- 扩展SQL: end -->
+</mapper>

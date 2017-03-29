@@ -1,0 +1,281 @@
+@import "./index.styl"
+*
+    padding: 0
+    margin: 0
+    -webkit-box-sizing: border-box
+    box-sizing: border-box
+
+
+.list
+    list-style: none
+    height: auto
+    width: 100%
+    overflow: hidden
+    li
+        title-h = 60px
+        title-rank-w = 25px
+        left-fixed_right-auto(title-h, title-rank-w)
+        height: auto
+        margin-bottom: -2px
+        .title
+            border-bottom: 1px solid #dedede
+            .left
+                height: title-h - 1
+            .rank-info
+                background-color: #7ab049
+            .rank-danger
+                background-color: #ef543f
+            .rank-warning
+                background-color: #e2c92c
+            .right .right-content
+                padding-vertical = 5px
+                padding-bottom = 5px
+                position: relative
+                padding: 5px 10px
+                h3-h = ((title-h - padding-vertical * 2) * 0.6)
+                h3
+                    font-size: 18px
+                    font-weight: 400
+                    height: h3-h
+                    line-height: h3-h
+                p
+                    height: h = (title-h - (padding-vertical * 2) - h3-h - padding-bottom)
+                    line-height: h
+                    span    
+                        display: inline-block
+                        border: 1px solid #9c9c9c
+                        margin-right: 6px
+                        padding: 0 8px
+                        text-align: center
+                        font-size: 10px
+                .tel-cnt
+                    position: absolute
+                    right: 0
+                    top: 0
+                    bottom: 0
+                    line-height: title-h
+                    width: 48px
+                    font-size: 36px
+                    font-weight: 400
+                    color: #555
+                    .first
+                        position: relative
+                        top: -5px
+                    .character
+                        position: relative
+                        left: -6px
+                        font-size: 34px
+                        font-weight: 200
+                        color: #777
+                    .number
+                        position: relative
+                        left: -15px
+                        top: 7px
+                        font-size: 30px
+                        font-weight: 200
+                        color: #777
+        .content
+            media-height = 42px
+            display: none
+            position: relative
+            top: -2px
+            height: auto
+            width: 100%
+            padding: 6px 6px
+            background-color: #ebebeb
+            .media-avatar
+                height: (media-height + 10)
+                position: relative
+                top: -5px
+            &>*
+                margin: 6px auto
+                margin-top: 0
+            .datetime
+                height: h = 12px
+                line-height: h
+                font-size: 10px
+                text-align: center
+                margin-top: 0
+                margin-bottom: 5px
+                color: #ccc
+                .history 
+                    display: inline-block
+                    btn(18px, #8d8d8d)
+                    padding: 0 8px
+                    font-size: 10px
+                    border-radius: 3px
+                    margin-left: 8px
+            .media-bar 
+                position: relative 
+                display: flex
+                height: media-height = 28px
+                width: auto
+                .media-ctrl 
+                    width: media-height
+                    height: media-height
+                    background-image: url("../images/icon/bofang-icon@2x.png")
+                    background-repeat: no-repeat
+                    background-size: contain
+                    background-position: center center
+                    &.doing
+                        background-image: url("../images/icon/zhanting-icon@2x.png")
+                .media-progress
+                    flex: 1
+                    position: relative
+                    height: media-height
+                    .media-progress-bar
+                        height: ph = 4px
+                        padding-h = 6px
+                        position: absolute
+                        left: padding-h
+                        right: padding-h
+                        top: ((media-height - ph)/2)
+                        border-radius: 3px
+                        background-color: #dedede
+                        .marker
+                            sub = 6
+                            position: absolute
+                            height: mh = (media-height - sub)
+                            width: mh
+                            left: -10px
+                            top: (-((media-height - ph)/2) + sub/2)
+                            background-image: url('../images/icon/jindutiao-icon@2x.png')
+                            background-repeat: no-repeat
+                            background-size: contain
+                            background-position: center center
+            .cm-media-box
+                display: flex
+                align-items: flex-start
+                margin-bottom: 0
+                .cm-media
+                    media-height = media-height - 6
+                    position: relative
+                    width: 30%
+                    height: media-height
+                    line-height: media-height
+                    margin: 0 10px
+                    margin-top: 4px
+                    margin-right: 40px
+                    background-color: #fff
+                    border-radius: 5px
+                    background-image: url('../images/icon/yuyin@2x.png')
+                    background-repeat: no-repeat
+                    background-size: auto 50%
+                    background-position: 6px center
+                    &.play
+                        -webkit-animation: MediaPlay .6s linear
+                        -webkit-animation-delay: 0
+                        -webkit-animation-iteration-count: infinite
+                        animation: MediaPlay .6s linear 
+                        animation-delay: 0
+                        animation-iteration-count: infinite
+                    &::before
+                        border-width = 8px
+                        content: " "
+                        position: absolute
+                        left: -(border-width * 2)
+                        top: ((media-height - border-width * 2)/2)
+                        width: 0
+                        height: 0
+                        border-top: border-width solid transparent
+                        border-left: border-width solid transparent
+                        border-bottom: border-width solid transparent
+                        border-right: border-width solid #fff
+                    .sec-time
+                        position: absolute
+                        display: inline-block
+                        height: media-height
+                        width: auto
+                        top: 6px
+                        font-size: 14px
+                        right: -28px
+                        color: #ababab
+                .history
+                    offset = 8px
+                    background-offset = 3px
+                    display: block;
+                    position: relative;
+                    top: (offset/2)
+                    width: auto
+                    height: media-height - offset
+                    line-height: media-height - offset
+                    background: url('../images/icon/lishi-icon@2x.png') no-repeat background-offset center 
+                    background-size: (media-height - offset - background-offset*2)
+                    background-color: #8d8d8d
+                    padding: 0 10px
+                    padding-left: 32px
+                    text-decoration: none
+                    border-radius: 5px
+                    color: #fff
+                    font-size: 14px
+            .svc-text-box
+                display: flex
+                align-items: flex-end
+                .svc-position-box
+                    width: media-height
+                    height: media-height
+                .svc-text
+                    position: relative
+                    flex: 1
+                    padding: 5px 5px
+                    margin: 0 10px
+                    background-color: #fff
+                    border-radius: 5px
+                    line-height: 20px
+                    font-size: 14px
+                    color: #555
+                    .svc-avatar
+                        position: absolute
+                        right: -(media-height + 14)
+            .ctrl-box
+                display: flex
+                align-items: flex-start
+                a-height = 36px
+                margin-top: 12px
+                a
+                    display: block
+                    position: relative
+                    top: ((media-height - a-height) / 2)
+                    margin: 0 2px
+                    text-align: center
+                    text-decoration: none
+                    height: a-height
+                    line-height: a-height
+                    border-radius: 5px
+                    color: #fff;
+                    img
+                        display: inline-block
+                        position: relative
+                        v-offset = 5px
+                        height: h = (a-height - v-offset*2)
+                        vertical-align: middle
+                        top: -2px
+                .makeCall
+                    flex: 1
+                    background-color: #81c343
+                .startRecord
+                    flex: 2
+                    background-color: #c3593d
+                .btn-submit
+                    width: a-height
+                    background: url('../images/icon/fasong-icon@2x.png') no-repeat center center
+                    background-size: contain
+                    &.disabled 
+                        background: url('../images/icon/daifasong-icon@2x.png') no-repeat center center
+                        background-size: contain
+        &.open
+            .content
+                display: block;
+        &:nth-child(odd)
+            .title
+                background-color: #f9f9f9
+
+@keyframes MediaPlay 
+    0%
+        background-size: auto 50%
+    50%
+        background-size: auto 65% 
+    100%
+        background-size: auto 50% 
+    
+            

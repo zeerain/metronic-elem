@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./dist/home.custom.css">
+    <title>上海元兵</title>
+</head>
+<body>
+    <header class="header">
+        <div class="avatar">
+            <img src="./images/ren-icon@2x.png" alt="">
+        </div>
+        <h2 class="username">杨朝</h2>
+        <p class="job-position">客户经理</p>
+    </header>
+    <div class="grid-box">
+        <a href="#" class="grid-cell">
+            <div class="icon mingpian"><img src="" alt=""></div>
+            <p class="title">我的名片</p>
+        </a>
+        <a href="javascript:;" class="grid-cell btn-svcAccount" data-src="./images/qrcode.png">
+            <div class="icon fuwu"><img src="" alt=""></div>
+            <p class="title">服务号</p>
+        </a>
+        <a href="#" class="grid-cell">
+            <div class="icon mingpiangon"><img src="" alt=""></div>
+            <p class="title">名片工厂</p>
+        </a>
+        <a href="#" class="grid-cell">
+            <div class="icon yuyue"><img src="" alt=""></div>
+            <p class="title">到店预约</p>
+        </a>
+        <a href="#" class="grid-cell">
+            <div class="icon saoyisao"><img src="" alt=""></div>
+            <p class="title">扫一扫</p>
+        </a>
+        <a href="#" class="grid-cell">
+            <div class="icon jingpin"><img src="" alt=""></div>
+            <p class="title">精品店</p>
+        </a> 
+    </div>
+    <footer class="footer">
+        <a href="#" class="footer-cell">
+            <div class="clac single canvas-box" data-percent="30">
+                2
+                <canvas class="canvas"></canvas>
+            </div>
+            <p class="title">任务</p>
+        </a>
+        <a href="#" class="footer-cell">
+            <div class="clac canvas-box" data-percent="100">
+                19<span class="small">/138</span>
+                <canvas class="canvas"></canvas>
+            </div>
+            <p class="title">通讯录</p>
+        </a>
+        <a href="#" class="footer-cell">
+            <div class="clac single canvas-box" data-percent="73">
+                5
+            </div>
+            <p class="title">业绩</p>
+        </a>
+    </footer>
+    <div class="mask-wrapper qrbox" onclick="$(this).fadeOut(200);">
+        <div id="qrcode">
+            <img src="" alt="">
+        </div>
+    </div>
+    <script src="//cdn.bootcss.com/jquery/2.2.3/jquery.js"></script>
+    <!--<script src="./js/home.canvas.js"></script>-->
+    <script src="./js/jquery.easypiechart.js"></script>
+    <script>
+        $(function(){
+            $(".btn-svcAccount").click(function(){
+                var src = $(this).data('src');
+                if (!src){
+                    alert('请先配置服务号二维码！');
+                    return false;
+                }
+                $('.qrbox').fadeIn(200).find("#qrcode img").attr('src', $(this).data('src'));
+                return false;
+            });
+
+            // canvas
+            $('.canvas-box').easyPieChart({
+                barColor:'#777',
+                scaleColor:false,
+                trackColor:false,
+                size: ($(".canvas-box").width() + 8)
+            });
+        });
+    </script>
+</body>
+</html>

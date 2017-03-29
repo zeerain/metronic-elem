@@ -1,0 +1,106 @@
+<#include "/wechat/include/head.htm">
+<body style="background-color: #fff">
+<div class="content-wrapper" style="height:100%">
+<section class="content" style="padding: 20px 5px">
+<div class="box">
+	<div class="box-body">
+    	<div class="input-group" style="margin-bottom: 5px">
+        	<span class="input-group-addon"><i class="fa fa-user text-green"></i></span>
+        	<input class="form-control" id="realname" name="realname" placeholder="客户姓名" type="text" value="">
+      	</div>      			
+    	<div class="input-group" style="margin-bottom: 5px">
+        	<span class="input-group-addon"><i class="fa fa-phone-square text-green"></i></span>
+        	<input class="form-control" id="mobilePhone" name="mobilePhone" placeholder="手机号码" type="text" value="">
+      	</div>      	
+    	<div class="input-group" style="margin-bottom: 5px">
+        	<span class="input-group-addon"><i class="fa fa-envelope-o text-green"></i></span>
+        	<input class="form-control" id="email" name="email" placeholder="Email" type="text" value="">
+      	</div>      	
+    	<div class="input-group" style="margin-bottom: 5px">
+        	<span class="input-group-addon"><i class="fa fa-building-o text-green"></i></span>
+        	<input class="form-control" id="organization" name="organization" placeholder="单位名称" type="text" value="">
+      	</div>      	
+    	<div class="input-group" style="margin-bottom: 5px">
+        	<span class="input-group-addon"><i class="fa fa-black-tie text-green"></i></span>
+        	<input class="form-control" id="title" name="title" placeholder="职位" type="text" value="">
+      	</div>
+    	<div class="input-group" style="margin-bottom: 5px">
+        	<span class="input-group-addon"><i class="fa fa-phone text-green"></i></span>
+        	<input class="form-control" id="orgTelphone" name="orgTelphone" placeholder="单位电话" type="text" value="">
+      	</div>
+    	<div class="input-group" style="margin-bottom: 5px">
+        	<span class="input-group-addon"><i class="fa fa-map-marker text-green"></i></span>
+        	<input class="form-control" id="orgAddress" name="orgAddress" placeholder="单位地址" type="text" value="">
+      	</div>      
+	</div>
+	<div class="box-footer"  style="margin: 0 auto; text-align:center">
+	    <button type="button" class="btn btn-success" onclick="doGenerate()">制作电子名片</button>
+	</div>
+</div>
+<div id="qrcode"></div>
+</section>     
+<div>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/zepto.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/wechat/qrcode.custom.js"></script>
+<script type="text/javascript">
+function createvcf(){
+	var a ="BEGIN:VCARD";
+	var name = $("#realname").val().trim();
+	//b=name.substr(0, 1); // 姓氏
+	//c=name.substr(1); // 名字
+	a+="\r\nFN: "+name;
+	var d=$("#title").val().trim(); // 职称
+	if(d){
+		a+="\r\nTITLE:"+d;
+	}
+	var i=$("#mobilePhone").val().trim(); // 移动电话
+	if(i){
+		a+="\r\nTEL;PREF,VOICE:"+i;
+	}
+	var email = $("#email").val().trim(); // email
+	if(email){
+		a+="\r\nEMAIL;INTERNET,HOME:"+email;
+	}
+	var e=$("#organization").val().trim(); // 公司/组织名称
+	if(e){
+		a+="\r\nORG:"+e;
+	}
+	var f=$("#orgAddress").val().trim(); // 公司住址
+	if(f){
+		a+="\r\nADR;WORK:;;"+f+";;;;";
+	}
+	var g=$("#orgTelphone").val().trim(); // 公司电话
+	if(g){
+		a+="\r\nTEL;WORK,VOICE:"+g;
+	}
+	
+	a+="\r\nEND:VCARD";
+	
+	$("#qrcode").empty().qrcode({
+		render:"image",
+		ecLevel:"L",
+		size: "${(ecard.ecardSize)!'160'}",
+		background:"#fff",
+		fill: "${(ecard.ecardFill)!'#000'}",
+		radius: "${(ecard.ecardRadius)!'0.25'}",
+		mode: "${(ecard.ecardMode)!'2'}",
+		fontcolor: "${(ecard.ecardFontcolor)!'#000'}",
+		label: name,
+		text:a
+	}), 
+	window.scrollTo(0, 1e3);
+};
+
+function doGenerate(){
+	var name = $("#realname").val();
+	var phone = $("#mobilePhone").val();
+	if(!name || !phone){
+		alert("请填写客户姓名及手机号!");
+		return false;
+	}
+	createvcf();
+}
+</script>
+</body>
+</html>

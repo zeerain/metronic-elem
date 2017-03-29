@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="${ctx.contextPath}/res/weixin/dist/home.custom.css">
+    <title>元兵空中助理</title>
+</head>
+<body>
+    <header class="header">
+        <div class="avatar">
+            <img src="<#if (user.avatar)?? && user.avatar != ''>${(user.avatar)!''}<#else>${ctx.contextPath}/res/weixin/images/ren-icon@2x.png</#if>" alt="">
+        </div>
+        <h2 class="username">${(user.realname)!""}</h2>
+        <p class="job-position">${(user.orgRoleName)!""}</p>
+    </header>
+    <div class="grid-box">
+        <a href="${ctx.contextPath}/weixin/ecard/view" class="grid-cell">
+            <div class="icon mingpian"></div>
+            <p class="title">我的名片</p>
+        </a>
+        <a href="javascript:;" data-src="${(org.wechatQrcode)!'#'}" class="grid-cell btn-svcAccount">
+            <div class="icon fuwu"></div>
+            <p class="title">服务号</p>
+        </a>
+        <a href="${ctx.contextPath}/weixin/ecard/make" class="grid-cell">
+            <div class="icon mingpiangon"></div>
+            <p class="title">名片工厂</p>
+        </a>
+        <a href="${ctx.contextPath}/weixin/calendar/" class="grid-cell">
+            <div class="icon yuyue"></div>
+            <p class="title">到店预约</p>
+        </a>
+        <a href="javascript:;" class="grid-cell" id="scanQRCode">
+            <div class="icon saoyisao"></div>
+            <p class="title">扫一扫</p>
+        </a>
+        <a href="${(org.eshopUrl)!'#'}" class="grid-cell">
+            <div class="icon jingpin"></div>
+            <p class="title">精品店</p>
+        </a> 
+    </div>
+    <footer class="footer">
+        <#assign taskpercent=0>
+        <#assign addressPercent=0>
+        <#assign performancePercent=0>
+        
+        <#assign taskcnt=countMap['taskPending']>
+        <#assign addressBookPending=countMap['addressBookPending']>
+        <#assign addressBookAll=countMap['addressBookAll']>
+
+        <#assign myPerformance=countMap['myPerformance']>
+        <#assign allPerformance=countMap['allPerformance']>
+        
+    	<#if countMap['taskAll'] gt 0>
+        	<#assign taskpercent=(taskcnt*100/countMap['taskAll'])>
+        </#if>
+        
+        <#if addressBookAll gt 0>
+        	<#assign addressPercent=(addressBookPending*100/addressBookAll)>
+        </#if>
+        
+        <#if allPerformance gt 0>
+        	<#assign performancePercent=(myPerformance*100/allPerformance)>
+        </#if>
+        <a href="${ctx.contextPath}/weixin/task/list" class="footer-cell" data-percent="${(taskpercent)!"0"}">
+            <div class="clac single canvas-box" data-percent="10" >
+                ${(taskcnt)!"0"}
+            </div>
+            <p class="title">任务</p>
+        </a>
+        <a href="${ctx.contextPath}/weixin/contact/todotask/list" class="footer-cell">
+            <div class="clac canvas-box" data-percent="${addressPercent}" >
+            <#if addressBookAll==0 && addressBookPending==0>
+            	0
+            <#else>
+                ${(addressBookPending)!""}<span class="small">/${(addressBookAll)!"0"}</span>
+            </#if>
+            </div>
+            <p class="title">通讯录</p>
+        </a>
+        <a href="${ctx.contextPath}/weixin/rank/" class="footer-cell">
+        	<div class="clac single canvas-box" data-percent="${performancePercent}">
+                <span class="percent">${(myPerformance)!"0"}</span>
+            </div>
+            <p class="title">业绩</p>
+        </a>
+    </footer>
+    
+    <div class="mask-wrapper qrbox" onclick="$(this).fadeOut(200);">
+        <div id="qrcode">
+            <img src="" alt="" width="120%">
+        </div>
+    </div>
+    <#assign wechatApi=["SCAN"] />
+	<#include "/weixin/include/_my_script.htm">
+	<script src="${ctx.contextPath}/res/weixin/js/jquery.easypiechart.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function(){
+	        $(".btn-svcAccount").click(function(){
+	            var src = $(this).data('src');
+	            if (!src){
+	                alert('请先配置服务号二维码！');
+	                return false;
+	            }
+	            $('.qrbox').fadeIn(200).find("#qrcode img").attr('src', "http://cs.elementwin.com/upload/img/1702/427b59c4bd7c4cd8911db2e9f6c78346.jpg");//$(this).data('src'));
+	            return false;
+	        });
+            // canvas
+            $('.canvas-box').easyPieChart({
+                barColor: '#777',
+                scaleColor: false,
+                trackColor: false,
+                size: ($(".canvas-box").width() + 8)
+            });
+	    });
+	</script>
+	<#include "/weixin/include/_keep_alive.htm">
+</body>
+</html>

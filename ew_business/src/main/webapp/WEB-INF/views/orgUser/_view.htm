@@ -1,0 +1,83 @@
+<div class="row">
+<div class="col-md-3">
+	<div class="portlet light nobordered">
+		<div class="portlet-body">
+          <img alt="照片" src="${(model.avatar)!''}" class="profile-user-img img-responsive img-circle">
+          <h3 class="profile-username text-center">${model.realname}</h3>
+          <p class="text-muted text-center">${(model.orgRoleName)!""}</p>
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>员工编号</b> <a class="pull-right">${(model.employeeNo)!""}</a>
+            </li>
+            <li class="list-group-item">
+              <b>手机号</b> <a class="pull-right">${(model.cellphone)!""}</a>
+            </li>
+            <li class="list-group-item">
+              <b>助理电话</b> <a class="pull-right"><#if (model.assistantPhone)??>${model.assistantPhone}</#if></a>
+            </li>
+          </ul>
+        </div>
+	</div><#-- / box-primary -->
+</div>
+<div class="col-md-9">
+	<div class="portlet light nobordered">
+		<div class="portlet-body">
+          	<table class="table table-striped">
+			<tbody>
+			<tr>
+			  <td class="col-label">用户名</td>
+			  <td class="col-value">
+		    	${model.username}
+			  </td>
+			</tr>
+			<tr>
+			  <td class="col-label">员工经理编号</td>
+			  <td class="col-value">
+		    	${(model.managerNo)!""}
+			  </td>
+			</tr>
+			<tr>
+			  <td class="col-label">Email</td>
+			  <td class="col-value">
+			  	${(model.email)!""}
+			  </td>
+			</tr>
+			<tr>
+			  <td class="col-label">微信号</td>
+			  <td class="col-value">
+			  	${(model.wechat)!""}
+			  </td>
+			</tr>
+			<tr>
+			  <td class="col-label">备注</td>
+			  <td class="col-value">
+			  	${(model.comment)!""}
+			  </td>
+			</tr>
+			<tr>
+			  <td class="col-label">员工状态</td>
+			  <td class="col-value">
+			  	${(model.statusName)!"-"}
+			  </td>
+			</tr>
+			<tr>
+			  <td class="col-label">所属角色</td>
+			  <td class="col-value">
+			  	${(model.orgRoleLabel)!"无"}
+			  </td>
+			</tr>
+			<tr>
+			  <td class="col-label">是否可登录</td>
+			  <td class="col-value">
+			  	${model.enabled?string('是','否/已锁定')}
+			  </td>
+			</tr>
+			</tbody>
+		</table>
+      </div>
+      <#-- /.box-body -->
+    </div>
+    <#-- /.box-primary -->
+  </div>
+</div>
+</div>

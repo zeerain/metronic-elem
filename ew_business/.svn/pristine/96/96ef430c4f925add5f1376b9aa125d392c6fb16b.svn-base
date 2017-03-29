@@ -1,0 +1,11 @@
+<form class="ctrl-box audio-fm" action="${ctx.contextPath}/weixin/task/send/${task.id}">
+	<#include "/weixin/include/_task_audio_params.htm">
+    <img class="cm-avatar media-avatar" src="${ctx.contextPath}/res/weixin/images/xiaoshou-icon@2x.png" alt="">
+    <a href="tel:18260635226" class="makeCall">
+        <img src="${ctx.contextPath}/res/weixin/images/icon/boda-icon@2x.png" alt="">
+        电联</a>
+    <a href="javascript:;" class="startRecord" data-imgsrc="${ctx.contextPath}/res/weixin/images/icon/maikefeng-icon@2x.png">
+        <img src="${ctx.contextPath}/res/weixin/images/icon/maikefeng-icon@2x.png" alt="">
+        <span class="statusText">按住&nbsp;说话</span></a>
+    <a href="javascript:;" class="btn-submit disabled" disabled="disabled"></a>
+</form>

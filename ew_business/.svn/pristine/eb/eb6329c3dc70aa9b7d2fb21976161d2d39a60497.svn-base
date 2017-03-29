@@ -1,0 +1,48 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+    	<@bodyHeader menu="回访数据上传管理" url="${ctx.contextPath}/revisitImport/index" title="回访数据上传管理">
+		</@bodyHeader>
+		
+		<section class="content">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+	            	<h3 class="box-title">上传数据</h3>
+	              	<div class="box-tools pull-right">
+	              		<a href="${ctx.contextPath}/res/sample.xls" class="btn-sm" title="下载示例文件">
+				    		<i class="fa fa-download"></i> 下载示例文件
+				    	</a>
+	                	<button data-widget="collapse" class="btn btn-box-tool" type="button"><i class="fa fa-minus"></i></button>
+	                </div>
+	            </div>
+				<div class="box-body">
+					<#include "/revisitImport/_uploadform.htm" />
+				</div><#-- /.box-body -->
+      		</div><#-- /.box -->
+      		
+			<div class="box box-primary">				
+				<@boxBody>
+					<#include "/revisitImport/page_index.htm" />
+				</@boxBody>
+				<@boxFooter>
+					<#include "/include/pagination.htm">
+				</@boxFooter>
+      		</div>
+		</section><#-- /.content -->
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-action').on("click", function(){
+		$("#fileForm").attr("action", "${ctx.contextPath}/revisitImport/"+$(this).data("action"));
+		$("#fileForm").submit();
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="回访数据上传管理" url="${ctx.contextPath}/revisitImport/index" title="回访数据上传管理">
+				</@bodyHeader>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box blue">
+							<div class="portlet-title">
+                                <div class="caption">上传数据</div>
+                                <div class="actions">
+                                    <a class="btn font-white" href="${ctx.contextPath}/res/sample.xls">
+                                        <i class="fa fa-download"></i> 下载示例文件
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#include "/revisitImport/_uploadform.htm" />
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet box green">
+							<div class="portlet-title">
+                                <div class="caption">回访数据表</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+							<@boxBody>
+								<#include "/revisitImport/page_index.htm" />
+								<#include "/include/pagination.htm">
+							</@boxBody>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-action').on("click", function(){
+		$("#fileForm").attr("action", "${ctx.contextPath}/revisitImport/"+$(this).data("action"));
+		$("#fileForm").submit();
+	});
+});
+</script>
+</body>
+</html>
+

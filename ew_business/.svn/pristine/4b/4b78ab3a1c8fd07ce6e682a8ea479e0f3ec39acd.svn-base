@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./dist/reset.css">
+    <link rel="stylesheet" type="text/css" href="./dist/history.custom.css">
+    <title>元兵空中助理</title>
+</head>
+<body>
+    <header class="header">
+        <div class="left">
+            #6656潜客
+        </div>
+        <div class="right">
+            登记日期：2017-01-02
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="user-info">
+            <div class="base-info">
+                <h1 class="username">徐诗婷</h1>
+                <p class="tags"><span class="tag">XT5</span><span class="tag">贷款政策</span><span class="tag">有无现车</span>
+                    <div class="clear"></div>
+                </p>
+            </div>
+            <div class="contact-info">
+                <p>潜客信息：13888888888</p>
+                <p>销售顾问：张凯</p>
+            </div>
+        </div>
+        <ul class="history-list">
+            <li>
+                <h1 class="time-line">
+                    2017年1月6日&nbsp;&nbsp;&nbsp;&nbsp;上午10:42
+                </h1>
+                <div class="msg-box">
+                    <div class="avatar"></div>
+                    <p class="content">
+                        客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么
+                    </p>
+                </div>
+            </li>
+            <li>
+                <h1 class="time-line">
+                    2017年1月6日&nbsp;&nbsp;&nbsp;&nbsp;上午10:42
+                </h1>
+                <div class="msg-box saleManager-msg">
+                    <div class="avatar"></div>
+                    <p class="content">
+                        客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么客户关注什么什么
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

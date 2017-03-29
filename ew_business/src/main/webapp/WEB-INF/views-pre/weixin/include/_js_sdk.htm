@@ -1,0 +1,17 @@
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var weixin = false;
+	$.post("${ctx.contextPath}/wechat/jsSdk/getJsSdk", {url: location.href.split('#')[0]}, function(data){
+		wx.config({
+		    debug: false, 
+		    appId: data.appId, 
+		    timestamp: data.timestamp, 
+		    nonceStr: data.nonceStr, 
+		    signature: data.signature,
+		    jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'pauseVoice', 'stopVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice', 'translateVoice'] 
+		});
+	});
+	wx.ready(function(){
+    	weixin = true;
+	});
+</script>

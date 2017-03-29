@@ -1,0 +1,339 @@
+@media (-webkit-min-device-pixel-ratio: 3), (-min-device-pixel-ratio: 3) {
+}
+body,
+html {
+  line-height: 1;
+  font-weight: 200;
+  font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', 'arial', 'sans-serif';
+}
+@media (-webkit-min-device-pixel-ratio: 1.5), (-min-device-pixel-ratio: 1.5) {
+  .border-1px::before,
+  .grid-cell::before {
+    -webkit-transform: scaleX(0.7);
+    transform: scaleX(0.7);
+  }
+  .border-1px::after,
+  .grid-cell::after {
+    -webkit-transform: scaleY(0.7);
+    transform: scaleY(0.7);
+  }
+}
+@media (-webkit-min-device-pixel-ratio: 2), (-min-device-pixel-ratio: 2) {
+  .border-1px::before,
+  .grid-cell::before {
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+  }
+  .border-1px::after,
+  .grid-cell::after {
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+}
+.clear {
+  clear: both;
+}
+.clearfix {
+  display: inline-block;
+}
+.clearfix:after {
+  display: block;
+  content: ".";
+  height: 0;
+  line-height: 0;
+  clear: both;
+  visibility: hidden;
+}
+a {
+  text-decoration: none;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  position: relative;
+}
+.header {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background-image: url("../images/banner@2x.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  text-align: center;
+  color: #fff;
+}
+.header .avatar {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 105px;
+  height: 105px;
+  margin-left: -52.5px;
+}
+.header .avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #666;
+}
+.header .username {
+  position: absolute;
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  font-size: 20px;
+  font-weight: 400;
+  top: 125px;
+}
+.header .job-position {
+  position: absolute;
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  font-size: 14px;
+  top: 154px;
+}
+.grid-box {
+  position: relative;
+  overflow: hidden;
+}
+.grid-box .grid-cell {
+  float: left;
+  padding: 20px 10px;
+  width: 33.33333333%;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #777;
+  position: relative;
+}
+.grid-box .grid-cell:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  border-right: 1px solid #ccc;
+}
+.grid-box .grid-cell:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  border-bottom: 1px solid #ccc;
+}
+.grid-box .grid-cell:nth-child(3):before,
+.grid-box .grid-cell:nth-child(6):before,
+.grid-box .grid-cell:nth-child(9):before {
+  content: "";
+  border-right: none;
+  width: 0;
+}
+.grid-box .grid-cell .icon {
+  height: 30px;
+  width: auto;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: center center;
+}
+.grid-box .grid-cell .icon.mingpian {
+  background-image: url("../images/icon/mingpian-icon@2x.png");
+}
+.grid-box .grid-cell .icon.fuwu {
+  background-image: url("../images/icon/fuwu-icon@2x.png");
+}
+.grid-box .grid-cell .icon.mingpiangon {
+  background-image: url("../images/icon/mingpiangongchang-icon@2x.png");
+}
+.grid-box .grid-cell .icon.yuyue {
+  background-image: url("../images/icon/yuyue-icon@2x.png");
+}
+.grid-box .grid-cell .icon.saoyisao {
+  background-image: url("../images/icon/saoyisao-icon@2x.png");
+}
+.grid-box .grid-cell .icon.jingpin {
+  background-image: url("../images/icon/jingpin@2x.png");
+}
+.grid-box .grid-cell .title {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+}
+.footer {
+  position: relative;
+  overflow: hidden;
+  top: -1px;
+  height: 144px;
+  width: 100%;
+  background-image: url("../images/diban2@2x.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+.footer .footer-cell {
+  display: block;
+  width: 33.33333333%;
+  float: left;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #666;
+}
+.footer .footer-cell .clac {
+  margin: 20px auto;
+  margin-bottom: 10px;
+  width: 77.5px;
+  height: 77.5px;
+  line-height: 77.5px;
+  border-radius: 50%;
+  border: 2px solid #efefef;
+  box-shadow: 0 0 30px #999;
+  background-color: #fff;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 300;
+}
+.footer .footer-cell .clac .small {
+  position: relative;
+  left: -2px;
+  font-size: 18px;
+  font-weight: 200;
+  color: #999;
+}
+.footer .footer-cell .canvas-box {
+  position: relative;
+}
+.footer .footer-cell .canvas-box .point {
+  display: block;
+  position: absolute;
+  height: 5px;
+  width: 5px;
+  left: 0;
+  top: 35.5px;
+  border-radius: 50%;
+  box-shadow: 0 0 3px #999;
+  background-color: #666;
+}
+.footer .footer-cell .canvas-box canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -4px;
+  left: -4px;
+}
+.footer .footer-cell .single {
+  font-size: 36px;
+}
+.footer .footer-cell .title {
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+}
+.mask-wrapper {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(25,25,25,0.8);
+}
+.mask-wrapper #qrcode {
+  position: absolute;
+  width: 222px;
+  height: 222px;
+  left: 50%;
+  top: 50%;
+  margin-left: -111px;
+  margin-top: -111px;
+}
+.mask-wrapper #qrcode img {
+  width: 100%;
+  height: auto;
+}
+@media screen and (min-width: 350px) and (max-width: 400px) {
+  .header {
+    height: 211px;
+  }
+  .header .avatar {
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    width: 107px;
+    height: 107px;
+    margin-left: -53.5px;
+  }
+  .header .username {
+    position: absolute;
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    padding-top: 5px;
+    font-weight: 400;
+    top: 129px;
+  }
+  .header .job-position {
+    position: absolute;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    top: 165px;
+  }
+}
+.grid-box .grid-cell {
+  padding: 35px 25px;
+}
+@media screen and (min-width: 400px) {
+  .header {
+    height: 345px;
+  }
+  .header .avatar {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    margin-left: -80px;
+  }
+  .header .username {
+    position: absolute;
+    width: 100%;
+    height: 52px;
+    line-height: 52px;
+    padding-top: 8px;
+    font-weight: 400;
+    top: 250px;
+  }
+  .header .job-position {
+    position: absolute;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    top: 302px;
+  }
+}
+@media screen and (min-width: 400px) {
+  .grid-box .grid-cell {
+    padding: 35px 25px;
+  }
+  .grid-box .grid-cell .icon {
+    height: 30px;
+  }
+  .grid-box .grid-cell .title {
+    font-weight: 500;
+  }
+}
+@media screen and (min-width: 400px) {
+  .footer .footer-cell .clac {
+    width: 82px;
+    height: 82px;
+    line-height: 82px;
+  }
+}

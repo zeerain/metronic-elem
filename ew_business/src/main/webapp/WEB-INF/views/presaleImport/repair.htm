@@ -1,0 +1,59 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="潜客数据上传" url="${ctx.contextPath}/presaleImport/index" title="潜客数据上传">
+				</@bodyHeader>
+
+				<@box boxColor="blue">
+					<div class="portlet-title">
+                        <div class="caption">文件处理失败原因</div>
+                      	<div class="actions">
+                            <#if (model.fileUuid)??>
+					    		<a href="${ctx.contextPath}/file/download/${model.fileUuid}" class="btn font-white" title="下载原始文件: ${(model.fileName)!''}">
+					    			<i class="fa fa-download"></i> 下载原始文件
+					    		</a>
+					    	</#if>
+                        </div>
+                    </div>
+					<@boxBody>
+							<#if model.status != 'S'>
+								<p class="text-yellow">${(model.failReason)!"无解析结果"}</p>
+							<#else>
+								<p class="text-green">文件解析成功</p>					
+							</#if>
+					</@boxBody>
+				</@box>
+				
+				<@box boxColor="green">
+					<div class="portlet-title">
+	                    <div class="caption">上传调整后的数据文件</div>
+	                </div>
+					<@boxBody>
+						<#include "/presaleImport/_uploadform.htm" />
+					</@boxBody>
+				</@box>
+				
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-action').on("click", function(){
+		$("#fileForm").attr("action", "${ctx.contextPath}/presaleImport/"+$(this).data("action"));
+		$("#fileForm").submit();
+	});
+});
+</script>
+</body>
+</html>
+

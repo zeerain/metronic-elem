@@ -1,0 +1,28 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="角色权限管理" url="${ctx.contextPath}/orgUser/index" title="配置角色权限">
+				</@bodyHeader>
+				
+				<@box boxColor="blue">
+					<@boxHeader boxTitle="配置角色权限"></@boxHeader>
+					<@boxBody>
+						<#include "/roleMenu/_form.htm" />
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+

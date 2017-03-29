@@ -1,0 +1,29 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="跟进任务" url="${ctx.contextPath}/revisitWorkOrder/index" title="跟进任务处理">
+				</@bodyHeader>
+				
+				<@box boxColor="blue">
+					<@boxHeader boxTitle="跟进任务处理"></@boxHeader>
+					<@boxBody>
+						<#include "/revisitRecord/_view.htm" />
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/views/revisit.workorder.js"></script>
+</body>
+</html>
+

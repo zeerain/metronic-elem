@@ -1,0 +1,73 @@
+border-right-bottom-1px($color)
+    position: relative
+    &:before
+        content: " "
+        display: block
+        position: absolute
+        right: 0
+        top: 0
+        bottom: 0
+        width: 1px
+        border-right: 1px solid $color
+    &:after
+        content: " "
+        display: block
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 0
+        height: 1px
+        border-bottom: 1px solid $color
+
+border-left-top-1px($color)
+    position: relative
+    &:before
+        content: " "
+        display: block
+        position: absolute
+        left: 0
+        top: 0
+        bottom: 0
+        width: 1px 
+        border-left: 1px solid $color
+    &:after
+        content: " "
+        display: block
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        height: 1px
+        border-top: 1px solid $color
+
+bg-image($url)
+   	background-image: url($url + "@2x.png")
+ 		@media (-webkit-min-device-pixel-ratio: 3), (-min-device-pixel-ratio: 3)
+ 			background-image: url($url + "@3x.png")
+btn($h, $bgcolor)
+    height: $h
+    line-height: $h
+    background-color: $bgcolor
+    color: #fff
+/* 左侧固定宽度，右侧自适应 */
+left-fixed_right-auto($height, $width)
+    .left-fixed_right-auto
+        width: 100%
+        height: $height
+        clear: both
+        display: inline-block
+        .left
+            position: relative
+            float: left
+            width: $width
+            height: 100%
+            margin-right: -($width)
+        .right
+            float: right
+            width: 100%
+            height: 100%
+            .right-content
+                margin-left: $width
+                height: 100%
+                
+ 	  

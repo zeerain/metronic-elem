@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.NotificationMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="Notification" type="Notification">
+	</resultMap>
+	<resultMap id="NotificationRead" type="NotificationRead">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="Notification" useCache="false">
+		SELECT self.*, rolemeta.item_name as orgRoleName, org.name as orgName, usr.realname as createByName
+		FROM notification self
+		LEFT JOIN organization org ON self.org_id=org.id
+		LEFT JOIN metadata_item rolemeta ON self.org_role_id=rolemeta.id
+		LEFT JOIN user usr ON self.create_by=usr.id 
+		WHERE self.id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="Notification" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO notification(
+			 scope, org_id, org_role_id, title, content, expire_date, importance, active, create_by
+		)
+		VALUES(
+			 #{scope}, #{orgId}, #{orgRoleId}, #{title}, #{content}, #{expireDate}, #{importance}, #{active}, #{createBy}
+		)
+	</insert>
+
+	<update id="update" parameterType="Notification">
+		UPDATE notification 
+		SET scope=#{scope}, org_id=#{orgId}, org_role_id=#{orgRoleId}, title=#{title}, content=#{content}, expire_date=#{expireDate}, importance=#{importance}, active=#{active}, create_by=#{createBy}
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		DELETE FROM notification WHERE id=#{id}
+	</delete>
+	
+	<sql id="searchQuery">
+    	<if test="scope != null">
+    	self.scope like CONCAT('%',#{scope},'%')
+    	</if>
+    	<if test="org_id == null">
+    	 AND self.org_id IS NULL
+    	</if>
+    	<if test="org_id != null">
+    	 AND (self.org_id IS NULL OR self.org_id=#{org_id})
+    	</if>
+    	<if test="org_role_id == null">
+    	 AND self.org_role_id IS NULL
+    	</if>
+    	<if test="org_role_id != null">
+    	 AND (self.org_role_id IS NULL OR self.org_role_id=#{org_role_id})
+    	</if>
+    	<if test="title != null">
+    	 AND self.title like CONCAT('%',#{title},'%')
+    	</if>
+    	<if test="expire_date != null">
+    	 AND self.expire_date=#{expire_date}
+    	</if>
+    	<if test="importance != null">
+    	 AND self.importance=#{importance}
+    	</if>
+    	<if test="active != null">
+    	 AND self.active=#{active}
+    	</if>
+    	<if test="create_by != null">
+    	 AND self.create_by=#{create_by}
+    	</if>
+	</sql>
+	<select id="getListCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.id)
+	    FROM notification self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="Notification" useCache="false">
+	    SELECT self.*, rolemeta.item_name as orgRoleName, org.name as orgName, usr.realname as createByName
+		FROM notification self
+		LEFT JOIN organization org ON self.org_id=org.id
+		LEFT JOIN metadata_item rolemeta ON self.org_role_id=rolemeta.id
+		LEFT JOIN user usr ON self.create_by=usr.id 
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	<insert id="createNotificationRead" parameterType="NotificationRead">
+		INSERT INTO notification_read(
+			 user_type, user_id, notification_id
+		)
+		VALUES(
+			 #{userType}, #{userId}, #{notificationId}
+		)
+	</insert>
+	
+	<!-- 获取未读的通知 -->
+	<select id="getUnreadNotificationList" parameterType="Map" resultType="Notification" useCache="false">
+		SELECT self.*
+	    FROM notification self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    	<if test="userId != null">
+	    	 AND self.active=1 AND (self.expire_date IS NULL OR self.expire_date>=CURRENT_DATE)
+	    	 AND self.id NOT IN(
+	    	 	SELECT notification_id 
+	    	 	FROM notification_read
+	    	 	WHERE user_type=#{userType} AND user_id=#{userId} 
+	    	 )
+	    	</if>
+	    </where>
+	    ORDER BY self.importance DESC
+	</select>
+	
+	<!-- 获取所有的通知 -->
+	<select id="getNotificationList" parameterType="Map" resultType="Notification" useCache="false">
+		SELECT self.*, 
+		(select count(*) from notification_read selfread where self.id=selfread.notification_id and user_id=#{userId}) readcnt
+		  FROM notification self
+		LEFT JOIN org_user orgusr ON self.org_id=orgusr.org_id
+		WHERE orgusr.id=#{userId}
+	    ORDER BY self.importance DESC
+	</select>
+		
+	<!-- 扩展SQL: end -->
+</mapper>

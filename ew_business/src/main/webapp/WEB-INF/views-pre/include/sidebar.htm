@@ -1,0 +1,71 @@
+<#-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+	<#-- sidebar: style can be found in sidebar.less -->
+	<section class="sidebar">
+	  <#-- Sidebar user panel -->
+	  <div class="user-panel">
+	    <div class="pull-left image" style="min-height:40px">
+	    	<#if (Session.user.organization.logo)??>
+	    	<img src="${Session.user.organization.logo}" class="img-circle" alt="${(Session.user.organization.shortName)!''}">
+	    	<#else>
+	    	<img src="${(Session.user.avatar)!''}" class="img-circle" alt="${(Session.user.username)!"头像"}">
+	    	</#if>
+	    </div>
+	    <div class="pull-left info">
+	      <p>${(Session.user.organization.shortName)!''}</p>
+	      <small>${(Session.user.realname)!""}</small>
+	    </div>
+	  </div>
+	  <#-- sidebar menu: : style can be found in sidebar.less -->
+	  <ul class="sidebar-menu">
+	    <li class="header">
+		  	<#if (Session.user)?exists && !Session.user.groupUser>
+	    	<div class="input-group">
+                <span class="input-group-addon" style="background:#2c3b41; border-color:#2c3b41; color:#fff">服务:</span>
+		    	<select id="svc-switcher" name="svc" class="form-control" style="background:#2c3b41; border-color:#2c3b41; color:#fff">
+		    		<#if (Session.user.availableServices)?exists>
+		    		<#list Session.user.availableServices as item>
+		    		<option value="${item.id}" <#if item.id=Session.user.currentServiceId>selected</#if>>${item.itemName}</option>
+		    		</#list>
+		    		</#if>
+		    	</select>
+            </div>
+		    </#if>
+	    </li>
+	    <li data-m="home" class="home">
+	      <a href="${ctx.contextPath}/">
+	        <i class="fa fa-dashboard"></i> <span>我的工作台</span>
+	      </a>
+	    </li>
+	    <#if (Session.user.menus)?exists>
+	    <#list Session.user.menus as menu>
+	    	<#if menu.link?? && menu.link != ''>
+	    	<li>
+		      <a href="${ctx.contextPath}${menu.link}">
+		        <i class="${menu.icon}"></i> <span>${menu.name}</span>
+		      </a>
+		    </li>
+	    	<#else>
+		    <li data-m="${(menu.link)!''}" class="treeview">
+		    	<a href="javascript:;">
+		        	<i class="${menu.icon}"></i>
+		        	<span>${menu.name}</span><i class="fa fa-angle-left pull-right"></i>
+		      	</a>
+		      	<ul class="treeview-menu">
+		      	<#if menu.children??>
+		      	<#list menu.children as c>
+		    		<li data-m="${(c.link)!''}" ><a href="${ctx.contextPath}${(c.link)!''}">
+		    			<#if c.icon??><i class="${c.icon}"></i><#else><i class="fa fa-circle-o"></i></#if>
+		    			${c.name}</a>
+	    			</li>
+	    	  	</#list>
+		    	</#if>
+	    	  	</ul>
+	    	</li>
+	    	</#if>
+		</#list>	    	
+	    </#if>
+	  </ul>
+	</section>
+	<#-- /.sidebar -->
+</aside>

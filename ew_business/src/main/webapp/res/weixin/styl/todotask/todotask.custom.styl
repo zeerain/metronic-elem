@@ -1,0 +1,94 @@
+@import "index.styl"
+
+*{
+    padding: 0
+    margin: 0
+}
+nav()
+.list
+    list-style: none
+    height: auto
+    width: 100%
+    overflow: hidden
+    li
+        title-h = 58px
+        title-rank-w = 25px
+        height: title-h
+        border-bottom: 1px solid #dedede
+        left-fixed_right-auto(title-h, title-rank-w)
+        &:nth-child(odd)
+            background-color: #f8f9fa
+        &:nth-child(even)
+            background-color: #fdfeff
+        .title
+            .right .right-content
+                padding-vertical = 5px
+                position: relative
+                padding: 0 5px
+                h3-h = ((title-h - padding-vertical * 2) * 0.6)
+                h3
+                    font-size: 18px
+                    font-weight: 400
+                    height: h3-h
+                    line-height: h3-h
+                p
+                    height: h = (title-h - (padding-vertical * 2) - h3-h)
+                    line-height: h
+                    span    
+                        display: inline-block
+                        border: 1px solid #9c9c9c
+                        margin-right: 6px
+                        padding: 0 8px
+                        text-align: center
+                        font-size: 10px
+                .ctrl-box
+                    ctrl-margin-top = 5px
+                    ctrl-height = (title-h - ctrl-margin-top*2)
+                    ctrl-a-horizontal-margin = 2px
+                    fenfu-width = 84px
+                    ctrl-width = (fenfu-width + 2 * ctrl-height + ctrl-a-horizontal-margin * 8)
+                    position: absolute
+                    width: auto
+                    top: 0
+                    right: 0
+                    bottom: 0
+                    box-sizing: border-box
+                    &::after
+                        content: " "
+                        display: block
+                        clear: both
+                    a
+                        display: inline-block
+                        height: ctrl-height
+                        width: ctrl-height
+                        line-height: ctrl-height
+                        margin: 0 ctrl-a-horizontal-margin
+                        margin-top: ctrl-margin-top
+                        border-radius: 50%
+                        float: left
+                    .makeCall
+                        background: url('../images/icon/boda-icon@2x.png') no-repeat center center
+                        background-size: 100% 100%
+                    .fenfu
+                        fenfu-height = (ctrl-height - 8)
+                        fenfu-margin = (ctrl-margin-top + 4)
+                        width: auto
+                        height: fenfu-height
+                        line-height: fenfu-height
+                        padding: 0 15px
+                        border-radius: fenfu-height
+                        margin-top: fenfu-margin
+                        text-align: center
+                        border: 1px solid #ccc
+                        color: #bc4400
+                        font-weight: 500
+                        font-size: 16px
+                        &.doing
+                            background: #efefef
+                    .btn-submit
+                        background: url('../images/icon/fasong-icon@2x.png')
+                        background-size: 100% 100%;
+                    .btn-submit.disabled
+                        background: url('../images/icon/daifasong-icon@2x.png')
+                        background-size: 100% 100%
+                        

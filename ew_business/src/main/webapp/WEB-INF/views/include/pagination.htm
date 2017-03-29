@@ -1,0 +1,61 @@
+<#if pagination["totalCount"] gt 0>
+<div class="nav">
+	<nav>
+        <ul class="pagination pull-right">
+        <#-- 首页/上一页 -->
+	  	<#if pagination["current"] gt 1>
+            <li class="">
+                <a href="${ctx.contextPath}/${pagination["baseUrl"]}/1${(pagination["params"])!''}" title="首页">
+                    <span aria-hidden="true"> << </span>
+                </a>
+            </li>
+            <li class="">
+            	<#assign previousPage = pagination["current"]-1 />
+	      		<#assign previousPageTitle = "上一页" />
+	      		<#if (previousPage-9) gt 1>
+		      		<#assign previousPage = previousPage-9 />
+		      		<#assign previousPageTitle = "前十页" />
+	      		</#if>
+                <a href="${ctx.contextPath}/${pagination["baseUrl"]}/${previousPage}${(pagination["params"])!''}" title="${previousPageTitle}">
+                    <span aria-hidden="true"> < </span>
+                </a>
+            </li>
+        </#if>
+
+        <#-- 中间页码 -->
+		<#list pagination["pages"] as index>
+        <li class="<#if pagination["current"] == index>active</#if>">
+			<a href="${ctx.contextPath}/${pagination["baseUrl"]}/${index}${(pagination["params"])!''}" title="第${index}页">
+				<span aria-hidden="true"> ${index} </span>
+			</a>
+		</li>
+        </#list>
+
+
+        <#-- 末页/下一页 -->
+        <#if pagination["current"] < pagination["totalPages"]>
+        <li class="">
+        	<#assign nextPage = pagination["current"]+1 />
+            <#assign nextPageTitle = "下一页" />
+      		<#if (nextPage+9) lt pagination["totalPages"]>
+	      		<#assign nextPage = nextPage+9 />
+	      		<#assign nextPageTitle = "后十页" />
+      		</#if>
+            <a href="${ctx.contextPath}/${pagination["baseUrl"]}/${nextPage}${(pagination["params"])!''}" title="${nextPageTitle}">
+        		<span aria-hidden="true"> > </span>
+      		</a>
+        </li>
+		<li class="">
+      		<a href="${ctx.contextPath}/${pagination["baseUrl"]}/${pagination["totalPages"]}${(pagination["params"])!''}" title="末页">
+        	<span aria-hidden="true"> >> </span>
+      		</a>
+    	</li>
+		</#if>
+        </ul>
+	</nav>
+</div>
+<#else>
+<div class="alert alert-default alert-dismissable">
+	<i class="icon fa fa-info"></i>没有匹配的记录！
+</div>
+</#if>

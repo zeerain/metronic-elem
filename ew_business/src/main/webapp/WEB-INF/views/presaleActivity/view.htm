@@ -1,0 +1,36 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="销售政策管理" url="${ctx.contextPath}/presaleActivity/index" title="查看销售政策">
+				</@bodyHeader>
+
+				<@box boxColor="blue-hoki">
+					<div class="portlet-title">
+                        <div class="caption">查看销售政策</div>
+                        <div class="actions">
+                           <a href="${ctx.contextPath}/presaleActivity/update/${model.id}" class="btn btn-info btn-sm">更新销售政策</a>
+                           <a href="${ctx.contextPath}/presaleActivity/create" class="btn btn-success btn-sm">新建销售政策</a>	
+                           <a href="#" class="btn btn-danger btn-sm action-confirm" data-url="${ctx.contextPath}/presaleActivity/delete/${model.id}"
+			     data-confirm="您确定要删除该内容吗？" data-redirect="${ctx.contextPath}/presaleActivity/index">删除销售政策</a>
+                        </div>
+                    </div>
+					<@boxBody>
+						 <#include "/presaleActivity/_view.htm" />
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+

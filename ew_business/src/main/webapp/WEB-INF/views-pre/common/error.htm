@@ -1,0 +1,33 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+	<#-- 主内容区Begin -->
+        <#-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>出错啦</h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i> 首页</a></li>
+            <li class="active">错误</li>
+          </ol>
+        </section>
+
+        <#-- Main content -->
+        <section class="content">
+          <div class="error-page">
+              <h3 class="text-yellow"><i class="fa fa-warning text-yellow"></i> 您访问的页面出错了！</h3>
+              <p>
+					抱歉，您访问的页面出错了，可能不存在或已被删除！
+              </p>
+          </div><#-- /.error-page -->
+        </section><#-- /.content -->
+	
+	<#-- 主内容区End -->
+	</div><#-- /.content-wrapper -->
+	<#include "/include/footer.htm">
+</div><#-- ./wrapper -->
+<#include "/include/scripts.htm">
+</body>
+</html>

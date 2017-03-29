@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.RoleMenuMapper">
+
+	<!-- Model ORM映射 -->
+	<resultMap id="RoleMenu" type="RoleMenu">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="RoleMenu">
+		SELECT *
+		FROM role_menu
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="RoleMenu" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO role_menu(
+			 role_id, menu_id
+		)
+		VALUES(
+			 #{roleId}, #{menuId}
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="Long">
+		DELETE FROM role_menu WHERE id=#{id}
+	</delete>
+	
+	<update id="update" parameterType="RoleMenu">
+		UPDATE role_menu 
+		SET role_id=#{roleId}, menu_id=#{menuId}
+		WHERE id=#{id}
+	</update>
+	
+	<select id="getListCount" resultType="Integer">
+		SELECT count(id)
+	    FROM role_menu
+	</select>
+	
+	<select id="getList" parameterType="Long" resultType="java.util.List" resultMap="RoleMenu">
+		SELECT rm.*
+	    FROM role_menu rm 
+	    <if test="role_id != null">
+    		WHERE rm.role_id=#{role_id}
+    	</if> 
+	    ORDER BY rm.role_id, rm.menu_id 
+	</select>
+	
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: -->
+	<delete id="deleteRoleMenus" parameterType="Long">
+		DELETE FROM role_menu WHERE role_id=#{roleId}
+	</delete>
+	
+	<!-- 扩展SQL: -->
+</mapper>

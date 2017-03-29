@@ -1,0 +1,211 @@
+@media (-webkit-min-device-pixel-ratio: 3), (-min-device-pixel-ratio: 3) {
+}
+body,
+html {
+  line-height: 1;
+  font-weight: 200;
+  font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', 'arial', 'sans-serif';
+}
+@media (-webkit-min-device-pixel-ratio: 1.5), (-min-device-pixel-ratio: 1.5) {
+  .border-1px::before,
+  .grid-cell::before {
+    -webkit-transform: scaleX(0.7);
+    transform: scaleX(0.7);
+  }
+  .border-1px::after,
+  .grid-cell::after {
+    -webkit-transform: scaleY(0.7);
+    transform: scaleY(0.7);
+  }
+}
+@media (-webkit-min-device-pixel-ratio: 2), (-min-device-pixel-ratio: 2) {
+  .border-1px::before,
+  .grid-cell::before {
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+  }
+  .border-1px::after,
+  .grid-cell::after {
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+}
+.clear {
+  clear: both;
+}
+.clearfix {
+  display: inline-block;
+}
+.clearfix:after {
+  display: block;
+  content: ".";
+  height: 0;
+  line-height: 0;
+  clear: both;
+  visibility: hidden;
+}
+a {
+  text-decoration: none;
+}
+.header {
+  height: 44px;
+  line-height: 44px;
+  padding: 0 8px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #666;
+}
+.header .left {
+  float: left;
+}
+.header .right {
+  float: right;
+}
+.list li .title .rank-info {
+  background-color: #7ab049;
+}
+.list li .title .rank-danger {
+  background-color: #ef543f;
+  background-image: url("../images/icon/danger-icon@2x.png");
+}
+.list li .title .rank-warning {
+  background-color: #e2c92c;
+  background-image: url("../images/icon/warning-icon2x.png");
+}
+.list li .title .left {
+  background-size: auto 100%;
+  background-position: left top;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+.nav {
+  height: 44px;
+}
+.nav a {
+  display: inline-block;
+  height: 44px;
+  line-height: 44px;
+  width: 49.99999%;
+  float: left;
+  text-indent: 10px;
+  font-weight: 400;
+  font-size: 20px;
+  box-sizing: border-box;
+  color: #555;
+}
+.nav a.active {
+  background-color: #f2f2f2;
+}
+.list {
+  list-style: none;
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+}
+.list li {
+  height: 58px;
+  border-bottom: 1px solid #dedede;
+}
+.list li .left-fixed_right-auto {
+  width: 100%;
+  height: 58px;
+  clear: both;
+  display: inline-block;
+}
+.list li .left-fixed_right-auto .left {
+  position: relative;
+  float: left;
+  width: 25px;
+  height: 100%;
+  margin-right: -25px;
+}
+.list li .left-fixed_right-auto .right {
+  float: right;
+  width: 100%;
+  height: 100%;
+}
+.list li .left-fixed_right-auto .right .right-content {
+  margin-left: 25px;
+  height: 100%;
+}
+.list li:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+.list li:nth-child(even) {
+  background-color: #fdfeff;
+}
+.list li .title .right .right-content {
+  position: relative;
+  padding: 0 5px;
+}
+.list li .title .right .right-content h3 {
+  font-size: 18px;
+  font-weight: 400;
+  height: 28.799999999999997px;
+  line-height: 28.799999999999997px;
+}
+.list li .title .right .right-content p {
+  height: 19.200000000000003px;
+  line-height: 19.200000000000003px;
+}
+.list li .title .right .right-content p span {
+  display: inline-block;
+  border: 1px solid #9c9c9c;
+  margin-right: 6px;
+  padding: 0 8px;
+  text-align: center;
+  font-size: 10px;
+}
+.list li .title .right .right-content .ctrl-box {
+  position: absolute;
+  width: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+}
+.list li .title .right .right-content .ctrl-box::after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+.list li .title .right .right-content .ctrl-box a {
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  margin: 0 2px;
+  margin-top: 5px;
+  border-radius: 50%;
+  float: left;
+}
+.list li .title .right .right-content .ctrl-box .makeCall {
+  background: url("../images/icon/boda-icon@2x.png") no-repeat center center;
+  background-size: 100% 100%;
+}
+.list li .title .right .right-content .ctrl-box .fenfu {
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  border-radius: 40px;
+  margin-top: 9px;
+  text-align: center;
+  border: 1px solid #ccc;
+  color: #bc4400;
+  font-weight: 500;
+  font-size: 16px;
+}
+.list li .title .right .right-content .ctrl-box .fenfu.doing {
+  background: #efefef;
+}
+.list li .title .right .right-content .ctrl-box .btn-submit {
+  background: url("../images/icon/fasong-icon@2x.png");
+  background-size: 100% 100%;
+}
+.list li .title .right .right-content .ctrl-box .btn-submit.disabled {
+  background: url("../images/icon/daifasong-icon@2x.png");
+  background-size: 100% 100%;
+}

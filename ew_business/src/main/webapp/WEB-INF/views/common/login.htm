@@ -1,0 +1,102 @@
+<#include "/include/head.htm">
+<body class="login">
+    <div class="logo">
+        <span class="h2 font-white"><span style="color: #36C6D3;">元兵 </span>服务业务平台</span>
+    </div>
+    <div class="content" style="background: url('${ctx.contextPath}/res/assets/img/bg/bg-white-lock.png');">
+        <#if attemptExceed?? && attemptExceed>
+            <div class="alert alert-warning alert-dismissable">
+                <i class="icon fa fa-warning"></i> 登录失败次数超出最大限制！请稍后再试或联系管理员找回密码！
+            </div>
+        <#else>
+        <form role="form" id="form-login" class="login-form" action="${ctx.contextPath}/dologon" method="POST">
+            <h3 class="form-title">请登录您的账户</h3>
+           <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span> 请输入用户名和密码！</span>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input class="form-control blurfield placeholder-no-fix" type="text" autocomplete="off" required="true" placeholder="用户名" name="username" /> 
+                    <#if referer??>
+                    <input type="hidden" name="referer" value="${referer}">
+                    </#if>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label visible-ie8 visible-ie9">密码</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    <input class="form-control placeholder-no-fix password"  type="password" autocomplete="off" required="true" placeholder="密码" name="password" /> </div>
+            </div>
+            <#if loginFailed?? && loginFailed gt 10>
+            <div id="vcRow" class="form-group">
+                <div class="input-append input-group">
+                    <input id="vc" type="text" name="vc" placeholder="输入验证码" class="form-control vc blurfield" required="true" aria-describedby="basic-addon">
+                    <span class="add-on input-group-addon" title="验证码" data-defaulttxt="验证码" style="border-right: 0px solid #ccc; padding:0px; min-width: 90px;">
+                        <img class="vcimg" src="${ctx.contextPath}/vc" style="width: 90px; height: 32px;">                                    
+                    </span>
+                </div>
+                <label class="control-label pull-left hide" for="password">验证码输入错误!</label>
+            </div>
+            </#if>
+            <#if RequestParameters.error??>
+            <div class="form-group has-feedback has-error">
+                <p class="text-red">
+                <#if RequestParameters.error == 'expired'>  
+                    当前会话已失效，请重新登录！
+                <#elseif locked??>  
+                    该账号已被锁定，请先联系管理员解锁！
+                <#elseif RequestParameters.error == 'auth'> 
+                    <#if captcha??>用户名密码或验证码输入错误！
+                    <#else>用户名或密码错误！</#if>
+                <#else>
+                    登录失败: 用户名密码错误或该账号已过期！
+                </#if>
+                </p>
+            </div>
+            </#if>
+            <div id="_spring_security_remember_meRow" class="form-actions">
+                <label class="rememberme mt-checkbox mt-checkbox-outline">
+                    <input id="remember_me" type="checkbox" name="remember_me" value="true" checked="checked" /> 记住我
+                    <span></span>
+                </label>
+                <button type="submit" class="btn green pull-right" data-loading-text="正在登录..."> 登录 </button>
+            </div>
+        </form>
+     </#if>
+    </div>
+    <div class="copyright"> 2016 &copy;  上海元兵信息科技有限公司   v1.0 </div>
+    <#include "/include/scripts.htm">
+    <script type="text/javascript" src="${ctx.contextPath}/res/assets/js/plugins/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+       $.backstretch([
+            "${ctx.contextPath}/res/assets/img/bg/1.jpg",
+            "${ctx.contextPath}/res/assets/img/bg/2.jpg",
+            "${ctx.contextPath}/res/assets/img/bg/3.jpg",
+            "${ctx.contextPath}/res/assets/img/bg/4.jpg"
+            ], {
+              fade: 1000,
+              duration: 8000
+            }
+        );
+       $("body").keydown(function() {
+            if (event.keyCode == "13") {
+                $(".btn.green.pull-right").click();
+            }
+        });    
+        <#if loginFailed?? && loginFailed gt 10>
+        $("input.blurfield").on("blur", function(){
+            $("#username").val($("#user_name").val()+"___"+$("#vc").val());
+        });
+        $("img.vcimg").on("click", function(){
+            $("img.vcimg").attr("src", "${ctx.contextPath}/vc?"+new Date().getTime());
+        });
+        </#if>
+    });
+    </script>
+</body>
+</html>

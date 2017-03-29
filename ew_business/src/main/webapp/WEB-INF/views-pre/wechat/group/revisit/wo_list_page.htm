@@ -1,0 +1,21 @@
+<div class="weui_panel weui_panel_access" style="padding-top:10px">
+<form method="get" action="${ctx.contextPath}/wechat/group/revisit/woList/${status!"PENDING"}">
+<div class="input-group margin-lr5">
+    <#include "/wechat/group/include/org_selector.htm" />
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-success padding-lr20">查询</button>
+    </div>
+</div>
+</form>
+<hr>
+<#if modelList??>
+	<#include "/wechat/group/revisit/wo_list_paging.htm" />
+	
+	<div class="viewMoreTR" style="display:none;"></div>
+	<#-- 滚动加载 -->
+	<div class="weui-infinite-scroll viewMore">
+	<div class="infinite-preloader"></div>
+	  正在加载
+	</div>
+</#if>
+</div>

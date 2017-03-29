@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./dist/reset.css">
+    <link rel="stylesheet" type="text/css" href="./dist/calendar.custom.css">
+    <title>元兵空中助理</title>
+</head>
+<body>
+    <header class="calendar-header">
+        <h1>今天</h1>
+        <p>2017年7月18日</p>
+    </header>
+    <div class="wrapper">
+        <table class="weekend-picker">
+            <tr>
+                <td><a href="javascript:;">M</a></td>
+                <td><a href="javascript:;">T</a></td>
+                <td><a href="javascript:;">W</a></td>
+                <td><a href="javascript:;">T</a></td>
+                <td><a href="javascript:;">F</a></td>
+                <td><a href="javascript:;">S</a></td>
+                <td><a href="javascript:;">S</a></td>
+            </tr>
+            <tr>
+                <td class="active"><a href="javascript:;">1</a></td>
+                <td><a href="javascript:;">2</a></td>
+                <td><a href="javascript:;">3</a></td>
+                <td><a href="javascript:;">4</a></td>
+                <td><a href="javascript:;">5</a></td>
+                <td><a href="javascript:;">6</a></td>
+                <td><a href="javascript:;">7</a></td>
+            </tr>
+        </table>
+        <ul class="list">
+            <li class="time-line">
+                2017年7月18日
+            </li>
+            <li class="item">
+                <div class="content">
+                    <h1 class="title">到店试驾<span class="time">9:00</span></h1>
+                    <p class="name">徐诗婷</p>
+                    <p class="tags"><span class="tag">XT5</span><span class="tag">有无现车</span><span class="tag">贷款政策</span></p>
+                </div>
+            </li>
+            <li class="item">
+                <div class="content">
+                    <h1 class="title">到店试驾<span class="time">9:00</span></h1>
+                    <p class="name">徐诗婷</p>
+                    <p class="tags"><span class="tag">XT5</span><span class="tag">有无现车</span><span class="tag">贷款政策</span></p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

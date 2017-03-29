@@ -1,0 +1,25 @@
+<form class="form-horizontal" id="fileForm" action="${ctx.contextPath}/revisitImport/create" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<div class="col-md-offset-1 col-md-2">
+		</div>
+		<div class="col-md-3">
+			<input type="file" id="attachedFiles" name="attachedFiles" style="margin-top:5px" data-fv="NotNull">
+		</div>
+		<div class="col-md-4">
+			<input type="text" name="comment" class="form-control" value="${(model.comment)!''}" placeholder="备注信息">
+		</div>
+	</div>
+	<hr>
+	<div class="form-group">
+		<div class="col-md-offset-4 col-md-2">
+			<#if isRepair?? && isRepair>
+				<input type="hidden" name="isRepair" value="true">
+				<input type="hidden" name="modelId" value="${(model.id)!''}">
+			</#if>
+			<button class="btn btn-primary btn-block btn-action" data-action="preview" type="button"><i class="fa fa-eye"></i> 预览数据 </button>
+		</div>
+		<div class="col-md-2">
+			<button class="btn btn-success btn-block btn-action" data-action="create" type="button"><i class="fa fa-upload"></i> 上传数据</button>			
+		</div>
+	</div>
+</form>

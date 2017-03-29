@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.BsMenuMapper">
+	<cache/>
+
+	<!-- Model ORM映射 -->
+	<resultMap id="BsMenu" type="BsMenu">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="BsMenu">
+		SELECT *
+		FROM bs_menu
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="BsMenu" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bs_menu(
+			 parent_id, name, icon, link
+		)
+		VALUES(
+			 #{parentId}, #{name}, #{icon}, #{link}
+		)
+	</insert>
+
+	<update id="update" parameterType="BsMenu">
+		UPDATE bs_menu 
+		SET parent_id=#{parentId}, name=#{name}, icon=#{icon}, link=#{link}
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		DELETE FROM bs_menu WHERE id=#{id}
+	</delete>
+	
+	<sql id="searchQuery">
+		<if test="parent_id != null">
+    		self.parent_id=#{parent_id}
+    	</if>
+    	<if test="name != null">
+    		 AND self.name like CONCAT('%',#{name},'%')
+    	</if>
+	</sql>
+	<select id="getListCount" parameterType="Map" resultType="Integer">
+		SELECT count(self.id)
+	    FROM bs_menu self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" resultType="BsMenu">
+		SELECT self.*
+	    FROM bs_menu self
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}	    		
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	<select id="getServiceRelatedMenus" parameterType="Long" resultType="BsMenu" useCache="false">
+	   	SELECT self.*
+	    FROM bs_menu self
+	    WHERE 
+    	<if test="authRoles != null">
+    		auth_role IN
+    		<foreach item="role" collection="authRoles" open="(" separator="," close=")">  
+  			#{role}
+ 			</foreach>
+    	</if>
+	    <if test="serviceIds != null">
+		    AND self.service_id IN 
+	    	<foreach item="svcId" collection="serviceIds" open="(" separator="," close=")">  
+  			#{svcId}
+ 			</foreach>
+	    </if>
+	    ORDER BY self.sort_id ASC
+	</select>
+	
+	<!-- 扩展SQL: end -->		
+</mapper>

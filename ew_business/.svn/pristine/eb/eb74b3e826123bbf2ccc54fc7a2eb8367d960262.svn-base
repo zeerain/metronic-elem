@@ -1,0 +1,56 @@
+<table class="table table-striped">
+	<tbody>
+	<tr>
+	  <td class="col-label">标题</td>
+	  <td class="col-value">
+	  	<#if (model.title)??>
+	    	${model.title}			  	
+	  	</#if>
+	  </td>
+	</tr>
+	<tr>
+	  <td class="col-label">内容</td>
+	  <td class="col-value">
+	  	<#if (model.content)??>
+	    	${model.contentHtml}			  	
+	  	</#if>
+	  </td>
+	</tr>
+	<tr>
+	  <td class="col-label">适用对象</td>
+	  <td class="col-value">
+	  	<#if (model.matchFieldValue)?? && (model.matchFieldValue)!="">
+	    	潜客级别=${model.matchFieldValue}			  	
+	  	<#else>不限</#if>
+	  </td>
+	</tr>
+	<tr>
+	  <td class="col-label">开始日期</td>
+	  <td class="col-value">
+	  	<#if (model.beginTime)??>
+	    	${model.beginTime?date}			  	
+	  	</#if>
+	  </td>
+	</tr>
+	<tr>
+	  <td class="col-label">结束日期</td>
+	  <td class="col-value">
+	  	<#if (model.endTime)??>
+	    	${model.endTime?date}			  	
+	  	</#if>
+	  </td>
+	</tr>
+	<tr>
+	  <td class="col-label">总数量</td>
+	  <td class="col-value">
+    	${model.amount}
+	  </td>
+	</tr>
+	<tr>
+	  <td class="col-label">剩余数量</td>
+	  <td class="col-value">
+    	${model.remaining}
+	  </td>
+	</tr>
+	</tbody>
+</table>

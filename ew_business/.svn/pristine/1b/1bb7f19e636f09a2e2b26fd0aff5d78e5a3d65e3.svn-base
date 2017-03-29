@@ -1,0 +1,176 @@
+@import "./index.styl"
+*
+    padding: 0
+    margin: 0
+body
+    position: relative
+.header
+    position: relative
+    width: 100%
+    height: 180px
+    bg-image('../images/banner')
+    background-repeat: no-repeat
+    background-position: center top
+    background-size: cover
+    text-align: center
+    color: #fff
+    t = 20px
+    w = 105px
+    username-h = 32px
+    .avatar
+        position: absolute
+        top: t
+        left: 50%
+        width: w
+        height: w
+        margin-left: -(w/2)
+        img
+            width: 100%
+            height: 100%
+            border-radius: 50%
+            box-shadow: 0 0 20px #666
+    .username
+        position: absolute
+        width: 100%
+        height: username-h
+        line-height: username-h
+        font-size: 20px
+        font-weight: 400
+        top: (t + w)
+    .job-position
+        position: absolute
+        width: 100%
+        height: h = 24px
+        line-height: h
+        font-size: 14px
+        top: (t + w +username-h - 3)
+.grid-box
+    position: relative
+    overflow: hidden
+    border-color = #ccc
+    font-color = #777
+    .grid-cell
+        float: left
+        padding: 20px 10px
+        width: 33.33333333%
+        box-sizing: border-box
+        text-decoration: none
+        color: font-color
+        border-right-bottom-1px(border-color)
+        &:nth-child(3), &:nth-child(6), &:nth-child(9)
+            &:before
+                content: ""
+                border-right: none
+                width: 0
+        .icon
+            height: 30px
+            width: auto
+            background-repeat: no-repeat
+            background-size: auto 100%
+            background-position: center center
+            &.mingpian
+                background-image: url('../images/icon/mingpian-icon@2x.png')
+            &.fuwu
+                background-image: url('../images/icon/fuwu-icon@2x.png')
+            &.mingpiangon
+                background-image: url('../images/icon/mingpiangongchang-icon@2x.png')
+            &.yuyue
+                background-image: url('../images/icon/yuyue-icon@2x.png')
+            &.saoyisao
+                background-image: url('../images/icon/saoyisao-icon@2x.png')
+            &.jingpin
+                background-image: url('../images/icon/jingpin@2x.png')
+        .title
+            margin-top: 10px
+            text-align: center
+            font-size: 14px
+            font-weight: 400
+.footer
+    position: relative
+    overflow: hidden
+    top: -1px
+    height: 144px
+    width: 100%
+    bg-image("../images/diban2")
+    background-repeat: no-repeat
+    background-position: center top
+    background-size: cover
+    .footer-cell
+        display: block
+        width: 33.33333333%
+        float: left
+        box-sizing: border-box
+        text-decoration: none
+        color: #666
+        .clac
+            margin: 20px auto
+            margin-bottom: 10px
+            width: w = 77.5px
+            height: w
+            line-height: w
+            border-radius: 50%
+            border: 2px solid #efefef
+            box-shadow: 0 0 30px #999
+            background-color: #fff  
+            text-align: center
+            font-size: 26px
+            font-weight: 300
+            .small
+                position: relative
+                left: -2px
+                font-size: 18px
+                font-weight: 200
+                color: #999
+        .canvas-box
+            position: relative
+            .point
+                display: block
+                position: absolute
+                height: 5px 
+                width: 5px
+                left: 0
+                top: 35.5px
+                border-radius: 50%
+                box-shadow: 0 0 3px #999
+                background-color: #666
+            canvas
+                position: absolute
+                width: 100%
+                height: 100%
+                top: -4px
+                left: -4px
+                
+        .single
+            font-size: 36px
+        .title
+            text-align: center
+            font-weight: 400
+            font-size: 18px
+
+.mask-wrapper
+    display: none
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+    background-color: rgba(25, 25, 25, .8)
+    #qrcode
+        position: absolute
+        width: w = 222px
+        height: w
+        left: 50%
+        top: 50%
+        margin-left: m = -(w/2)
+        margin-top: m
+        img
+         width: 100%;
+         height: auto;
+            
+
+
+            
+            
+
+@import "./iphone6.styl"
+@import "./iphone6p.styl"

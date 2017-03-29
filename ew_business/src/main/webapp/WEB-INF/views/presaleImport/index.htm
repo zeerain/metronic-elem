@@ -1,0 +1,65 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="潜客数据上传管理" url="${ctx.contextPath}/presaleImport/index" title="潜客数据上传管理">
+				</@bodyHeader>
+
+				<@box boxColor="blue">
+					<div class="portlet-title">
+                        <div class="caption">上传数据</div>
+                      	<div class="actions">
+                            <a class="btn font-white" href="${ctx.contextPath}/res/sample2.xls">
+                                <i class="fa fa-download"></i> 下载示例文件
+                            </a>
+                        </div>
+                    </div>
+					<@boxBody>
+						<#include "/presaleImport/_uploadform.htm" />
+					</@boxBody>
+				</@box>
+				
+				<@box boxColor="green">
+					<div class="portlet-title">
+	                    <div class="caption">潜客数据管理表</div>
+	                    <div class="tools">
+	                        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+	                    </div>
+	                </div>
+					<@boxBody>
+						<#include "/presaleImport/page_index.htm" />
+						<#include "/include/pagination.htm">
+					</@boxBody>
+				</@box>
+				
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".datepicker").datepicker({
+		 language: 'zh-CN',
+		 format: "yyyy-mm-dd",
+		 autoclose: true
+	});
+	
+	$('.btn-action').on("click", function(){
+		$("#fileForm").attr("action", "${ctx.contextPath}/presaleImport/"+$(this).data("action"));
+		$("#fileForm").submit();
+	});
+});
+</script>
+</body>
+</html>
+

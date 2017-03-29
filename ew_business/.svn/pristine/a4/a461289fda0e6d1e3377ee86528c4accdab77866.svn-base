@@ -1,0 +1,25 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+		<@bodyHeader menu="查看消息通知" url="${ctx.contextPath}/message/index" title="消息通知">
+		</@bodyHeader>
+		
+		<@box>
+			<@boxHeader>
+			</@boxHeader>
+			<@boxBody>
+				<#include "/message/page_index.htm" />
+			</@boxBody>
+			<@boxFooter>
+				<#include "/include/pagination.htm">
+			</@boxFooter>
+		</@box>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

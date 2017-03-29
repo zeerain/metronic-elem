@@ -1,0 +1,31 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+	<#-- 主内容区Begin -->
+		<@bodyHeader menu="" url="" title="工作台">
+		</@bodyHeader>
+
+        <#-- Main content -->
+        <section class="content">
+        	<div class="row">
+        		<div class="col-xs-12">
+        			<div class="box box-primary">
+		                <div class="box-body">
+							欢迎回来, ${(Session.user.realname)!""}
+							<br><br><br><br><br><br><br>
+		                </div><#-- /.box-body -->
+              		</div><#-- /.box -->
+        		</div><#-- /.col-xs-12 -->
+        	</div><#-- /.row -->
+        </section><#-- /.content -->
+	
+	<#-- 主内容区End -->
+	</div><#-- /.content-wrapper -->
+	<#include "/include/footer.htm">
+</div><#-- ./wrapper -->
+<#include "/include/scripts.htm">
+</body>
+</html>

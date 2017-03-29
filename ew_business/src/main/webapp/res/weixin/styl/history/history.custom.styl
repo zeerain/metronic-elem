@@ -1,0 +1,151 @@
+@import "./index.styl"
+
+.header
+    height: h = 44px
+    line-height: h
+    font-size: 18px
+    font-weight: 400
+    padding: 0 20px
+    background-color: #7caf49
+    color: #fff
+    .left  
+        float: left
+    .right
+        float: right
+
+.wrapper    
+    width: auto
+    height: auto
+    padding: 0 15px
+    padding-bottom: 100px
+    background-color: #ebebeb
+    .user-info
+        sm-color = #999
+        height: auto
+        padding: 10px
+        padding-bottom: 0
+        background-color: #fff
+        border-radius: 0 0 5px 8px
+        .base-info
+            border-bottom: 1px solid #ccc
+            padding-bottom: 10px
+            .username
+                font-size: 26px
+                font-weight: 300
+                height: h = 32px
+                line-height: h
+                color: #333
+            .tags
+                height: auto
+                line-height: h = 26px
+                margin-top: 6px
+                .tag
+                    display: inline-block
+                    float: left
+                    height: h = (h - 2 - 6)
+                    line-height: h
+                    padding: 0 10px
+                    margin-right: 8px
+                    border: 1px solid sm-color
+                    font-size: 12px
+                    font-weight: 200
+                    color: sm-color
+        .contact-info
+            padding: 10px
+            p
+                height: h = 18px
+                line-height: h
+                font-size: 14px
+                font-weight: 300
+                color: sm-color
+    .history-list
+        list-style: none
+        height: auto
+        time-height = 28px
+        margin-top: time-height + 15px
+        li
+            green-color = #7caf49
+            left-line-width = 16px
+            left-circle-width = 15px
+            position: relative
+            padding-bottom: time-height + 15px
+            list-style: none
+            height: auto
+            border-left: 1px solid green-color
+            .time-line  
+                display: inline-block
+                position: relative
+                height: time-height
+                line-height: time-height
+                width: auto
+                top: -(time-height/2)
+                left: left-line-width
+                padding: 0 20px
+                border-radius: time-height
+                font-size: 14px
+                font-weight: 300
+                background-color: green-color
+                color: #fff
+                &::before
+                    content: " "
+                    display: block
+                    position: absolute
+                    left: -(left-line-width)
+                    top: (time-height/2 - 0.5)
+                    width: left-line-width
+                    border-bottom: 1px solid green-color
+                &::after
+                    content: " "
+                    display: block
+                    position: absolute
+                    width: w = (left-circle-width)
+                    height: w
+                    left:  -(left-line-width + w/2)
+                    top: -(w/2 - time-height/2 )
+                    border-radius: 50%
+                    background: radial-gradient(green-color, #fff)
+                    background: -webkit-radial-gradient(green-color, #fff)
+
+            .msg-box
+                avatar-width = 40px
+                position: relative
+                width: auto
+                height: auto
+                margin: 0 (left-line-width + avatar-width/2)
+                margin-top: (avatar-width/2)
+                margin-right: left-line-width
+                padding: 10px
+                padding-left: 20px
+                border-radius: 5px
+                background-color: #fff
+                .avatar 
+                    display: block
+                    position: absolute
+                    left: l = -(avatar-width/2)
+                    top: l
+                    width: avatar-width
+                    height: avatar-width
+                    border-radius: 50%
+                    background-image: url('../images/icon/zuoxi-icon@2x.png')
+                    background-repeat: no-repeat
+                    background-size: contain
+                    background-position: center center
+                    background-color: #c9d8b9
+                .content
+                    height: auto
+                    line-height: 22px
+                    font-size: 14px
+                    font-weight: 300
+                    color: #555
+                &.saleManager-msg
+                    background-color: #dae3eb
+                    .avatar
+                        background-image: url('../images/icon/xiaoshou-icon@2x.png')
+                        background-color: #d0deec
+                
+            
+
+
+                    
+                
+            

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./dist/task.custom.css">
+    <link rel="stylesheet" type="text/css" href="./dist/bofang.css">
+    <title>我的任务</title>
+</head>
+<body>
+    <header class="header">
+        <span class="left">2017年1月12日</span>
+        <span class="right">星期四</span>
+    </header>
+    <ul class="list">
+        <li class="">
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-danger"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span><span>有无现车</span></p>
+                        <div class="tel-cnt">
+                            <span class="first">15</span><span class="character">/</span><span class="number">8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p class="datetime">2017年1月8日&nbsp;星期三
+                    <a class="history" href="/business/weixin/task/view/310">历史信息</a>
+                </p>
+                <div class="cm-media-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <div class="cm-media stop" data-src="../music/test.mp3">
+                        <span class="sec-time">26''</span>
+                    </div>
+                    <a class="history" href="#">
+                        历史信息
+                    </a>
+                </div>
+                <div class="svc-text-box">
+                    <div class="svc-text">
+                        客户关注1.8T自动档，购车意向比较强，已经到其他店看过了，其他店给到的价格是12万左右，客户表示还想再优惠点，再等其他店的活动，已和客户暂定周六看车。
+                        <div class="media-bar" data-src="../music/test.mp3">
+                            <div class="media-ctrl stop">
+
+                            </div>
+                            <div class="media-progress">
+                                <div class="media-progress-bar">
+                                    <div class="marker" data-lp="10" data-duration="30">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img class="svc-avatar media-avatar" src="./images/zuoxi-icon@2x.png" alt="">
+                    </div>
+                    <div class="svc-position-box"></div>
+                </div>
+                <p class="datetime">2017年1月12日&nbsp;星期四</p>
+                <div class="ctrl-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <a href="tel:18260635226" class="makeCall">
+                        <img src="./images/icon/boda-icon@2x.png" alt="">
+                        电联</a>
+                    <a href="javascript:;" class="startRecord">
+                        <img src="./images/icon/maikefeng-icon@2x.png" alt="">
+                        按住&nbsp;说话</a>
+                    <a href="javascript:;" class="btn-submit disabled"></a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-warning"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span><span>有无现车</span></p>
+                        <div class="tel-cnt">
+                            <span class="first">5</span><span class="character">/</span><span class="number">8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p class="datetime">2017年1月8日&nbsp;星期三</p>
+                <div class="cm-media-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <div class="cm-media stop" data-src="../music/test1.mp3">
+                        <span class="sec-time">26''</span>
+                    </div>
+                    <a class="history" href="#">
+                        历史信息
+                    </a>
+                </div>
+                <div class="svc-text-box">
+                    <div class="svc-text">
+                        客户关注1.8T自动档，购车意向比较强，已经到其他店看过了，其他店给到的价格是12万左右，客户表示还想再优惠点，再等其他店的活动，已和客户暂定周六看车。
+                        <div class="media-bar" data-src="../music/test1.mp3">
+                            <div class="media-ctrl stop">
+
+                            </div>
+                            <div class="media-progress">
+                                <div class="media-progress-bar">
+                                    <div class="marker" data-lp="10" data-duration="30">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img class="svc-avatar media-avatar" src="./images/zuoxi-icon@2x.png" alt="">
+                    </div>
+                    <div class="svc-position-box"></div>
+                </div>
+                <p class="datetime">2017年1月12日&nbsp;星期四</p>
+                <div class="ctrl-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <a href="tel:18260635226" class="makeCall">
+                        <img src="./images/icon/boda-icon@2x.png" alt="">
+                        电联</a>
+                    <a href="javascript:;" class="startRecord">
+                        <img src="./images/icon/maikefeng-icon@2x.png" alt="">
+                        按住&nbsp;说话</a>
+                    <a href="javascript:;" class="btn-submit disabled"></a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-info"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span><span>有无现车</span></p>
+                        <div class="tel-cnt">
+                            <span class="first">5</span><span class="character">/</span><span class="number">8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p class="datetime">2017年1月8日&nbsp;星期三</p>
+                <div class="cm-media-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <div class="cm-media">
+                        <span class="sec-time">26''</span>
+                    </div>
+                    <a class="history" href="#">
+                        历史信息
+                    </a>
+                </div>
+                <div class="svc-text-box">
+                    <div class="svc-text">
+                        客户关注1.8T自动档，购车意向比较强，已经到其他店看过了，其他店给到的价格是12万左右，客户表示还想再优惠点，再等其他店的活动，已和客户暂定周六看车。
+                        <img class="svc-avatar media-avatar" src="./images/zuoxi-icon@2x.png" alt="">
+                    </div>
+                    <div class="svc-position-box"></div>
+                </div>
+                <p class="datetime">2017年1月12日&nbsp;星期四</p>
+                <div class="ctrl-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <a href="tel:18260635226" class="makeCall">
+                        <img src="./images/icon/boda-icon@2x.png" alt="">
+                        电联</a>
+                    <a href="javascript:;" class="startRecord">
+                        <img src="./images/icon/maikefeng-icon@2x.png" alt="">
+                        按住&nbsp;说话</a>
+                    <a href="javascript:;" class="btn-submit disabled"></a>
+                </div>
+            </div>
+        </li>
+    </ul><header class="header">
+        <span class="left">2017年1月12日</span>
+        <span class="right">星期四</span>
+    </header>
+    <ul class="list">
+        <li class="">
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-danger"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span><span>有无现车</span></p>
+                        <div class="tel-cnt">
+                            <span class="first">15</span><span class="character">/</span><span class="number">8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p class="datetime">2017年1月8日&nbsp;星期三</p>
+                <div class="cm-media-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <div class="cm-media">
+                        <span class="sec-time">26''</span>
+                    </div>
+                    <a class="history" href="#">
+                        历史信息
+                    </a>
+                </div>
+                <div class="svc-text-box">
+                    <div class="svc-text">
+                        客户关注1.8T自动档，购车意向比较强，已经到其他店看过了，其他店给到的价格是12万左右，客户表示还想再优惠点，再等其他店的活动，已和客户暂定周六看车。
+                        <img class="svc-avatar media-avatar" src="./images/zuoxi-icon@2x.png" alt="">
+                    </div>
+                    <div class="svc-position-box"></div>
+                </div>
+                <p class="datetime">2017年1月12日&nbsp;星期四</p>
+                <div class="ctrl-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <a href="tel:18260635226" class="makeCall">
+                        <img src="./images/icon/boda-icon@2x.png" alt="">
+                        电联</a>
+                    <a href="javascript:;" class="startRecord">
+                        <img src="./images/icon/maikefeng-icon@2x.png" alt="">
+                        按住&nbsp;说话</a>
+                    <a href="javascript:;" class="btn-submit disabled"></a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-warning"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span><span>有无现车</span></p>
+                        <div class="tel-cnt">
+                            <span class="first">5</span><span class="character">/</span><span class="number">8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p class="datetime">2017年1月8日&nbsp;星期三</p>
+                <div class="cm-media-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <div class="cm-media">
+                        <span class="sec-time">26''</span>
+                    </div>
+                    <a class="history" href="#">
+                        历史信息
+                    </a>
+                </div>
+                <div class="svc-text-box">
+                    <div class="svc-text">
+                        客户关注1.8T自动档，购车意向比较强，已经到其他店看过了，其他店给到的价格是12万左右，客户表示还想再优惠点，再等其他店的活动，已和客户暂定周六看车。
+                        <img class="svc-avatar media-avatar" src="./images/zuoxi-icon@2x.png" alt="">
+                    </div>
+                    <div class="svc-position-box"></div>
+                </div>
+                <p class="datetime">2017年1月12日&nbsp;星期四</p>
+                <div class="ctrl-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <a href="tel:18260635226" class="makeCall">
+                        <img src="./images/icon/boda-icon@2x.png" alt="">
+                        电联</a>
+                    <a href="javascript:;" class="startRecord">
+                        <img src="./images/icon/maikefeng-icon@2x.png" alt="">
+                        按住&nbsp;说话</a>
+                    <a href="javascript:;" class="btn-submit disabled"></a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="title left-fixed_right-auto">
+                <div class="left rank-info"></div>
+                <div class="right">
+                    <div class="right-content">
+                        <h3>徐诗婷</h3>
+                        <p><span>XT5</span><span>贷款政策</span><span>有无现车</span></p>
+                        <div class="tel-cnt">
+                            <span class="first">5</span><span class="character">/</span><span class="number">8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p class="datetime">2017年1月8日&nbsp;星期三</p>
+                <div class="cm-media-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <div class="cm-media stop" data-src="../music/test1.mp3">
+                        <span class="sec-time">26''</span>
+                    </div>
+                    <a class="history" href="#">
+                        历史信息
+                    </a>
+                </div>
+                <div class="svc-text-box">
+                    <div class="svc-text">
+                        客户关注1.8T自动档，购车意向比较强，已经到其他店看过了，其他店给到的价格是12万左右，客户表示还想再优惠点，再等其他店的活动，已和客户暂定周六看车。
+                        <img class="svc-avatar media-avatar" src="./images/zuoxi-icon@2x.png" alt="">
+                    </div>
+                    <div class="svc-position-box"></div>
+                </div>
+                <p class="datetime">2017年1月12日&nbsp;星期四</p>
+                <div class="ctrl-box">
+                    <img class="cm-avatar media-avatar" src="./images/xiaoshou-icon@2x.png" alt="">
+                    <a href="tel:18260635226" class="makeCall">
+                        <img src="./images/icon/boda-icon@2x.png" alt="">
+                        电联</a>
+                    <a href="javascript:;" class="startRecord">
+                        <img src="./images/icon/maikefeng-icon@2x.png" alt="">
+                        按住&nbsp;说话</a>
+                    <a href="javascript:;" class="btn-submit disabled"></a>
+                </div>
+            </div>
+        </li>
+    </ul>
+<script src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+<script src="../js/media.play.js"></script>
+<script>
+    $(function(){
+        $(".list li .title .left").on('click', function(){
+            $li = $(this).closest("li");
+            $('.list li').removeClass('open');
+            $li.addClass('open');
+        });
+
+        new AudioMedia();
+        new WexinTypeAudio();
+    });
+</script>
+</body>
+</html>

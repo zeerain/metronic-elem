@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="${ctx.contextPath}/res/weixin/dist/reset.css">
+    <link rel="stylesheet" type="text/css" href="${ctx.contextPath}/res/weixin/dist/history.custom.css">
+    <title>元兵空中助理</title>
+</head>
+<body>
+    <header class="header">
+        <div class="left">
+            #${(model.id)!""} 潜客
+        </div>
+        <div class="right">
+            登记日期：${(model.customer.registerDate)!"-"}
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="user-info">
+            <div class="base-info">
+                <h1 class="username">${(model.customerName)!""}</h1>
+                <#include "/weixin/task/_tags.htm">
+            </div>
+            <div class="contact-info">
+                <p>潜客信息：${(model.customerPhone)!"-"}</p>
+                <p>销售顾问：${(model.salespersonName)!"-"}</p>
+            </div>
+        </div>
+        <ul class="history-list">
+        	<#if (model.presaleRecordList)?? && model.presaleRecordList?size gt 0>
+			<#list model.presaleRecordList as record>
+			<li>
+                <h1 class="time-line">
+                    ${record.createTime?string("yyyy年MM月dd日 a hh:mm")}
+                </h1>
+                <div class="msg-box <#if record.createByType=='OrgUser'>saleManager-msg</#if>">
+                    <div class="avatar"></div>
+                    <p class="content">
+                    <#if record.comment?? && record.comment !=''>${(record.comment)!""}<#else>无备注</#if> 
+                    </p>
+                </div>
+            </li>
+            </#list>
+			<#else>
+			<li>
+                <div class="msg-box">
+                    <p class="content">暂无历史记录</p>
+                </div>
+            </li>
+			</#if>
+		</ul>
+    </div>
+    <#include "/weixin/include/_keep_alive.htm">
+</body>
+</html>

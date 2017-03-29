@@ -1,0 +1,7 @@
+<#if !task?exists && model??>
+<#assign task = model>
+</#if>
+<p class="tags">
+<#if (task.customer.intentCarModel)??><span>${task.customer.intentCarModel}</span></#if>
+<#if (task.customer.tags)??><span>${task.customer.tags}</span></#if><div class="clear"></div>
+</p>

@@ -1,0 +1,71 @@
+<#include "/include/head.htm">
+<body class="hold-transition ${skin}">
+<div class="wrapper">
+	<#include "/include/header.htm">
+	<#include "/include/sidebar.htm">
+    <div class="content-wrapper">
+    	<@bodyHeader menu="回访数据导出管理" url="${ctx.contextPath}/revisitImport/index" title="回访数据导出">
+		</@bodyHeader>
+		
+		<section class="content">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+	            	<h3 class="box-title">数据导出</h3>
+	              	<div class="box-tools pull-right">
+	                	<button data-widget="collapse" class="btn btn-box-tool" type="button"><i class="fa fa-minus"></i></button>
+	                </div>
+	            </div>
+				<div class="box-body">
+					<#include "/revisitExport/_uploadform.htm" />
+				</div><#-- /.box-body -->
+      		</div><#-- /.box -->
+      		
+			<#if (modelList)??>
+			<div class="box box-primary">				
+				<@boxBody>
+					<#include "/revisitExport/page_index.htm" />
+				</@boxBody>
+				<@boxFooter>
+					<#include "/include/pagination.htm">
+				</@boxFooter>
+      		</div>
+			</#if>
+      		
+		</section><#-- /.content -->
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="${ctx.contextPath}/res/js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script>
+$(function(){
+ $("#serviceBeginDatePicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+  $("#serviceEndDatePicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+ $("#revisitBeginDatePicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+  $("#revisitEndDatePicker").datepicker({
+	  language: 'zh-CN',
+	  format: "yyyy-mm-dd"
+  });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btn-action').on("click", function(){
+		$("#filterForm").attr("action", "${ctx.contextPath}/revisitExport/"+$(this).data("action"));
+		$("#filterForm").submit();
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.AudioMsgMapper">
+
+	<!-- Model ORM映射 -->
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="AudioMsg">
+		SELECT self.*, org.short_name as fromOrgName, ou.realname as createByName, cu.realname as receiverName
+	    FROM audio_msg self
+	    LEFT JOIN organization org ON self.from_org_id=org.id
+	    LEFT JOIN org_user ou ON self.create_by=ou.id
+	    LEFT JOIN cc_user cu ON self.receiver_id=cu.id	
+		WHERE self.id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="AudioMsg" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO audio_msg(
+			 system, receiver_type, receiver_id, rel_obj_type, rel_obj_id, rel_record_id, content, audio_duration, audio_urls, comment, status, from_org_id, create_by
+		)
+		VALUES(
+			 #{system}, #{receiverType}, #{receiverId}, #{relObjType}, #{relObjId}, #{relRecordId}, #{content}, #{audioDuration}, #{audioUrls}, #{comment}, #{status}, #{fromOrgId}, #{createBy}
+		)
+	</insert>
+
+	<update id="update" parameterType="AudioMsg">
+		UPDATE audio_msg 
+		SET system=#{system}, receiver_type=#{receiverType}, receiver_id=#{receiverId}, rel_obj_type=#{relObjType}, rel_obj_id=#{relObjId}, content=#{content}, audio_urls=#{audioUrls}, comment=#{comment}, status=#{status}, from_org_id=#{fromOrgId}, create_by=#{createBy}
+		WHERE id=#{id}
+	</update>
+	
+	<update id="delete" parameterType="Long">
+		UPDATE audio_msg SET status='D' WHERE id=#{id}
+	</update>
+	
+	<sql id="searchQuery">
+    	<if test="system != null">
+    	self.system=#{system}
+    	</if>
+    	<if test="receiver_type != null">
+    	 AND self.receiver_type=#{receiver_type}
+    	</if>
+    	<if test="receiver_id != null">
+    	 AND self.receiver_id=#{receiver_id}
+    	</if>
+    	<if test="rel_obj_type != null">
+    	 AND self.rel_obj_type=#{rel_obj_type}
+    	</if>
+    	<if test="rel_obj_id != null">
+    	 AND self.rel_obj_id=#{rel_obj_id}
+    	</if>
+    	<if test="content != null">
+    	 AND self.content like CONCAT('%',#{content},'%')
+    	</if>
+    	<if test="comment != null">
+    	 AND self.comment like CONCAT('%',#{comment},'%')
+    	</if>
+    	<choose>
+    		<when test="status != null">
+		    	 AND self.status=#{status}    			
+    		</when>
+    		<otherwise>
+		    	 AND self.status != 'D'	    			
+    		</otherwise>
+    	</choose>
+    	<if test="from_org_id != null">
+    	 AND self.from_org_id=#{from_org_id}
+    	</if>
+    	<if test="fromOrgName != null">
+    	 AND org.short_name like CONCAT('%',#{fromOrgName},'%')
+    	</if>
+    	<if test="create_by != null">
+    	 AND self.create_by=#{create_by}
+    	</if>
+    	<if test="createByName != null">
+    	 AND ou.realname like CONCAT('%',#{createByName},'%')
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer">
+		SELECT count(self.id)
+	    FROM audio_msg self
+	    LEFT JOIN organization org ON self.from_org_id=org.id
+	    LEFT JOIN org_user ou ON self.create_by=ou.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="AudioMsg">
+		SELECT self.*, org.short_name as fromOrgName, ou.realname as createByName, cu.realname as receiverName
+	    FROM audio_msg self
+	    LEFT JOIN organization org ON self.from_org_id=org.id
+	    LEFT JOIN org_user ou ON self.create_by=ou.id
+	    LEFT JOIN cc_user cu ON self.receiver_id=cu.id	    
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+	
+	<!-- 自定义扩展: begin -->
+	<select id="getRecordRelatedAudioMsgList" parameterType="List" resultType="AudioMsg">
+	SELECT rel_obj_id, rel_record_id, content, audio_duration, audio_urls, comment
+	FROM audio_msg self
+	WHERE self.rel_record_id IN 
+   	<foreach item="record" collection="list" open="(" separator="," close=")">  
+		#{record.id}
+	</foreach>
+	</select>
+	
+	<!-- 自定义扩展: end -->
+</mapper>

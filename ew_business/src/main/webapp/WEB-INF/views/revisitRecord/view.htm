@@ -1,0 +1,46 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="回访记录管理" url="${ctx.contextPath}/revisitRecord/index" title="查看回访记录">
+				</@bodyHeader>
+
+				<#-- <div class="row">
+					<div class="col-md-12">
+						<div class="portlet box blue">
+							<div class="portlet-title">
+                                <div class="caption">查看回访记录</div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                            	<#include "/revisitRecord/_view.htm" />
+                            </div>
+						</div>
+					</div>
+				</div> -->
+				
+				<@box boxColor="blue">
+					<@boxHeader boxTitle="查看回访记录"></@boxHeader>
+					<@boxBody>
+						<#include "/revisitRecord/_view.htm" />
+					</@boxBody>
+				</@box>
+
+
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+

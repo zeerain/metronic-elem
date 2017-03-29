@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.PresaleTaskMapper">
+	<!-- Model ORM映射 -->
+	<resultMap id="PresaleTask" type="PresaleTask">
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultType="PresaleTask">
+		SELECT self.*, org.short_name as orgName
+	    FROM presale_task self
+	    LEFT JOIN organization org ON self.org_id=org.id
+		WHERE self.id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="PresaleTask" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO presale_task(
+			 import_id,	org_id,	row_index,	salesperson_id,	salesperson_name, customer_id, customer_name, customer_phone, customer_level, customer_category,
+			 intent_car_model, register_date, comment, status, status_detail, current_owner_id, assign_by, next_handle_time, create_by
+		)
+		VALUES(
+			 #{importId}, #{orgId}, #{rowIndex}, #{salespersonId}, #{salespersonName}, #{customerId}, #{customerName}, #{customerPhone}, #{customerLevel}, #{customerCategory}, 
+			 #{intentCarModel}, #{registerDate}, #{comment}, #{status}, #{statusDetail}, #{currentOwnerId}, #{assignBy}, #{nextHandleTime}, #{createBy}
+		)
+	</insert>
+	
+	<update id="update" parameterType="PresaleTask">
+		UPDATE presale_task 
+		SET customer_id=#{customerId}, customer_name=#{customerName}, customer_phone=#{customerPhone}, customer_level=#{customerLevel}, comment=#{comment}, status=#{status}, status_detail=#{statusDetail}, active=#{active}, handle_status=#{handleStatus}, next_handle_time=#{nextHandleTime}, update_by=#{updateBy}, update_time=CURRENT_TIMESTAMP
+		WHERE id=#{id}
+	</update>
+	
+	<update id="delete" parameterType="Long">
+		UPDATE presale_task SET active=0 WHERE id=#{id}
+	</update>
+	
+	<sql id="searchQuery">
+    	<if test="org_id != null">
+    	 AND self.org_id=#{org_id}
+    	</if>
+    	<if test="orgName != null">
+    	 AND org.short_name like CONCAT('%',#{orgName},'%')
+    	</if>
+    	<if test="salesperson_id != null">
+    	 AND self.salesperson_id=#{salesperson_id}
+    	</if>
+    	<if test="salesperson_name != null">
+    	 AND self.salesperson_name like CONCAT('%',#{salesperson_name},'%')
+    	</if>
+    	<if test="customer_id != null">
+    	 AND self.customer_id=#{customer_id}
+    	</if>
+    	<if test="customer_name != null">
+    	 AND self.customer_name like CONCAT('%',#{customer_name},'%')
+    	</if>
+    	<if test="customer_phone != null">
+    	 AND self.customer_phone like CONCAT('%',#{customer_phone},'%')
+    	</if>
+    	<if test="customer_level != null">
+    	 AND self.customer_level=#{customer_level}
+    	</if>
+    	<if test="current_owner_id != null">
+    		<if test="current_owner_id == 0 ">
+		    	 AND self.current_owner_id IS NULL		
+    		</if>
+    		<if test="current_owner_id > 0">
+		    	 AND self.current_owner_id=#{current_owner_id}    		
+    		</if>
+    	</if>
+    	<choose>
+    		<when test="statusIn != null">
+    			AND self.status IN 
+			   	<foreach item="sts" collection="statusIn" open="(" separator="," close=")">  
+					#{sts}
+				</foreach>
+    		</when>
+    		<when test="statusNotIn != null">
+    			AND self.status NOT IN 
+			   	<foreach item="sts" collection="statusNotIn" open="(" separator="," close=")">  
+					#{sts}
+				</foreach>
+    		</when>
+    		<when test="status != null">
+		    	 AND self.status=#{status}    			
+    		</when>
+    	</choose>
+    	<if test="status_detail != null">
+    	 AND self.status_detail like CONCAT('%',#{status_detail},'%')
+    	</if>
+    	<if test="appointed_time != null">
+    	 AND date(self.appointed_time)=#{appointed_time}
+    	</if>
+    	<if test="active != null">
+    	 AND self.active=#{active}
+    	</if>
+    	<if test="sa_feedback != null">
+    	 AND pc.sa_feedback=#{sa_feedback}
+    	</if>
+    	<if test="category != null">
+    	 AND pc.category=#{category}
+    	</if>
+		<if test="nextHandleTimeEnd != null">
+			AND self.next_handle_time &lt;= #{nextHandleTimeEnd}
+		</if>
+		<if test="handleStatusIn != null">
+			AND self.handle_status IN
+			<foreach item="hsts" collection="handleStatusIn" open="(" separator="," close=")">
+				#{hsts}
+			</foreach>
+		</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.id)
+	    FROM presale_task self
+	    LEFT JOIN potential_customer pc ON self.customer_id=pc.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultType="PresaleTask" useCache="false">
+	 	SELECT self.*, org.short_name as orgName, ccUser.realname as currentOwnerName, pc.sa_feedback as saFeedBack, pc.category as pcCategory
+	    FROM presale_task self
+	    LEFT JOIN organization org ON self.org_id=org.id
+	    LEFT JOIN cc_user ccUser ON self.current_owner_id=ccUser.id
+	    LEFT JOIN potential_customer pc ON self.customer_id=pc.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+	
+	<!-- 关联对象: begin -->	
+	<select id="getRelatedPresaleRecordList" parameterType="java.util.List" resultType="PresaleRecord">
+		SELECT self.*
+	    FROM presale_record self
+    	WHERE self.task_id IN 
+    	<foreach item="model" collection="modelList" open="(" separator="," close=")">  
+		#{model.id}
+		</foreach>
+		<choose>
+	    	<when test="isAsc != null and isAsc == true">
+				ORDER BY self.id ASC		
+	    	</when>
+	    	<otherwise>
+				ORDER BY self.id DESC		
+	    	</otherwise>
+	    </choose>
+	</select>
+	
+	<select id="getRelatedPresaleCallList" parameterType="java.util.List" resultType="PresaleCall">
+		SELECT self.*
+	    FROM presale_call self
+    	WHERE self.record_id IN
+    	<foreach item="model" collection="modelList" open="(" separator="," close=")">
+		#{model.id}
+		</foreach>
+	</select>
+	<!-- 关联对象: end -->
+	
+	<!-- 自定义扩展: begin -->
+	<insert id="createRecord" parameterType="PresaleRecord" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO presale_record(
+			 task_id, referer_id, type, status, status_detail, comment, expired_flag, user_agent, create_by_name, create_by_type, create_by
+		)
+		VALUES(
+			 #{taskId}, #{refererId}, #{type}, #{status}, #{statusDetail}, #{comment}, #{expiredFlag}, #{userAgent}, #{createByName}, #{createByType}, #{createBy}
+		)
+	</insert>
+	
+	<select id="getUnsavedCustomerList" parameterType="Long" resultType="PresaleTask">
+		SELECT id, org_id, salesperson_id, customer_name, customer_phone, customer_level, intent_car_model, register_date, comment
+	    FROM presale_task
+    	WHERE org_id=#{orgId} AND customer_id IS NULL
+	</select>
+
+	<update id="updateTaskCustomer" parameterType="PresaleTask">
+		UPDATE presale_task SET customer_id=#{customerId} WHERE id=#{id}
+	</update>
+	
+	<update id="updateTaskStatus" parameterType="PresaleTask">
+		UPDATE presale_task SET status=#{status}, comment=#{comment} WHERE id=#{id}
+	</update>
+	
+	<select id="getAllList" parameterType="Map" resultType="PresaleTask" useCache="false">
+	    SELECT self.*, org.short_name as orgName, ccUser.realname as currentOwnerName, pc.sa_feedback as saFeedBack, pc.category as pcCategory
+	    FROM presale_task self
+	    LEFT JOIN organization org ON self.org_id=org.id
+	    LEFT JOIN cc_user ccUser ON self.current_owner_id=ccUser.id
+	    LEFT JOIN potential_customer pc ON self.customer_id=pc.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	</select>
+	
+	<select id="getLatestCallRecordId" parameterType="Long" resultType="Long" useCache="false">
+	    SELECT MAX(id) FROM presale_record WHERE task_id=#{taskId} AND type='CALL' 
+	</select>
+	
+	<update id="linkFeedbackRecord">
+		UPDATE presale_record
+		SET referer_id=#{refererId}
+		WHERE id=#{callRecordId}
+	</update>
+	
+	<select id="getSimpleModelList" parameterType="Map" resultType="PresaleTask" useCache="false">
+		SELECT self.org_id, self.current_owner_id, self.schedule_time, self.status, self.status_detail, org.short_name as orgName, ccUser.realname as currentOwnerName
+	    FROM presale_task self
+	    LEFT JOIN organization org ON self.org_id=org.id
+	    LEFT JOIN cc_user ccUser ON self.current_owner_id=ccUser.id
+	    WHERE date(self.create_time)=#{queryDate}
+	</select>
+	
+	<select id="getSimpleModelNoStopList" parameterType="Map" resultType="PresaleTask" useCache="false">
+		SELECT self.current_owner_id, ccUser.realname as currentOwnerName, COUNT(1) continueTaskCount
+	    FROM presale_task self
+	    LEFT JOIN organization org ON self.org_id=org.id
+	    LEFT JOIN cc_user ccUser ON self.current_owner_id=ccUser.id
+	    WHERE date(self.create_time) &lt;= #{queryDate}
+	    <choose>
+		    <when test="statusIn != null">
+	   			AND self.status IN 
+		    	<foreach item="s" collection="statusIn" open="(" separator="," close=")">  
+				#{s}
+				</foreach>
+	   		</when>
+   		</choose>
+   		GROUP BY self.current_owner_id, ccUser.realname
+	</select>
+	
+	<select id="getRecordModelList" parameterType="Map" resultType="PresaleRecord" useCache="false">
+		SELECT self.* 
+		FROM presale_record self
+	    <choose>
+		    <when test="taskIds != null">
+	   			WHERE self.task_id IN 
+		    	<foreach item="s" collection="taskIds" open="(" separator="," close=")">  
+				#{s}
+				</foreach>
+	   		</when>
+   		</choose>
+	</select>
+		
+	<select id="getStatisticValue" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.id)
+	    FROM presale_task self
+	    <where>
+	    	<if test="org_id != null">
+	    	 self.org_id=#{org_id}
+	    	</if>
+	    	<if test="salesperson_id != null">
+	    	 AND self.salesperson_id=#{salesperson_id}
+	    	</if>
+	    	<if test="customerTagsIn != null">
+	   			AND self.customer_tags IN 
+		    	<foreach item="tag" collection="customerTagsIn" open="(" separator="," close=")">  
+				#{tag}
+				</foreach>
+	   		</if>
+	   		<if test="beginDate != null">
+	    	 AND date(self.create_time) >=#{beginDate}
+    		</if>
+	    	<if test="endDate != null">
+	    	 AND date(self.create_time) &lt;=#{endDate}
+    		</if>
+	    </where>
+	</select>
+	
+	<select id="getRelatedExpireRecord" parameterType="Long" resultType="PresaleRecord" useCache="false">
+		SELECT self.* 
+		FROM presale_record self
+	    WHERE self.task_id=#{taskId} AND expire_time IS NOT NULL AND expired_flag=-1
+	    ORDER BY self.id DESC
+	    LIMIT 1
+	</select>
+	
+	<select id="getMatchedExpireCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(r1.id) from presale_record r1
+		LEFT JOIN presale_task task ON r1.task_id=task.id
+		<where>
+	    	<if test="org_id != null">
+	    	 task.org_id=#{org_id}
+	    	</if>
+	    	<if test="salesperson_id != null">
+	    	 AND task.salesperson_id=#{salesperson_id}
+	    	</if>
+    		<if test="expired_flag != null">
+    		AND r1.expired_flag=#{expired_flag}
+    		</if>
+	   		<if test="allRequired != null">
+	   		AND r1.expire_time &lt; CURRENT_TIMESTAMP
+	   		</if>
+	   		<if test="beginDate != null">
+	    	 AND date(r1.create_time) >=#{beginDate}
+    		</if>
+	    	<if test="endDate != null">
+	    	 AND date(r1.create_time) &lt;=#{endDate}
+    		</if>
+	    </where>
+	</select>
+	
+	<!-- 自定义扩展: end -->
+</mapper>

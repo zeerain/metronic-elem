@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "./mybatis-3-mapper.dtd">
+<mapper namespace="com.elementwin.bs.service.mapper.RevisitWorkOrderMapper">
+	
+	<!-- Model ORM映射 -->
+	<resultMap id="RevisitWorkOrder" type="RevisitWorkOrder">
+		<id property="id" column="id" />
+		<collection property="opinionList" javaType="ArrayList" column="id" ofType="RevisitWorkOrderOpinion" select="getWorkOrderOpinions">
+		</collection>
+	</resultMap>
+	
+	<!-- 通用CRUD: begin  -->
+	<select id="get" parameterType="Long" resultMap="RevisitWorkOrder" useCache="false">
+		SELECT self.*
+		FROM revisit_work_order self
+		WHERE self.id=#{id}
+	</select>
+	
+	<insert id="create" parameterType="RevisitWorkOrder" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO revisit_work_order(
+			 org_id, category, content, customer_manager, auditor_id, status
+		)
+		VALUES(
+			 #{orgId}, #{category}, #{content}, #{customerManager}, #{auditorId}, #{status}
+		)
+	</insert>
+
+	<update id="update" parameterType="RevisitWorkOrder">
+		UPDATE revisit_work_order 
+		SET category=#{category}, content=#{content}, confirmed_category=#{confirmedCategory}, customer_manager=#{customerManager}, auditor_id=#{auditorId}, status=#{status}, close_time=#{closeTime}
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		DELETE FROM revisit_work_order WHERE id=#{id}
+	</delete>
+	
+	<sql id="searchQuery">
+    	<if test="org_id != null">
+    	self.org_id=#{org_id}
+    	</if>
+    	<if test="car_driver != null">
+    	 AND task.car_driver=#{car_driver}
+    	</if>
+    	<if test="car_owner != null">
+    	 AND task.car_owner=#{car_owner}
+    	</if>
+    	<if test="customer_manager != null">
+    	 AND self.customer_manager=#{customer_manager}
+    	</if>
+    	<if test="service_type != null">
+    	 AND task.service_type=#{service_type}
+    	</if>
+    	<if test="category != null">
+    	 AND self.category=#{category}
+    	</if>
+    	<if test="content != null">
+    	 AND self.content like CONCAT('%',#{content},'%')
+    	</if>
+    	<if test="auditor_id != null">
+    	 AND self.auditor_id=#{auditor_id}
+    	</if>
+    	<if test="status != null">
+    	 AND self.status=#{status}
+    	</if>
+	</sql>
+	
+	<select id="getListCount" parameterType="Map" resultType="Integer" useCache="false">
+		SELECT count(self.id)
+	    FROM revisit_work_order self
+	    LEFT JOIN revisit_task task ON self.task_id=task.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	</select>
+	
+	<select id="getList" parameterType="Map" resultMap="RevisitWorkOrder" useCache="false">
+		SELECT self.*
+	    FROM revisit_work_order self
+	    LEFT JOIN revisit_task task ON self.task_id=task.id
+	    <where>
+	    	<include refid="searchQuery"></include>
+	    </where>
+	    ORDER BY self.id DESC
+	    <choose>
+	    	<when test="begin != null">
+				LIMIT #{begin}, #{pageSize}
+	    	</when>
+	    	<when test="limitCount != null">
+				LIMIT #{limitCount}	    		
+	    	</when>
+	    </choose>
+	</select>
+	<!-- 通用CRUD: end -->
+
+	<!-- 扩展SQL: begin -->
+	<select id="getSingleWorkOrder" parameterType="Long" resultType="RevisitWorkOrder" useCache="false">
+		SELECT self.*
+		FROM revisit_work_order self
+		WHERE self.id=#{id}
+	</select>
+	
+	<insert id="createWorkOrderOpinion" parameterType="RevisitWorkOrderOpinion">
+		INSERT INTO revisit_work_order_opinion(
+			 work_order_id, category, opinion, status, revisit_again, user_type, create_by, create_by_name
+		)
+		VALUES(
+			 #{workOrderId}, #{category}, #{opinion}, #{status}, #{revisitAgain}, #{userType}, #{createBy}, #{createByName}
+		)
+	</insert>
+	
+	<select id="getWorkOrderWithOptions" parameterType="Long" resultMap="RevisitWorkOrder" useCache="false">
+		SELECT self.*
+		FROM revisit_work_order self
+		WHERE self.id=#{id}
+	</select>
+	
+	<select id="getWorkOrderOpinions" parameterType="Map" resultType="RevisitWorkOrderOpinion" useCache="false">
+		SELECT self.*
+	    FROM revisit_work_order_opinion self
+	    WHERE self.work_order_id=#{workOrderId}
+	    ORDER BY self.id ASC
+	</select>
+	<!-- 扩展SQL: end -->
+</mapper>

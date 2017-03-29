@@ -1,0 +1,114 @@
+@import "index.styl"
+
+body
+    background-color: #f1f2f3
+
+padding-v = 120px
+padding-h = 24px
+padding-inner = 20px
+avatar-h = padding-v - padding-inner
+avatar-border-w = 3px
+.wrapper    
+    position: absolute
+    top: padding-v - 40
+    bottom: padding-v - 40
+    left: padding-h
+    right: padding-h
+    padding-top: (avatar-h/2 + padding-inner)
+    background-color: #fff
+    box-shadow: 0 0 20px #999
+    .container
+        overflow-y: scroll
+        height: 100%
+    .avatar-box
+        position: absolute
+        left: 50%;
+        top: - (avatar-h/2 + avatar-border-w)
+        width: (avatar-h + avatar-border-w * 2)
+        margin-left: - (avatar-h/2 + avatar-border-w)
+        border-radius: 50%
+        -webkit-box-shadow: 0 0 15px #ccc
+        box-shadow: 0 0 15px #999
+        img
+            display: block
+            width: avatar-h
+            height: avatar-h
+            border-radius: 50%
+            border: avatar-border-w solid #fff
+    .form-userinfo
+        padding: padding-inner
+        padding-top: 0
+        .row
+            height: auto
+            width: 100%
+            border-bottom: 1px solid #cecece
+            margin-bottom: 15px
+            label.input-title
+                display: block
+                font-size: 12px
+                font-weight: 200
+                color: #cdcdcd
+            input[type="text"]
+                display: block
+                min-height: 26px
+                width: 100%
+                margin-top: 5px
+                outline: none
+                border: none
+                font-weight: 200
+                &.text-lg
+                    font-weight: 400
+                    font-size: 20px
+                &.text-md
+                    font-size: 16px
+                &.text-sm
+                    font-size: 12px
+        .grid-box
+            display: flex
+            width: 100%
+            box-sizing: border-box
+            .row
+                &:first-child
+                    border-right: 1px solid #cecece
+                    padding-right: 5px
+                    input
+                        font-weight: 400
+                &:last-child
+                    padding-left: 5px
+            .row.none-border
+                padding-top: 20px
+                border: none
+            
+                
+
+.footer
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    height: (padding-v - padding-inner - 40)
+    line-height: (padding-v - padding-inner - 40)
+    text-align: center
+    font-size: 22px
+    font-weight: 300
+    background-color: #7bb142
+    color: #fff
+.mask-wrapper
+    display: none
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+    background-color: rgba(25, 25, 25, .8)
+    #qrcode
+        position: absolute
+        width: w = 162px
+        height: w
+        left: 50%
+        top: 50%
+        margin-left: m = -(w/2)
+        margin-top: m
+    
+            
+    

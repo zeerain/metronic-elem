@@ -1,0 +1,62 @@
+<form class="form-horizontal" method="post">
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="title">标题 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<div class="input-icon right">
+				<input type="text" id="title" name="title" class="form-control" placeholder="标题" 
+					value="<#if (model.title)??>${model.title}</#if>"  
+			  		data-fv="Length(-255)">
+		  	</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="content">内容 </label>
+		<div class="col-md-9">
+			<textarea id="content" name="content" class="form-control" placeholder="销售政策内容" 
+			data-fv="Length(-1024)"><#if (model.content)??>${model.content}</#if></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="matchField">适用对象 </label>
+		<div class="col-md-9">
+			<input type="text" id="matchFieldValue" name="matchFieldValue" class="form-control" placeholder="潜客级别匹配值(*代表所有)" 
+				value="<#if (model.matchFieldValue)??>${model.matchFieldValue}</#if>"
+		  		data-fv="Length(-255)">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="beginDate">开始日期 </label>
+		<div class="col-md-9">
+			<input type="text" id="beginDate" name="beginDate" class="form-control datepicker" placeholder="开始日期" 
+				value="<#if (model.beginTime)??>${model.beginTime?date}</#if>"  
+		  		data-fv="">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="endDate">结束日期 </label>
+		<div class="col-md-9">
+			<input type="text" id="endDate" name="endDate" class="form-control datepicker" placeholder="结束日期" 
+				value="<#if (model.endTime)??>${model.endTime?date}</#if>"  
+		  		data-fv="">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-2 control-label" for="amount">总数 <span class="text-red">*</span></label>
+		<div class="col-md-9">
+			<div class="input-icon right">
+				<input type="text" id="amount" name="amount" class="form-control" placeholder="总数量(0代表不限)" 
+					value="<#if (model.amount)??>${model.amount}</#if>" required="true" 
+			  		data-fv="NotNull">
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-2">
+			<#if (model.id)??>
+			<button class="btn btn-primary btn-block" type="submit"> 提交更新 </button>
+			<#else>
+			<button class="btn btn-success btn-block" type="submit"> 提交 </button>			
+			</#if>
+		</div>
+	</div>
+</form>
