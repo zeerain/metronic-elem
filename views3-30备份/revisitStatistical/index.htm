@@ -26,7 +26,7 @@
                                         <tbody>
                                             <tr>
                                             	<#if subCompanyList??>
-                                            	<td class="td-label compact">查询单位:</td>
+                                            	<td class="td-label compact" style="padding: 0px 20px">查询单位:</td>
 												<td class="td-value pd-r"> 
 						      					<select name="org_id" class="form-control">
 							      				<#list subCompanyList as org>
@@ -35,11 +35,11 @@
 						      					</select>
 						      				</td>
 						      				</#if>
-                                            <td class="td-label"> 交车日期时间段:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                            <td class="td-label" style="padding: 0px 20px"> 交车日期时间段:</td>
                                             <td class="td-value"><input type="text" name="beginDate" class="form-control datepicker" value="${(criteria.beginDate)!''}" placeholder="起始日期"></td>
-                                            <td width="10px" style="padding-left:2px">&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</td>
+                                            <td width="10px" style="padding: 0px 15px">-</td>
                                             <td class="td-value"> <input type="text" name="endDate" class="form-control datepicker" value="${(criteria.endDate)!''}" placeholder="截止日期"></td>
-                                            <td class="td-value" style="padding-left: 10px"><button type="submit" class="btn btn-primary btn-block">&nbsp;&nbsp;查  &nbsp;询&nbsp;&nbsp;</button></td>
+                                            <td class="td-value" style="padding: 0px 20px"><button type="submit" class="btn btn-primary btn-block">&nbsp;&nbsp;查  &nbsp;询&nbsp;&nbsp;</button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -243,17 +243,13 @@
 	    }
 
 		<#-- 服务总量 -->
-		var bar_data = [];
+		var bar1_data = [];
+		var bar1_xAxis = [];
 		<#if chart1Map?size gt 0>
 		    <#list chart1Map?keys as k>
-		    	bar_data.push(["${k}(${chart1Map[k]})", ${chart1Map[k]}]);  
+			    bar1_xAxis.push("${k}(${chart1Map[k]})");
+			    bar1_data.push(${chart1Map[k]});
 		    </#list>
-		    var xAxi = [];
-		    var seriesData = [];
-		    for (var i = 0, len = bar_data.length; i < len; i++) {
-		        xAxi.push(bar_data[i][0]);
-		        seriesData.push(bar_data[i][1]);
-		    }
 			var bar_chart_zl = echarts.init(document.getElementById("bar-chart-zl"));
 		    bar_chart_zl.setOption({
 		    	tooltip: {},
@@ -262,13 +258,13 @@
 					right: 25
 				},
 				xAxis: {
-					data: xAxi
+					data: bar1_xAxis
 				},
 				yAxis: {},
 				series: [{
 					name: '次数',
 					type: 'bar',
-					data: bar_data
+					data: bar1_data
 				}],
 		    });
 			window.addEventListener('resize',  bar_chart_zl.resize);

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var arr = [['aaa(11)', 12], ['bbb(13)', 13], ['ffff(253)', 253]];
+
+		
+
+         function format(arr) {
+         	var res = [];
+         	for(var i = 0; i < arr.length; i++) {
+	         	var obj = {};
+         		obj.name = arr[i][0].split('(')[0].toString();
+         		obj.value = arr[i][1];
+         		res.push(obj);
+         	}
+         	return res;
+         }
+
+         console.log(format(arr));
+	</script>
+</body>
+</html>

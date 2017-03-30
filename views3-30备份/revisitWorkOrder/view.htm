@@ -8,14 +8,13 @@
          <div class="page-content-wrapper">
             <div class="page-content">
 
-	            <@bodyHeader menu="潜客拨打记录" url="${ctx.contextPath}/presaleTask/index" title="潜客拨打记录">
+	            <@bodyHeader menu="跟进任务" url="${ctx.contextPath}/revisitWorkOrder/index" title="跟进任务处理">
 				</@bodyHeader>
 				
 				<@box boxColor="blue">
-					<@boxHeader boxTitle="查看潜客拨打记录"></@boxHeader>
+					<@boxHeader boxTitle="任务处理"></@boxHeader>
 					<@boxBody>
-						<#include "/presaleTask/_view_header.htm" />	
-						<#include "/presaleTask/_view.htm" />
+						<#include "/revisitRecord/_view.htm" />
 					</@boxBody>
 				</@box>
 			</div>
@@ -24,6 +23,7 @@
 	<#include "/include/footer.htm">
 </div>
 <#include "/include/scripts.htm">
+<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/views/revisit.workorder.js"></script>
 </body>
 </html>
 

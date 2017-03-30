@@ -1,0 +1,62 @@
+<form class="form-horizontal" id="focusImport" method="post">
+	<div class="form-group">		
+		<div class="col-md-2 col-md-offset-1">
+			<div class="input-icon right">
+				<input type="text" id="customerName" name="customerName" class="form-control" placeholder="潜客姓名" required="true" 
+			  		data-fv="NotNull">
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="input-icon right">
+				<input type="text" id="customerPhone" name="customerPhone" class="form-control" placeholder="潜客电话" required="true" 
+			  		data-fv="NotNull,Phone">
+			</div>
+		</div>
+		<div class="col-md-2">
+			<input type="text" id="intentCarModel" name="intentCarModel" class="form-control" placeholder="意向车型"
+		  		data-fv="">
+		</div>
+		<div class="col-md-4">
+			<input type="text" id="comment" name="comment" class="form-control" placeholder="备注说明"
+		  		data-fv="">
+		</div>
+	</div>
+	<div class="form-group">		
+		<div class="col-md-2 col-md-offset-1">
+			<select id="fromSaId" name="fromSaId" class="form-control select2" placeholder="销售顾问" data-fv="NotNull">
+				<option value="">-- 销售顾问 --</option>
+				<#list orgUserList as usr>
+					<option value="${usr.id}" <#if (Session.user.id)?? && Session.user.id==usr.id>selected</#if>>${usr.realname}</option>
+				</#list>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<select id="category" name="category" class="form-control">
+				<option value="">-- 分类 --</option>
+				<#list customerCategoryList as category>
+					<option value="${category}" <#if category_index==0>selected</#if>>${category}</option>
+				</#list>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<select id="customerLevel" name="customerLevel" class="form-control">
+				<option value="">-- 潜客级别 --</option>
+				<#list customerLevelList as level>
+					<option value="${level}" <#if level_index==0>selected</#if>>${level}</option>
+				</#list>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<input type="text" id="followPurpose" name="followPurpose" class="form-control" placeholder="跟进目的"
+		  		data-fv="">
+		</div>
+		<div class="col-md-2">
+			<button class="btn btn-success btn-block btn-action" data-action="create" type="button"><i class="fa fa-send"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交</button>
+		</div>
+	</div>
+	<div class="form-group">
+		<div id="resultWrapper" class="col-md-7 col-md-offset-3">
+			
+		</div>
+	</div>	
+</form>

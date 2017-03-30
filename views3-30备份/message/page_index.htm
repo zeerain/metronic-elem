@@ -37,28 +37,28 @@
         <#if modelList??>
         <#list modelList as model>
         <tr>
-                <td>
-                    <#if (model.importance)==1>
-                    <small class="label label-info">普通</small>
-                    <#elseif (model.importance)==2>
-                    <small class="label label-warning">重要</small>
-                    <#elseif (model.importance)==3>
-                    <small class="label label-danger">非常重要</small>
-                    </#if>
-                </td>
-                <td>
-                <a href="${ctx.contextPath}/message/view/${model.id}">${model.title}</a>
-                <#if unreadModelList??>
-                <#list unreadModelList as m>
-                    <#if m.id == model.id>
-                    <small class="label label-success">new</small>
-                    <#break>
-                    </#if>
-                </#list>
+            <td>
+                <#if (model.importance)==1>
+                <small class="label label-sm label-info">普通</small>
+                <#elseif (model.importance)==2>
+                <small class="label label-sm bg-green">重要</small>
+                <#elseif (model.importance)==3>
+                <small class="label label-sm label-danger">非常重要</small>
                 </#if>
-                </td>
-                <td>${model.expireDate}</td>
-                <td>${model.createTime?date}</td>
+            </td>
+            <td>
+            <a href="${ctx.contextPath}/message/view/${model.id}">${model.title}</a>
+            <#if unreadModelList??>
+            <#list unreadModelList as m>
+                <#if m.id == model.id>
+                <small class="label label-success">new</small>
+                <#break>
+                </#if>
+            </#list>
+            </#if>
+            </td>
+            <td>${(model.expireDate)!""}</td>
+            <td>${model.createTime?date}</td>
             <td>
                 <a href="${ctx.contextPath}/message/view/${model.id}" class="btn btn-default btn-xs" title="查看"><i class="fa fa-eye"></i> 查看</a>
           </td>

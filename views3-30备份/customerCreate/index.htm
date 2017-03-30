@@ -1,0 +1,54 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+	            <@bodyHeader menu="集中录入潜客" url="${ctx.contextPath}/customerCreate/index" title="录入潜客">
+				</@bodyHeader>
+				
+				<@box boxColor="blue">
+					<@boxHeader boxTitle="录入潜客"></@boxHeader>
+					<@boxBody>
+						<#include "/customerCreate/_form.htm" />
+					</@boxBody>
+				</@box>
+
+				<@box boxColor="green">
+					<@boxHeader boxTitle="潜客列表"></@boxHeader>
+					<@boxBody>
+						<#include "/customerCreate/page_index.htm" />
+						<#include "/include/pagination.htm">
+					</@boxBody>
+				</@box>
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.btn-action').on("click", function(){
+			var formData = $("#focusImport").serialize();
+			$.post("${ctx.contextPath}/customerCreate/create", formData, function(data){
+				if(data.success){
+					toastr.success('潜客创建成功！', "创建成功");
+					location.href = "${ctx.contextPath}/customerCreate/";	
+				}
+				else if(data.taskId){
+					toastr.error('该潜客已存在，请查看该潜客的跟踪记录！', "创建失败");
+					var url = "${ctx.contextPath}/presaleTask/view/"+data.taskId;
+					
+					$("#resultWrapper").html("<a href='"+url+"' class='btn btn-link text-yellow'><i class='icon fa fa-warning'></i> 该潜客已存在，点此查看该客户的跟踪记录！</a>");
+				}
+			});
+		});
+	});
+</script>
+</body>
+</html>
+

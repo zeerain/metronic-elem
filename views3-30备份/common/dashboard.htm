@@ -1,0 +1,30 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+	<#include "/include/header.htm">
+	<div class="clearfix"> </div>
+    <div class="page-container">
+		<#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+            <#-- 主内容区Begin -->
+                <@bodyHeader menu="" url="" title="工作台">
+                </@bodyHeader>
+
+                <@box boxColor="blue">
+                    <@boxHeader boxTitle="我的工作台"></@boxHeader>
+                    <@boxBody>
+                         欢迎回来, ${(Session.user.realname)!""}
+                         <br/><br/><br/><br/><br/><br/><br/>
+                    </@boxBody>
+                </@box>
+                
+            <#-- 主内容区End -->
+            </div>
+        </div>
+	</div>
+    <#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>

@@ -8,22 +8,22 @@
          <div class="page-content-wrapper">
             <div class="page-content">
 
-	            <@bodyHeader menu="跟进任务" url="${ctx.contextPath}/revisitWorkOrder/index" title="跟进任务处理">
+	            <@bodyHeader menu="组织信息" url="{ctx.contextPath}/organization/view" title="组织信息">
 				</@bodyHeader>
 				
 				<@box boxColor="blue">
-					<@boxHeader boxTitle="跟进任务处理"></@boxHeader>
+					<@boxHeader boxTitle="组织信息"></@boxHeader>
 					<@boxBody>
-						<#include "/revisitRecord/_view.htm" />
+						<#include "/organization/_view.htm">
 					</@boxBody>
 				</@box>
+
 			</div>
 		</div>
 	</div>
 	<#include "/include/footer.htm">
 </div>
 <#include "/include/scripts.htm">
-<script type="text/javascript" src="${ctx.contextPath}/res/assets/js/views/revisit.workorder.js"></script>
 </body>
 </html>
 

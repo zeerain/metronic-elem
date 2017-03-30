@@ -1,0 +1,45 @@
+<#include "/include/head.htm">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div class="page-wrapper">
+    <#include "/include/header.htm">
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <#include "/include/sidebar.htm">
+         <div class="page-content-wrapper">
+            <div class="page-content">
+
+	            <@bodyHeader menu="潜客拨打记录" url="${ctx.contextPath}/presaleTask/index" title="潜客拨打记录">
+				</@bodyHeader>
+				
+				<@box boxColor="green">
+					<@boxHeader boxTitle="查看潜客拨打记录"></@boxHeader>
+					<@boxBody>
+						<#include "/presaleTask/_view_header.htm" />	
+					</@boxBody>
+				</@box>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="portlet light portlet-fit bordered">
+							<div class="portlet-title">
+					            <div class="caption">拨打记录时间线</div>
+					            <div class="tools">
+					                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+					            </div>
+					        </div>
+					        <div class="portlet-body">
+								<#include "/presaleTask/_view.htm" />
+					        </div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<#include "/include/footer.htm">
+</div>
+<#include "/include/scripts.htm">
+</body>
+</html>
+
